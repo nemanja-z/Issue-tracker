@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-    const Issues = sequelize.define('Issues', {
+    const Issue = sequelize.define('Issue', {
         title: {
             type: DataTypes.STRING,
             allowNull: false
@@ -27,19 +27,19 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING
         }
     })
-    Issues.associate = models => {
-        Issues.belongsTo(models.Project, {
+    Issue.associate = models => {
+        Issue.belongsTo(models.Project, {
             foreignKey: {
                 name: 'projectId',
                 field: 'project_id'
             }
         });
-        Issues.belongsTo(models.User, {
+        Issue.belongsTo(models.User, {
             foreignKey: {
                 name: 'userId',
                 field: 'user_id'
             }
         });
     };
-    return Issues;
+    return Issue;
 }
