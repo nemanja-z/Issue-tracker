@@ -4,6 +4,7 @@ sequelize = new Sequelize(process.env.DATABASE_URL, {
     define: {
         freezeTableName: true
     },
+    timestamps: true,
     dialect: 'postgres',
     protocol: 'postgres',
     dialectOptions: {

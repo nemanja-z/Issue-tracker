@@ -2,13 +2,19 @@ module.exports = (sequelize, DataTypes) => {
     const User = sequelize.define('Project', {
         username: {
             type: DataTypes.STRING,
+            allowNull: false,
             unique: true,
         },
         email: {
             type: DataTypes.STRING,
+            allowNull: false,
             unique: true,
         },
-        password: DataTypes.STRING,
+        passwordHash: {
+            type: DataTypes.STRING(64),
+            is: /^[0-9a-f]{64}$/i,
+            allowNull: false,
+        }
     });
 
     User.associate = (models) => {

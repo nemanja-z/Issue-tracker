@@ -1,29 +1,25 @@
 module.exports = (sequelize, DataTypes) => {
     const Issue = sequelize.define('Issue', {
-        title: {
+        issue_type: {
+            type: DataTypes.ENUM('Story', 'Epic', 'Bug', 'Task'),
+            allowNull: false,
+            unique: true,
+        },
+        summary: {
             type: DataTypes.STRING,
             allowNull: false
         },
-        typee: {
+        description: {
             type: DataTypes.STRING
         },
         priority: {
-            type: DataTypes.STRING
-        },
-        status: {
-            type: DataTypes.STRING
+            type: DataTypes.ENUM('Highest', 'High', 'Medium', 'Low', 'Lowest')
         },
         resolution: {
-            type: DataTypes.STRING
-
+            type: DataTypes.ENUM('Unresolved', 'Done', 'Cannot Reproduce', 'Duplicate', 'Won\'t do'),
+            defaultValue: "Unresolved"
         },
-        comment: {
-            type: DataTypes.STRING
-        },
-        picture: {
-            type: DataTypes.STRING
-        },
-        link: {
+        attachment: {
             type: DataTypes.STRING
         }
     })

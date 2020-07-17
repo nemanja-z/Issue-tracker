@@ -4,11 +4,7 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false
         },
-        createdAt: {
-            type: DataTypes.TIME,
-            allowNull: true,
-            defaultValue: sequelize.fn('now')
-        }
+        public: { type: DataTypes.BOOLEAN },
     });
     Project.associate = models => {
         Project.hasMany(models.Issues);
