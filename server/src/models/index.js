@@ -1,5 +1,8 @@
 require('dotenv').config();
 const { Sequelize } = require('sequelize');
+const fs = require('fs');
+const path = require('path');
+const db = {};
 sequelize = new Sequelize(process.env.DATABASE_URL, {
     define: {
         freezeTableName: true
@@ -14,20 +17,26 @@ sequelize = new Sequelize(process.env.DATABASE_URL, {
         }
     }
 });
-const models = {
-    Group: sequelize.import('./group'),
-    Issue: sequelize.import('./issue'),
-    Project: sequelize.import('./project'),
-    User: sequelize.import('./user'),
+/*fs
+    .readdirSync(__dirname)
+    .filter(file => (file.indexOf('.') !== 0) && (file !== path.basename(__filename)) && (file.slice(-3) === '.js'))
+    .forEach((file) => {
+        const model = sequelize.import(path.join(__dirname, file));
+        db[model.name] = model;
+    });
+*/ const models = {
+    Group: require('./group'),
+    Issue: require('./issue'),
+    Project: require('./project'),
+    User: require('./user'),
 };
 
-Object.keys(models).forEach((modelName) => {
-    if ('associate' in models[modelName]) {
-        models[modelName].associate(models);
+Object.keys(db).forEach((modelName) => {
+    if (db[modelName].associate) {
+        db[modelName].associate(db);
     }
 });
 
 models.sequelize = sequelize;
 models.Sequelize = Sequelize;
-
-export default models;
+module.exports = models;

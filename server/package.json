@@ -11,15 +11,19 @@
   "author": "Nemanja",
   "license": "ISC",
   "dependencies": {
+    "apollo-server-core": "^2.16.0",
     "bcrypt": "^5.0.0",
     "dotenv": "^8.2.0",
+    "graphql-tools": "^6.0.14",
     "graphql-yoga": "^1.18.3",
+    "jsonwebtoken": "^8.5.1",
     "pg": "^8.3.0",
     "pg-hstore": "^2.3.3",
     "sequelize": "^6.3.3",
     "shortid": "^2.2.15"
   },
   "devDependencies": {
-    "nodemon": "^2.0.4"
+    "nodemon": "^2.0.4",
+    "sequelize-cli": "^6.2.0"
   }
 }

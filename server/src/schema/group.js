@@ -1,4 +1,4 @@
-module.exports`
+module.exports = `
   type Group{
       owner:User
       members:[User]

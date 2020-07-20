@@ -1,4 +1,4 @@
-module.exports`
+module.exports = `
   type Project{
       id:Int!
       name:String!
@@ -7,6 +7,6 @@ module.exports`
       group:[Group]
   }
   type Mutation{
-      createProject(userId:Int!, name:String!, public:Boolean=false):Boolean
+      createProject(userId:Int!, name:String!, public:Boolean=false):Boolean!
   }
 `;

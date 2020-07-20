@@ -1,21 +1,16 @@
-module.exports`
-  type Issue{
+module.exports = `
+
+scalar Upload
+input Issue{
     id:Int!
     issue_type:String!
     summary: String!
     description: String,
     priority: String
     resolution: String,
-    attachment: String
+    attachment: Upload
   }
   type Mutation{
-    createIssue(groupId:Int!,
-    userId:Int!,
-    issue_type:String!
-    summary: String!
-    description: String,
-    priority: String
-    resolution: String,
-    attachment: String):Boolean
+    createIssue(input:Issue!):Boolean!
   }
 `;
