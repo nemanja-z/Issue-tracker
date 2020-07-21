@@ -23,11 +23,11 @@ const processUpload = async (upload) => {
 };
 module.exports = {
     Mutation: {
-        createIssue: async (_, args, { input: { attachment, ...data } }, { models, user }) => {
-            const attachmentUrl = processUpload(attachment);
+        createIssue: async (_, { input: { attachment, ...data } }, { models, user }) => {
+            const attachmentUrl = attachment ? processUpload(attachment) : null;
             try {
                 await models.Issue.create({
-                    ...args,
+                    ...data,
                     attachment: attachmentUrl,
                     userId: user.id
                 });

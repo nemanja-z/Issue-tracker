@@ -24,7 +24,8 @@ sequelize = new Sequelize(process.env.DATABASE_URL, {
         const model = sequelize.import(path.join(__dirname, file));
         db[model.name] = model;
     });
-*/ const models = {
+*/
+const models = {
     Group: require('./group'),
     Issue: require('./issue'),
     Project: require('./project'),

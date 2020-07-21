@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
         public: { type: DataTypes.BOOLEAN },
     });
     Project.associate = models => {
-        Project.hasMany(models.Issues);
+        Project.hasMany(models.Issue);
         Project.belongsTo(models.User, {
             foreignKey: {
                 name: 'userId',

@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
             },
         });
         // N:M
-        User.belongsToMany(models.Issues, {
+        User.belongsToMany(models.Issue, {
             through: 'channel_member',
             foreignKey: {
                 name: 'userId',
