@@ -1,4 +1,4 @@
-module.exports = {
+export default {
     Mutation: {
         createGroup: async (parent, args, { models }) => {
             try {

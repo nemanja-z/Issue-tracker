@@ -1,4 +1,4 @@
-module.exports = {
+export default {
     Mutation: {
         createProject: async (_, args, { models, user }) => {
             try {

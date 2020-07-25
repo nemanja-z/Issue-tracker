@@ -1,6 +1,6 @@
 //import * as shortid from "shortid";
 //import { createWriteStream } from "fs";
-const { createWriteStream } = require("fs");
+/* const { createWriteStream } = require("fs");
 const { shortid } = require("shortid");
 const storeUpload = async (stream, mimetype) => {
 
@@ -20,15 +20,14 @@ const processUpload = async (upload) => {
     const { stream, mimetype } = await upload;
     const { id } = await storeUpload(stream, mimetype);
     return id;
-};
-module.exports = {
+}; */
+export default {
     Mutation: {
-        createIssue: async (_, { input: { attachment, ...data } }, { models, user }) => {
-            const attachmentUrl = attachment ? processUpload(attachment) : null;
+        createIssue: async (_, args, { models, user }) => {
+            // const attachmentUrl = attachment ? processUpload(attachment) : null;
             try {
                 await models.Issue.create({
-                    ...data,
-                    attachment: attachmentUrl,
+                    args,
                     userId: user.id
                 });
                 return true;

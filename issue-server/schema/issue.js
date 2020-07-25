@@ -1,16 +1,16 @@
-module.exports = `
-
-scalar Upload
+export default `
 input Issue{
     id:Int!
     issue_type:String!
     summary: String!
     description: String,
     priority: String
-    resolution: String,
-    attachment: Upload
+    resolution: String
+  }
+  type Query{
+    _dummy: String
   }
   type Mutation{
-    createIssue(input:Issue!):Boolean!
+    createIssue(input:Issue!,projectId:Int!):Boolean!
   }
 `;

@@ -1,24 +1,25 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-require('dotenv').config();
-const { AuthenticationError, UserInputError } = require("apollo-server-core");
-module.exports = {
+import dotenv from 'dotenv'
+dotenv.config()
+export default {
     Mutation: {
         createUser: async (_, args, { models }) => {
             const saltRounds = 10;
-            //const passwordHash = await bcrypt.hash(args.password, saltRounds);
             try {
-                return await models.User.create({
+                const user = await models.User.create({
                     username: args.username,
                     email: args.email,
                     passwordHash: await bcrypt.hash(args.password, saltRounds)
                 });
+                return user;
+
             } catch (err) {
                 console.log(err);
             }
         },
         loginUser: async (_, args, { models }) => {
-            const user = await models.User.findOne({ username: args.username });
+            const user = await models.User.findOne({ where: { username: args.username } });
             const passwordCorrect = user === null
                 ? false
                 : await bcrypt.compare(args.password, user.passwordHash);
@@ -30,7 +31,7 @@ module.exports = {
                 id: user.id
             };
             const token = jwt.sign(userForToken, process.env.SECRET);
-            return token;
+            return { value: token };
         }
     }
 }

@@ -1,0 +1,31 @@
+{
+    "name": "bug-tracker",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node index.js",
+        "dev": "nodemon --exec babel-node index.js"
+    },
+    "author": "Nemanja",
+    "license": "ISC",
+    "dependencies": {
+        "apollo-server": "^2.16.0",
+        "bcrypt": "^5.0.0",
+        "dotenv": "^8.2.0",
+        "graphql": "^15.3.0",
+        "graphql-tools": "^6.0.14",
+        "jsonwebtoken": "^8.5.1",
+        "pg": "^8.3.0",
+        "pg-hstore": "^2.3.3",
+        "sequelize": "^5.22.3"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.10.5",
+        "@babel/node": "^7.10.5",
+        "@babel/preset-env": "^7.10.4",
+        "nodemon": "^2.0.4",
+        "sequelize-cli": "^6.2.0"
+    }
+}
