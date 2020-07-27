@@ -1,6 +1,6 @@
 export default `
 input Issue{
-    id:Int!
+    id:ID!
     issue_type:String!
     summary: String!
     description: String,

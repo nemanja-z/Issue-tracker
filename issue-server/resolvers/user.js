@@ -31,7 +31,7 @@ export default {
                 id: user.id
             };
             const token = jwt.sign(userForToken, process.env.SECRET);
-            return { value: token };
+            return token;
         }
     }
 }

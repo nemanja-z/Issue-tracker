@@ -1,11 +1,12 @@
 export default `
   type Group{
-      id:Int!
+      id:ID!
+      name:String!
       owner:User
       members:[User]
   }
   type Query{
-    _dummy: String
+    allGroups: [Group]
   }
   type Mutation{
       createGroup(name:String!):Boolean!
