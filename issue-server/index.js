@@ -26,8 +26,11 @@ const server = new ApolloServer({
         user};
 }});
 
-models.sequelize.sync({}).then(() => {
+/* models.sequelize.sync({}).then(() => {
     server
         .listen()
         .then(({ url }) => console.log('Server is running on localhost:4000'))
-})
+}) */
+server
+        .listen()
+        .then(({ url }) => console.log('Server is running on localhost:4000'))
