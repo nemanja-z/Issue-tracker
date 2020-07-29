@@ -2,7 +2,7 @@ require('dotenv').config();
 module.exports = {
   development: {
     database:'issue-dev',
-    use_env_variables:'DB_DEV_URL',
+    use_env_variable:'DB_DEV_URL',
     define: {
       freezeTableName: true
     },
@@ -10,7 +10,7 @@ module.exports = {
   },
   test: {
     database:'issue-test',
-    use_env_variables:'DB_TEST_URL',
+    use_env_variable:'DB_TEST_URL',
     define: {
       freezeTableName: true
     },
@@ -18,7 +18,7 @@ module.exports = {
   },
   production: {
     database:process.env.db,
-    use_env_variables:'DB_DEV_URL',
+    use_env_variable:'DB_DEV_URL',
     define: {
       freezeTableName: true
     },

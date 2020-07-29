@@ -1,29 +1,28 @@
-'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('Issues', {
+    await queryInterface.createTable('Issue', {
       id: {
-        type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
+        type: Sequelize.DataTypes.UUID,
+        defaultValue: Sequelize.DataTypes.UUIDV4,
         primaryKey: true
       },
       issue_type: {
-        type: DataTypes.ENUM('Story', 'Epic', 'Bug', 'Task'),
+        type: Sequelize.DataTypes.ENUM('Story', 'Epic', 'Bug', 'Task'),
         allowNull: false,
         unique: true,
       },
       summary: {
-        type: DataTypes.STRING,
+        type: Sequelize.DataTypes.STRING,
         allowNull: false
       },
       description: {
-        type: DataTypes.STRING
+        type: Sequelize.DataTypes.STRING
       },
       priority: {
-        type: DataTypes.ENUM('Highest', 'High', 'Medium', 'Low', 'Lowest')
+        type: Sequelize.DataTypes.ENUM('Highest', 'High', 'Medium', 'Low', 'Lowest')
       },
       resolution: {
-        type: DataTypes.ENUM('Unresolved', 'Done', 'Cannot Reproduce', 'Duplicate', 'Won\'t do'),
+        type: Sequelize.DataTypes.ENUM('Unresolved', 'Done', 'Cannot Reproduce', 'Duplicate', 'Won\'t do'),
         defaultValue: "Unresolved"
       },
       createdAt: {
@@ -37,6 +36,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('Issues');
+    await queryInterface.dropTable('Issue');
   }
 };

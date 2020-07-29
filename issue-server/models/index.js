@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import Sequelize from 'sequelize';
 import configVar from '../config/config';
-
+require('dotenv').config();
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || 'development';
 const config = configVar[env];
@@ -14,7 +14,6 @@ if (config.use_env_variable) {
 } else {
   sequelize = new Sequelize(config.database, config.username, config.password, config);
 }
-console.log(sequelize)
 fs
   .readdirSync(__dirname)
   .filter(file => {
@@ -33,5 +32,4 @@ Object.keys(db).forEach(modelName => {
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
-
 module.exports = db;
