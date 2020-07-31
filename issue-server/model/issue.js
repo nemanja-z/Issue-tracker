@@ -23,20 +23,27 @@ module.exports =(sequelize, DataTypes) => {
     resolution: {
       type: DataTypes.ENUM('Unresolved', 'Done', 'Cannot Reproduce', 'Duplicate', 'Won\'t do'),
       defaultValue: "Unresolved"
-    }
+    },
+    projectId:{
+      type: DataTypes.UUID,
+      allowNull: false,
+      references: {
+        model: 'Project',
+        key: 'id'
+      }
+    },
+    reporter:{
+      type: DataTypes.UUID,
+      allowNull: false,
+      references: {
+        model: 'User',
+        key: 'id'
+      }
+    },
   })
   Issue.associate = models => {
-    Issue.belongsTo(models.Project, {
-      foreignKey: {
-        name: 'projectId',
-        field: 'project_id'
-      }
-    });
     Issue.belongsTo(models.User, {
-      foreignKey: {
-        name: 'userId',
-        field: 'user_id'
-      }
+      foreignKey: 'reporter'
     });
   };
   return Issue;

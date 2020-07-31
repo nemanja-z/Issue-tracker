@@ -3,7 +3,6 @@ export default `
       id:ID!
       name:String!
       owner:User
-      members:[User]
   }
   type Query{
     allGroups: [Group]

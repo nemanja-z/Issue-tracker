@@ -19,25 +19,14 @@ module.exports =(sequelize, DataTypes) => {
       type: DataTypes.STRING(64),
       is: /^[0-9a-f]{64}$/i,
       allowNull: false,
+    },
+    member:{
+      type: DataTypes.UUID,
+      references: {
+        model: 'Group',
+        key: 'id'
+      }
     }
   });
-
-  User.associate = (models) => {
-    User.belongsToMany(models.Group, {
-      through: 'member',
-      foreignKey: {
-        name: 'userId',
-        field: 'user_id',
-      },
-    });
-    User.belongsToMany(models.Issue, {
-      through: 'channel_member',
-      foreignKey: {
-        name: 'userId',
-        field: 'user_id',
-      },
-    });
-  };
-
   return User;
 };

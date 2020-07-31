@@ -9,14 +9,18 @@ module.exports =(sequelize, DataTypes) => {
       type: DataTypes.STRING,
       unique: true
     },
+    owner:{
+      type: DataTypes.UUID,
+      allowNull: false,
+      references: {
+        model: 'User',
+        key: 'id'
+      }
+    }
   });
   Group.associate = (models) => {
-    Group.belongsToMany(models.User, {
-      through: 'member',
-      foreignKey: {
-        name: 'groupId',
-        field: 'group_id'
-      },
+    Group.hasMany(models.User, {
+      foreignKey: 'member'
     });
 
     Group.belongsTo(models.User, {

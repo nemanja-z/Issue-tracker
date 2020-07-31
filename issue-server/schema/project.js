@@ -2,7 +2,7 @@ export default `
   type Project{
       id:Int!
       name:String!
-      group:[Group]
+      creator:User
   }
   type Query{
     _dummy: String

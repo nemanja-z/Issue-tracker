@@ -8,15 +8,22 @@ module.exports =(sequelize, DataTypes) => {
     name: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    creator:{
+      type: DataTypes.UUID,
+      allowNull: false,
+      references: {
+        model: 'User',
+        key: 'id'
+      }
     }
   });
   Project.associate = models => {
-    Project.hasMany(models.Issue);
+    Project.hasMany(models.Issue,{
+      foreignKey: 'projectId'
+    });
     Project.belongsTo(models.User, {
-      foreignKey: {
-        name: 'userId',
-        field: 'user_id'
-      }
+      foreignKey: 'creator'
     });
   };
   return Project;
