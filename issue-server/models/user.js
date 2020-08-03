@@ -1,5 +1,5 @@
 module.exports =(sequelize, DataTypes) => {
-  const User = sequelize.define('User', {
+  const User = sequelize.define("User", {
     id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
@@ -19,14 +19,15 @@ module.exports =(sequelize, DataTypes) => {
       type: DataTypes.STRING(64),
       is: /^[0-9a-f]{64}$/i,
       allowNull: false,
-    },
-    member:{
-      type: DataTypes.UUID,
-      references: {
-        model: 'Group',
-        key: 'id'
-      }
     }
   });
+  User.associate = (models) => {
+    User.belongsTo(models.Group, {
+      foreignKey: "member"
+    });
+    User.hasMany(models.Project, {
+      foreignKey: "creator"
+    });  
+  }
   return User;
 };

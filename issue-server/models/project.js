@@ -1,5 +1,5 @@
 module.exports =(sequelize, DataTypes) => {
-  const Project = sequelize.define('Project', {
+  const Project = sequelize.define("Project", {
     id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
@@ -8,23 +8,15 @@ module.exports =(sequelize, DataTypes) => {
     name: {
       type: DataTypes.STRING,
       allowNull: false
-    },
-    creator:{
-      type: DataTypes.UUID,
-      allowNull: false,
-      references: {
-        model: 'User',
-        key: 'id'
-      }
     }
   });
-  Project.associate = models => {
+   Project.associate = models => {
     Project.hasMany(models.Issue,{
-      foreignKey: 'projectId'
+      foreignKey: "projectId"
     });
     Project.belongsTo(models.User, {
-      foreignKey: 'creator'
+      foreignKey: "creator"
     });
-  };
+  }; 
   return Project;
 };

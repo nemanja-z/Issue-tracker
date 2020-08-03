@@ -3,7 +3,6 @@ export default `
       id:ID!
       username:String!
       email:String!
-      member:Group
   }
   type Query{
     _dummy: String
