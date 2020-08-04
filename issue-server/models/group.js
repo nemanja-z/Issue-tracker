@@ -13,7 +13,7 @@ module.exports =(sequelize, DataTypes) => {
   Group.associate = (models) => {
     Group.hasMany(models.User, {
       foreignKey: "member"
-    }); 
+    });
   }
   return Group;
 };

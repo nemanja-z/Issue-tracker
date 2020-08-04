@@ -1,8 +1,8 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.addColumn(
-      'Project', // name of Source model
-      'creator', // name of the key we're adding 
+      'Project', 
+      'creator', 
       {
         type: Sequelize.DataTypes.UUID,
         allowNull: false,
@@ -29,20 +29,6 @@ module.exports = {
         }
       );
     }).then(() => {
-      return queryInterface.addColumn(
-        'Group', 
-        'owner', 
-        {
-          type: Sequelize.DataTypes.UUID,
-          allowNull: false,
-          references: {
-          model: "User",
-          key: "id"
-        },
-          onUpdate: 'CASCADE',
-          onDelete: 'SET NULL',
-        }
-      )}).then(() => {
         return queryInterface.addColumn(
           'User', 
           'member', 
@@ -69,11 +55,5 @@ module.exports = {
           'projectId' 
         );
       })
-      .then(() => {
-        return queryInterface.removeColumn(
-          'Group',
-          'owner' 
-        );
-      });
   }
 }
