@@ -29,6 +29,9 @@ module.exports =(sequelize, DataTypes) => {
     Issue.belongsTo(models.Project, {
       foreignKey: "projectId"
     });
+    Issue.belongsTo(models.User, {
+      foreignKey: "reporter"
+    });
   }; 
   return Issue;
 };

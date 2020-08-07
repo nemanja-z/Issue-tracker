@@ -2,6 +2,7 @@ export default `
   type Project{
       id:Int!
       name:String!
+      url:String
       creator:User
   }
   type Query{

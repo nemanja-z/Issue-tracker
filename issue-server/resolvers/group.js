@@ -4,7 +4,7 @@ export default {
             try {
                 await models.Group.create({
                 name:args.name,
-                owner:user.id})
+                member:user.id})
                 return true;
             } catch (err) {
                 console.log(err);

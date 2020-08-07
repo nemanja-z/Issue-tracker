@@ -2,7 +2,7 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.addColumn(
       'Project', 
-      'creator', 
+      'project_lead', 
       {
         type: Sequelize.DataTypes.UUID,
         allowNull: false,
@@ -42,17 +42,79 @@ module.exports = {
             onDelete: 'SET NULL',
           }
         );
-    })},
+    }).then(() => {
+      return queryInterface.addColumn(
+        'Issue', 
+        'reporter', 
+        {
+          type: Sequelize.DataTypes.UUID,
+          references: {
+          model: "User",
+          key: "id"
+      },
+          onUpdate: 'CASCADE',
+          onDelete: 'SET NULL',
+        }
+      );
+  }).then(() => {
+    return queryInterface.addColumn(
+      'Group', 
+      'creator', 
+      {
+        type: Sequelize.DataTypes.UUID,
+        references: {
+        model: "User",
+        key: "id"
+    },
+        onUpdate: 'CASCADE',
+        onDelete: 'SET NULL',
+      }
+    );
+}).then(() => {
+  return queryInterface.addColumn(
+    'Issue', 
+    'assignedTo', 
+    {
+      type: Sequelize.DataTypes.UUID,
+      references: {
+      model: "User",
+      key: "id"
+  },
+      onUpdate: 'CASCADE',
+      onDelete: 'SET NULL',
+    }
+  );
+})},
 
   down: (queryInterface, Sequelize) => {
     return queryInterface.removeColumn(
       'Project', 
-      'creator'
+      'project_lead'
     )
       .then(() => {
         return queryInterface.removeColumn(
           'Issue', 
           'projectId' 
+        );
+      }).then(() => {
+        return queryInterface.removeColumn(
+          'User', 
+          'member' 
+        );
+      }).then(() => {
+        return queryInterface.removeColumn(
+          'Issue', 
+          'reporter' 
+        );
+      }).then(() => {
+        return queryInterface.removeColumn(
+          'Group', 
+          'creator' 
+        );
+      }).then(() => {
+        return queryInterface.removeColumn(
+          'Issue', 
+          'assignedTo' 
         );
       })
   }
