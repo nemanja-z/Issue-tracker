@@ -57,20 +57,6 @@ module.exports = {
         }
       );
   }).then(() => {
-    return queryInterface.addColumn(
-      'Group', 
-      'creator', 
-      {
-        type: Sequelize.DataTypes.UUID,
-        references: {
-        model: "User",
-        key: "id"
-    },
-        onUpdate: 'CASCADE',
-        onDelete: 'SET NULL',
-      }
-    );
-}).then(() => {
   return queryInterface.addColumn(
     'Issue', 
     'assignedTo', 
@@ -105,11 +91,6 @@ module.exports = {
         return queryInterface.removeColumn(
           'Issue', 
           'reporter' 
-        );
-      }).then(() => {
-        return queryInterface.removeColumn(
-          'Group', 
-          'creator' 
         );
       }).then(() => {
         return queryInterface.removeColumn(

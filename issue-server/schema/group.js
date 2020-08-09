@@ -2,6 +2,7 @@ export default `
   type Group{
       id:ID!
       name:String!
+      creator:User
       member:User
   }
   type Query{
@@ -9,5 +10,6 @@ export default `
   }
   type Mutation{
       createGroup(name:String!):Boolean!
+
   }
 `;

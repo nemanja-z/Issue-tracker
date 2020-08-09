@@ -21,8 +21,12 @@ module.exports =(sequelize, DataTypes) => {
       type: DataTypes.ENUM("Highest", "High", "Medium", "Low", "Lowest")
     },
     resolution: {
-      type: DataTypes.ENUM("Unresolved", "Done", "Cannot Reproduce", "Duplicate", "Won\"t do"),
+      type: DataTypes.ENUM("Fixed","Won't do","Duplicate"),
       defaultValue: "Unresolved"
+    },
+    status:{
+      type:DataTypes.ENUM("Reopened","Resolved","Closed","Active","Open"),
+      defaultValue:"Open"
     }
   })
    Issue.associate = models => {
