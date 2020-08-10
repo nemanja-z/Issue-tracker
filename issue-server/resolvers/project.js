@@ -4,7 +4,7 @@ export default {
             try {
                 await models.Project.create({
                     ...args,
-                    owner: user.id
+                    project_lead: user.id
                 });
                 return true;
             } catch (err) {

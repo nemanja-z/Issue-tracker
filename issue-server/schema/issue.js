@@ -2,19 +2,19 @@ export default `
   type Query{
     id:ID!
     issue_type:String!
-    summary: String!
     description: String,
     priority: String
     resolution: String
-    projectId:Project
+    project:Project
+    reporter:User
   }
   input Issue{
     issue_type:String!
-    summary: String!
     description: String,
     priority: String
     resolution: String
-    projectId:ID!
+    project:String
+    reporter:String
   }
   type Query{
     _dummy: String

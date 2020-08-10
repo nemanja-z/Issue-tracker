@@ -32,17 +32,6 @@ export default {
             };
             const token = jwt.sign(userForToken, process.env.SECRET);
             return token;
-        },
-        addMember:async(_,args,{models})=>{
-            const user=await models.User.findOne({where:{username:args.username}});
-            const group=await models.Group.findOne({where:{name:args.name}});
-            try{
-                user.member=group.id;
-                user.save();
-                return group;
-            }catch(e){
-                console.log(e);
-            }
         }
     }
 }

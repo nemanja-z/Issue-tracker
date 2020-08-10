@@ -3,6 +3,8 @@ export default `
       id:ID!
       username:String!
       email:String!
+      member:[Project]
+      assignee:[Issue]
   }
   type Query{
     _dummy: String
@@ -10,6 +12,5 @@ export default `
   type Mutation{
       createUser(username:String!, email:String!, password:String!):User
       loginUser(username:String!, password:String!):String!
-      addMember(name:String!, username:String!):Group
   }
   `;

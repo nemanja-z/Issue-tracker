@@ -10,10 +10,6 @@ module.exports =(sequelize, DataTypes) => {
       allowNull: false,
       unique: true,
     },
-    summary: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
     description: {
       type: DataTypes.STRING
     },
@@ -27,14 +23,24 @@ module.exports =(sequelize, DataTypes) => {
     status:{
       type:DataTypes.ENUM("Reopened","Resolved","Closed","Active","Open"),
       defaultValue:"Open"
+    },
+    reporter:{
+      type: Sequelize.DataTypes.UUID,
+        allowNull: false,
+        references: {
+          model: "User",
+          key: "id"
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'SET NULL',
     }
   })
    Issue.associate = models => {
     Issue.belongsTo(models.Project, {
-      foreignKey: "projectId"
+      foreignKey: "project"
     });
-    Issue.belongsTo(models.User, {
-      foreignKey: "reporter"
+    Issue.belongsToMany(models.User, {
+      through: "Assignee"
     });
   }; 
   return Issue;

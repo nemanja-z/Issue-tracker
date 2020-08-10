@@ -3,12 +3,12 @@ export default `
       id:Int!
       name:String!
       url:String
-      creator:User
+      project_lead:User
   }
   type Query{
     _dummy: String
   }
   type Mutation{
-      createProject(name:String!):Boolean!
+      createProject(name:String!,url:String):Boolean!
   }
 `;

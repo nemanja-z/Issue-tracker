@@ -22,15 +22,12 @@ module.exports =(sequelize, DataTypes) => {
     }
   });
   User.associate = (models) => {
-    User.belongsTo(models.Group, {
-      foreignKey: "member"
+    User.belongsToMany(models.Project, {
+      through: "Member"
     });
-    User.hasMany(models.Project, {
-      foreignKey: "project_lead"
-    });
-    User.hasMany(models.Issue, {
-      foreignKey: "reporter"
-    });  
+    User.belongsToMany(models.Issue, {
+      through: "Assignee"
+    }); 
   }
   return User;
 };
