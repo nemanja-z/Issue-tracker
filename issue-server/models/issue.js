@@ -25,7 +25,7 @@ module.exports =(sequelize, DataTypes) => {
       defaultValue:"Open"
     },
     reporter:{
-      type: Sequelize.DataTypes.UUID,
+      type: DataTypes.UUID,
         allowNull: false,
         references: {
           model: "User",
@@ -37,7 +37,7 @@ module.exports =(sequelize, DataTypes) => {
   })
    Issue.associate = models => {
     Issue.belongsTo(models.Project, {
-      foreignKey: "project"
+      foreignKey: "ProjectId"
     });
     Issue.belongsToMany(models.User, {
       through: "Assignee"

@@ -11,24 +11,17 @@ module.exports =(sequelize, DataTypes) => {
     },
     url:{
       type:DataTypes.STRING
-    },
-    project_lead:{
-      type: DataTypes.UUID,
-        allowNull: false,
-        references: {
-          model: "User",
-          key: "id"
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'SET NULL',
     }
   });
    Project.associate = models => {
     Project.hasMany(models.Issue,{
-      foreignKey: "project"
+      foreignKey: "ProjectId"
     });
     Project.belongsToMany(models.User,{
       through:"Member"
+    });
+    Project.belongsTo(models.User,{
+      foreignKey: "Project_lead"
     })
   }; 
   return Project;

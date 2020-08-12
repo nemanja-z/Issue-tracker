@@ -1,8 +1,16 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-import dotenv from 'dotenv'
-dotenv.config()
+import dotenv from 'dotenv';
+dotenv.config();
 export default {
+    Query:{
+        allUsers:async(_,args,{models})=>{
+            const users=await models.User.findAll({
+            });
+            console.log(users)
+            return users;
+        }
+    },
     Mutation: {
         createUser: async (_, args, { models }) => {
             const saltRounds = 10;

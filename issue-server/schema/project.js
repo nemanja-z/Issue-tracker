@@ -4,11 +4,13 @@ export default `
       name:String!
       url:String
       project_lead:User
+      Users:[User]
   }
   type Query{
-    _dummy: String
+    allProjects:[Project]
   }
   type Mutation{
       createProject(name:String!,url:String):Boolean!
+      addMember(username:String!,project:String!):Boolean!
   }
 `;
