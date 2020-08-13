@@ -1,25 +1,17 @@
 export default `
-  type Query{
+  type Issue{
     id:ID!
     issue_type:String!
     description: String,
     priority: String
     resolution: String
-    project:Project
+    ProjectId:Project
     reporter:User
   }
-  input Issue{
-    issue_type:String!
-    description: String,
-    priority: String
-    resolution: String
-    project:String
-    reporter:String
-  }
   type Query{
-    _dummy: String
+    allIssues: [Issue]
   }
   type Mutation{
-    createIssue(input:Issue!):Boolean!
+    createIssue(Project:String,issue_type:String!):Boolean!
   }
 `;

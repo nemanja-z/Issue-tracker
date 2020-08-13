@@ -5,7 +5,6 @@ export default {
                 include: 
                 [{model: models.User}]
             });
-            console.log(projects);
             return projects; 
         }
     },

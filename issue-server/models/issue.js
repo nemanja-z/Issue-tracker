@@ -7,8 +7,7 @@ module.exports =(sequelize, DataTypes) => {
     },
     issue_type: {
       type: DataTypes.ENUM("Story", "Epic", "Bug", "Task"),
-      allowNull: false,
-      unique: true,
+      allowNull: false
     },
     description: {
       type: DataTypes.STRING
@@ -19,11 +18,11 @@ module.exports =(sequelize, DataTypes) => {
     resolution: {
       type: DataTypes.ENUM("Fixed","Won't do","Duplicate"),
       defaultValue: "Unresolved"
-    },
+    }, 
     status:{
       type:DataTypes.ENUM("Reopened","Resolved","Closed","Active","Open"),
       defaultValue:"Open"
-    },
+    }, 
     reporter:{
       type: DataTypes.UUID,
         allowNull: false,

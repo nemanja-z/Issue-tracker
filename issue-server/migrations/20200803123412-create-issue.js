@@ -8,11 +8,14 @@ module.exports = {
       },
       issue_type: {
         type: Sequelize.DataTypes.ENUM("Story", "Epic", "Bug", "Task"),
-        allowNull: false,
-        unique: true,
+        allowNull: false
       },
       description: {
         type: Sequelize.DataTypes.STRING
+      }, 
+      status:{
+        type:DataTypes.ENUM("Reopened","Resolved","Closed","Active","Open"),
+        defaultValue:"Open"
       },
       priority: {
         type: Sequelize.DataTypes.ENUM("Highest", "High", "Medium", "Low", "Lowest")
