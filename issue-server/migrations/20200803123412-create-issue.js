@@ -16,6 +16,10 @@ module.exports = {
       priority: {
         type: Sequelize.DataTypes.ENUM("Highest", "High", "Medium", "Low", "Lowest")
       },
+      status:{
+      type: Sequelize.DataTypes.ENUM("Reopened","Resolved","Closed","Active","Open"),
+        defaultValue:"Open"
+      },
       resolution: {
         type: Sequelize.DataTypes.ENUM("Fixed", "Won't do", "Duplicate", "Unresolved"),
         defaultValue: "Unresolved"
@@ -27,10 +31,6 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
-      },
-      issue_status:{
-        type: Sequelize.DataTypes.ENUM("Reopened","Resolved","Closed","Active","Open"),
-        defaultValue:"Open"
       },
       reporter:{
         type: Sequelize.DataTypes.UUID,
@@ -44,6 +44,13 @@ module.exports = {
       }
     }),
   down: async (queryInterface, Sequelize) => 
-    await queryInterface.dropTable("Issue")
-  
+  await queryInterface.sequelize.transaction(t => 
+     Promise.all([
+        queryInterface.dropTable('Issue'),
+        queryInterface.sequelize.query('DROP TYPE IF EXISTS "enum_Issue_status";'),
+        queryInterface.sequelize.query('DROP TYPE IF EXISTS "enum_Issue_type";'),
+        queryInterface.sequelize.query('DROP TYPE IF EXISTS "enum_Issue_priority";'),
+        queryInterface.sequelize.query('DROP TYPE IF EXISTS "enum_Issue_resolution";'),
+    ])
+)  
 };

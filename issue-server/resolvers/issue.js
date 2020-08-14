@@ -4,7 +4,7 @@ export default {
             if(!user){
                 throw new Error('You are not authorized to report issue!')
             }
-            const projectOne=await models.Project.findOne({where:{name:input.Project},
+            const projectOne=await models.Project.findOne({where:{name:input.project},
                 include:[{model:models.User, where:{username:user.username}}]
             });
             if(!projectOne){
@@ -15,7 +15,7 @@ export default {
                 await models.Issue.create({
                     ...input,
                     reporter: user.id,
-                    ProjectId:projectOne.id
+                    project:projectOne.id
                 });
                 return true;
             } catch (err) {

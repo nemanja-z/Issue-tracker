@@ -19,10 +19,9 @@ module.exports =(sequelize, DataTypes) => {
       type: DataTypes.ENUM("Fixed","Won't do","Duplicate"),
       defaultValue: "Unresolved"
     }, 
-    issue_status:{
-      type: DataTypes.ENUM({
-        values:["Reopened","Resolved","Closed","Active","Open"]}),
-        defaultValue:"Open"
+    status:{
+      type: DataTypes.ENUM("Reopened","Resolved","Closed","Active","Open"),
+      defaultValue:"Open"
     },  
     reporter:{
       type: DataTypes.UUID,

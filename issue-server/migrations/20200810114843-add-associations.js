@@ -14,9 +14,8 @@ module.exports = {
           onDelete: 'SET NULL',
         }
       )},
-  down: (queryInterface, Sequelize) => {
-        return queryInterface.removeColumn(
+  down: (queryInterface, Sequelize) => queryInterface.removeColumn(
           'Issue', 
           'project' 
-        )}
+        )
 }
