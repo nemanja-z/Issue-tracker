@@ -12,8 +12,8 @@ export default {
         createProject: async (_, args, { models, user }) => {
             try {
                 const project=await models.Project.create({
-                    ...args,
-                    Project_lead:user.id});
+                    ...args});
+                await project.addUser(user,{through:{role:"Admin"}});
                 return true;
             } catch (err) {
                 console.log(err);

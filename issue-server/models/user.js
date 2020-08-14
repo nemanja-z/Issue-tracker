@@ -26,7 +26,7 @@ module.exports =(sequelize, DataTypes) => {
       through: "Member"
     });
     User.hasMany(models.Project, {
-      foreignKey: "Project_lead"
+      foreignKey: "project_lead"
     });
     User.belongsToMany(models.Issue, {
       through: "Assignee"

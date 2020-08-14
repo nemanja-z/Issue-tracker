@@ -20,7 +20,6 @@ const server = new ApolloServer({
         if (auth && auth.toLowerCase().startsWith('bearer ')) {
             const decodedToken = jwt.verify(auth.substring(7), process.env.SECRET);
             user = await models.User.findByPk(decodedToken.id);
-            console.log(decodedToken.id)
         }
         return {
         models,

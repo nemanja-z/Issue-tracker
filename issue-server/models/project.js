@@ -15,14 +15,11 @@ module.exports =(sequelize, DataTypes) => {
   });
    Project.associate = models => {
     Project.hasMany(models.Issue,{
-      foreignKey: "ProjectId"
+      foreignKey: "project"
     });
     Project.belongsToMany(models.User,{
       through:"Member"
     });
-    Project.belongsTo(models.User,{
-      foreignKey: "Project_lead"
-    })
   }; 
   return Project;
 };

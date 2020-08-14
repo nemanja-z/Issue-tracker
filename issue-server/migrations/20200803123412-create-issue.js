@@ -12,16 +12,12 @@ module.exports = {
       },
       description: {
         type: Sequelize.DataTypes.STRING
-      }, 
-      status:{
-        type:DataTypes.ENUM("Reopened","Resolved","Closed","Active","Open"),
-        defaultValue:"Open"
       },
       priority: {
         type: Sequelize.DataTypes.ENUM("Highest", "High", "Medium", "Low", "Lowest")
       },
       resolution: {
-        type: Sequelize.DataTypes.ENUM("Unresolved", "Done", "Cannot Reproduce", "Duplicate", "Won\"t do"),
+        type: Sequelize.DataTypes.ENUM("Fixed", "Won't do", "Duplicate", "Unresolved"),
         defaultValue: "Unresolved"
       },
       createdAt: {
@@ -31,6 +27,10 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
+      },
+      issue_status:{
+        type: Sequelize.DataTypes.ENUM("Reopened","Resolved","Closed","Active","Open"),
+        defaultValue:"Open"
       },
       reporter:{
         type: Sequelize.DataTypes.UUID,

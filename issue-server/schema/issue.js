@@ -5,13 +5,20 @@ export default `
     description: String,
     priority: String
     resolution: String
-    ProjectId:Project
+    Project:Project
     reporter:User
+  }
+  input Fields{
+    issue_type:String!
+    description: String,
+    priority: String
+    resolution: String
+    project:String!
   }
   type Query{
     allIssues: [Issue]
   }
   type Mutation{
-    createIssue(Project:String,issue_type:String!):Boolean!
+    createIssue(input:Fields):Boolean!
   }
 `;

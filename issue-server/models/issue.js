@@ -19,10 +19,11 @@ module.exports =(sequelize, DataTypes) => {
       type: DataTypes.ENUM("Fixed","Won't do","Duplicate"),
       defaultValue: "Unresolved"
     }, 
-    status:{
-      type:DataTypes.ENUM("Reopened","Resolved","Closed","Active","Open"),
-      defaultValue:"Open"
-    }, 
+    issue_status:{
+      type: DataTypes.ENUM({
+        values:["Reopened","Resolved","Closed","Active","Open"]}),
+        defaultValue:"Open"
+    },  
     reporter:{
       type: DataTypes.UUID,
         allowNull: false,
@@ -36,7 +37,7 @@ module.exports =(sequelize, DataTypes) => {
   })
    Issue.associate = models => {
     Issue.belongsTo(models.Project, {
-      foreignKey: "ProjectId"
+      foreignKey: "project"
     });
     Issue.belongsToMany(models.User, {
       through: "Assignee"

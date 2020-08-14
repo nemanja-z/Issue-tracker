@@ -1,7 +1,7 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.createTable(
-      'Member',
+      'Role',
       {
         createdAt: {
           allowNull: false,
@@ -21,12 +21,14 @@ module.exports = {
           defaultValue: Sequelize.DataTypes.UUIDV4,
           primaryKey: true
         },
+        role:{
+          type:Sequelize.DatTypes.ENUM('Admin','Manager','Developer','Contractor','Support')
+        }
       }
     );
   },
 
   down: (queryInterface, Sequelize) => {
-    // remove table
-    return queryInterface.dropTable('ProductTags');
+    return queryInterface.dropTable('Role');
   },
 };

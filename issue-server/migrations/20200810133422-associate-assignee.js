@@ -26,7 +26,6 @@ module.exports = {
   },
 
   down: (queryInterface, Sequelize) => {
-    // remove table
-    return queryInterface.dropTable('ProductTags');
+    return queryInterface.dropTable('Assignee');
   },
 };
