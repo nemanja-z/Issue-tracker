@@ -13,10 +13,11 @@ module.exports =(sequelize, DataTypes) => {
       type: DataTypes.STRING
     },
     priority: {
-      type: DataTypes.ENUM("Highest", "High", "Medium", "Low", "Lowest")
+      type: DataTypes.ENUM("Highest", "High", "Medium", "Low", "Lowest"),
+      defaultValue: "Lowest"
     },
     resolution: {
-      type: DataTypes.ENUM("Fixed","Won't do","Duplicate"),
+      type: DataTypes.ENUM("Fixed","Won't do","Duplicate","Unresolved"),
       defaultValue: "Unresolved"
     }, 
     status:{

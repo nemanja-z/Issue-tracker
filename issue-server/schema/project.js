@@ -1,9 +1,8 @@
 export default `
   type Project{
-      id:Int!
+      id:ID!
       name:String!
       url:String
-      project_lead:User
       Users:[User]
   }
   type Query{
