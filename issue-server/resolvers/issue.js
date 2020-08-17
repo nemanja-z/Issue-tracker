@@ -2,12 +2,14 @@ export default {
     Mutation: {
         createIssue: async (_, {input}, { models, user }) => {
             if(!user){
-                throw new Error('You are not authorized to report issue!')
+                throw new Error('You are not authorized to report issue!');
             }
-            const projectOne=await models.Project.findOne({where:{name:input.project},
-                include:[{model:models.User, where:{username:user.username}}]
-            });
-            if(!projectOne){
+            const targetProject=await models.Project.findOne({where:{name:input.project}});
+            const user_role=await models.Role.findOne({where:{
+                UserId:user.id,
+                ProjectId:targetProject.id
+            }});
+            if(!user_role){
                 throw new Error('You are not authorized to report issue');
             }
             
@@ -15,13 +17,39 @@ export default {
                 await models.Issue.create({
                     ...input,
                     reporter: user.id,
-                    project:projectOne.id
+                    project:targetProject.id
                 });
                 return true;
             } catch (err) {
                 console.log(err);
                 return false;
             } 
+        },
+        assignUser: async(_,args,{models,user})=>{
+            if(!user){
+                throw new Error('You are not authorized to report issue!');
+            }
+            const targetProject=await models.Project.findOne({where:{name:args.project}});
+            const targetIssue=await models.Issue.findOne({where:{id:args.issue}});
+            const user_role=await models.Role.findOne({where:{
+                UserId:user.id,
+                ProjectId:targetProject.id
+            }});
+            const assignee=await models.User.findOne({where:{username:args.user}});
+            if(!assignee){
+                throw new Error("User doesn\'t exist");
+            }
+            if (!user_role || user_role.role==="Contractor"){
+                throw new Error("You cannot assign issue");
+            }
+            try{
+                targetIssue.addUser(assignee,{through:"Assignee"});
+                return true;
+            }catch(err){
+                console.log(err);
+                return false;
+            }
+            
         }
     }
 }

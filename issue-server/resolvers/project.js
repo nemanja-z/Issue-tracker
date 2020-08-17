@@ -1,37 +1,54 @@
 export default {
     Query:{
         allProjects:async(_,args,{models})=>{
-            const projects=await models.Project.findAll({
-                include: 
-                [{model: models.User}]
-            });
+            const projects=await models.Project.findAll({});
             return projects; 
         }
     },
     Mutation: {
         createProject: async (_, args, { models, user }) => {
+            if(!user){
+                throw new Error('You are not authorized to create project!');
+            }
             try {
                 const project=await models.Project.create({
                     ...args});
-                await project.addUser(user,{through:{role:"Admin"}});
+                await project.addUser(user,{through:{role:'Admin'}});
                 return true;
             } catch (err) {
                 console.log(err);
                 return false;
             }
         },
-        addMember:async(_,{username,project},{models,user})=>{
-            const projectMember=await models.Project.findOne({where:{name:project}});
-            const projectLead=await models.User.findOne({where:{username:user.username}});
-            const addMember=await models.User.findOne({where:{username}});
-            if(!projectMember){
+        addRole:async(_,{username,project,role},{models,user})=>{
+            if(!user){
+                throw new Error('You are not authorized to add roles!')
+            }
+            const targetProject=await models.Project.findOne({where:{name:project}});
+            const addUserRole=await models.User.findOne({where:{username}});
+            const user_role=await models.Role.findOne({where:{
+                UserId:user.id,
+                ProjectId:targetProject.id
+            }});
+            const roleCheck=await models.Role.findOne({where:{
+                UserId:addUserRole.id,
+                ProjectId:targetProject.id
+            }});
+            if(!targetProject){
                 throw new Error('Project doesn\'t exist');
             }
-            if(!projectLead){
+            if(!addUserRole){
+                throw new Error('User doesn\'t exist');
+            }
+            if(roleCheck.role!==null){
+                throw new Error('User cannot have more than one role');
+            }
+            
+            if(!user_role.role==='Admin'){
                 throw new Error('You are not authorized to add members');
             }
             try{
-                await projectMember.addUser(addMember,{through:"Member"});
+                await targetProject.addUser(addUserRole,{through:{role}});
                 return true;
             }catch(e){
                 console.log(e);

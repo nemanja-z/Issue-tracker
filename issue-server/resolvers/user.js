@@ -7,7 +7,6 @@ export default {
         allUsers:async(_,args,{models})=>{
             const users=await models.User.findAll({
             });
-            console.log(users)
             return users;
         }
     },
