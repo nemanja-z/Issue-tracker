@@ -1,14 +1,12 @@
 import React, {useState} from 'react';
 import './App.css';
-import SignUp from "./components/user/SignUp";
-import {SIGN_UP} from "./queries/user/queries";
-import {useMutation} from "@apollo/client";
+import Login from "./components/user/Login";
+
 
 const App = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
-  const [signUp, {data}] = useMutation(SIGN_UP);
 
 
   const handleUsername = e =>{
@@ -23,28 +21,40 @@ const App = () => {
     e.preventDefault();
     setEmail(e.target.value);
   }
-  const handleSignUp = e =>{
-    e.preventDefault();
-    signUp({variables:{username, password, email}});
-  }
-
   return (
     <div className="App">
-      <header className="App-header">
-        
-      </header>
-      <SignUp 
-      username={username}
-      password={password}
-      email={email}
-      handleUsername={handleUsername}
-      handlePassword={handlePassword}
-      handleEmail={handleEmail}
-      handleSignUp={handleSignUp}
-      />
-
+      <div >
+          <Login 
+          username={username}
+          password={password}
+          email={email}
+          handleUsername={handleUsername}
+          handlePassword={handlePassword}
+          handleEmail={handleEmail}
+          />
+          </div> 
+          
     </div>
   );
 }
 
 export default App;
+
+{/* <div>
+          <Login
+          username={username}
+          password={password}
+          handleUsername={handleUsername}
+          handlePassword={handlePassword} />
+          </div> 
+        
+        <div className="Signup">
+          <SignUp 
+          username={username}
+          password={password}
+          email={email}
+          handleUsername={handleUsername}
+          handlePassword={handlePassword}
+          handleEmail={handleEmail}
+          />
+          </div>*/}

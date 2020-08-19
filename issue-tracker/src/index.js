@@ -1,10 +1,36 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import {ApolloClient, InMemoryCache, ApolloProvider} from '@apollo/client';
+import {ApolloClient, InMemoryCache, HttpLink, ApolloProvider} from '@apollo/client';
+import { setContext } from "@apollo/client/link/context";
+import { onError } from "@apollo/client/link/error";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
+
+let token;
+const withToken=setContext(({_,headers})=>{
+  token = localStorage.getItem('auth');
+  return {
+        headers: {
+            ...headers,
+            authorization: token ? `bearer ${token}` : null
+        }
+    }
+});
+
+const resetToken=onError(({networkError})=>{
+  if(
+    networkError&&
+    networkError.name==='ServerError' &&
+    networkError.statusCode === 401
+  ){
+    token = null;
+  }
+});
+const authFlowLink = withToken.concat(resetToken);
+const httpLink=new HttpLink({uri:'http://localhost:4000'})
 const client=new ApolloClient({
-  uri:'http://localhost:4000',
+  link:authFlowLink.concat(httpLink),
   cache:new InMemoryCache()
 });
 
