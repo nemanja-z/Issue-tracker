@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 import dotenv from 'dotenv';
+const {UserInputError, AuthenticationError} = require('apollo-server');
 dotenv.config();
 export default {
     Query:{
@@ -12,6 +13,9 @@ export default {
     },
     Mutation: {
         createUser: async (_, args, { models }) => {
+            if(!args.username||!args.password||!args.email){
+                throw new UserInputError('All fields are required');
+            }
             const saltRounds = 10;
             try {
                 const user = await models.User.create({
@@ -22,6 +26,7 @@ export default {
                 return user;
 
             } catch (err) {
+                throw new Error(err);
                 console.log(err);
             }
         },

@@ -16,6 +16,7 @@ export default {
                 await project.addUser(user,{through:{role:'Admin'}});
                 return true;
             } catch (err) {
+                throw new Error(err);
                 console.log(err);
                 return false;
             }
@@ -51,6 +52,7 @@ export default {
                 await targetProject.addUser(addUserRole,{through:{role}});
                 return true;
             }catch(e){
+                throw new Error(err);
                 console.log(e);
                 return false;
             }

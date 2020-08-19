@@ -21,6 +21,7 @@ export default {
                 });
                 return true;
             } catch (err) {
+                throw new Error(err);
                 console.log(err);
                 return false;
             } 
@@ -46,6 +47,7 @@ export default {
                 targetIssue.addUser(assignee,{through:"Assignee"});
                 return true;
             }catch(err){
+                throw new Error(err);
                 console.log(err);
                 return false;
             }
