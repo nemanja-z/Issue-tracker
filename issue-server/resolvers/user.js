@@ -36,7 +36,7 @@ export default {
                 ? false
                 : await bcrypt.compare(args.password, user.passwordHash);
             if (!(user && passwordCorrect)) {
-                throw new AuthenticationError('The username or password is incorrect');
+                throw new AuthenticationError(`Cannot find user ${args.username}`);
             }
             const userForToken = {
                 username: user.username,

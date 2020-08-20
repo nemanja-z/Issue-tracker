@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { yupResolver } from '@hookform/resolvers';
 import * as yup from "yup";
-
+import Error from '../Error';
   
 const schema = yup.object().shape({
     username: yup.string().when('loginStatus',{
@@ -29,11 +29,14 @@ const schema = yup.object().shape({
 
 const Login = () =>{
     const [loginStatus, setLoginStatus] = useState(true);
+    const [error, setError] = useState('');
     const { register, handleSubmit, reset, errors } = useForm({
         resolver: yupResolver(schema)
       });
-    const [signUp] = useMutation(SIGN_UP);
-    const [login, {data}] = useMutation(LOGIN);
+    const [signUp] = useMutation(SIGN_UP, {
+        onError: (error) =>  setError(error.graphQLErrors[0].message) });
+    const [login, {data}] = useMutation(LOGIN, {
+        onError: (error) =>  setError(error.graphQLErrors[0].message) });
     const [token, setToken] = useState('');
     const [passwordShown, setPasswordShown] = useState(false);
     const eye = <FontAwesomeIcon icon={faEye} />;
@@ -55,6 +58,13 @@ const Login = () =>{
             localStorage.setItem('auth', token)
         }
     },[data, token])
+
+    useEffect(()=>{
+        if(error){
+            setTimeout(()=>{setError(null)}, 5000);
+        }
+    },[error])
+    console.log(error, typeof error);
     return(
         <Form style={{width: "40%",
         margin: "0 auto"}} 
@@ -92,8 +102,10 @@ const Login = () =>{
                 reset();}}>{loginStatus  ? 'need to create an account?' : 'already have an account?'}
             </Button>
             </Form.Group>
+            <Error error={error}/>
+            
         </Form>
     )
 }
-
+//<Error error={Object.values(error)}/>
 export default Login;
