@@ -1,14 +1,26 @@
 import React from 'react';
 import './App.css';
 import Login from "./components/user/Login";
-
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  Redirect,
+  useHistory,
+  useLocation
+} from "react-router-dom";
 
 const App = () => {
   
   return (
-    <div className="App">
+    <Router>
+      <Switch>
+        <Route path={["/", "/login"]}>
           <Login/>
-    </div>
+        </Route>
+      </Switch>
+    </Router>
   );
 }
 
