@@ -16,18 +16,17 @@ import {useQuery} from "@apollo/client";
 import {AUTH} from "./queries/user/queries";
 
 const App = () => {
-  const { data } = useQuery(AUTH, {
-    pollInterval: 500,
-  });
+  const token = localStorage.getItem('auth');
+  console.log(token)
   return (
     <Router>
       <Switch>
-          <Route path={"/login"}>
-           <Login user={data}/>
-        </Route>
-          <PrivateRoute path={'/'}>
-          <Homepage user={data}/>
-        </PrivateRoute>
+          <Route path="/login">
+             <Login/>
+          </Route>
+          <PrivateRoute token={token} path="/">
+              <Homepage token={token}/>
+          </PrivateRoute>
       </Switch>
     </Router>
   );

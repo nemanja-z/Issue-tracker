@@ -3,21 +3,21 @@ import Button from 'react-bootstrap/Button';
 import { useApolloClient } from '@apollo/client';
 import {useHistory} from "react-router-dom";
 
-const Homepage = ({user}) => {
+const Homepage = ({token}) => {
     const history = useHistory();
     const client = useApolloClient();
     const logOut = () => {
         client.resetStore();
         localStorage.clear();
-        history.push("/");
+        history.push("/login");
     };
 
     return(<div>
-        <h1>Hello there! Authentication's working!!</h1>
-        {user&&<Button
+        {token&&(<><h1>Hello there! Authentication's working!!</h1>
+        <Button
             size='lg'
             variant='primary'
-            onClick={logOut}>Logout</Button>}
+            onClick={logOut}>Logout</Button></>)}
         </div>
     )
 }

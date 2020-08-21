@@ -28,8 +28,8 @@ const schema = yup.object().shape({
     }),
   });
 
-const Login = ({user}) =>{
-    const history = useHistory();
+const Login = () =>{
+    let history = useHistory();
     const [loginStatus, setLoginStatus] = useState(true);
     const [errorMut, setErrorMut] = useState('');
     const { register, handleSubmit, reset, errors } = useForm({
@@ -47,22 +47,23 @@ const Login = ({user}) =>{
     }
     const handleLogin=handleSubmit(({username,password})=>{
         login({variables:{username, password}});
-        if(!error){
-            history.push('');
-        }
         reset();
+        history.push("/");
     });
+    
 
     const handleSignUp=handleSubmit(({username,password,email})=>{
         signUp({variables:{username, password, email}});
         reset();
         setLoginStatus(!loginStatus);
     });
+
     useEffect(()=>{
         if(data){
             localStorage.setItem('auth', data.loginUser);
         }
     },[data])
+
     useEffect(()=>{
         if(errorMut){
             setTimeout(()=>{setErrorMut(null)}, 5000);
