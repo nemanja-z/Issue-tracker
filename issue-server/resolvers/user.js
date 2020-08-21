@@ -9,6 +9,10 @@ export default {
             const users=await models.User.findAll({
             });
             return users;
+        },
+        currentUser:async(_,args,{models, user})=>{
+             const currentUser = await models.User.findOne({where:{id:user.id}});
+             return currentUser;
         }
     },
     Mutation: {

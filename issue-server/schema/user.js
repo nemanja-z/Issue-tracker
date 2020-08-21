@@ -6,6 +6,7 @@ export default `
   }
   type Query{
     allUsers: [User]
+    currentUser: User
   }
   type Mutation{
       createUser(username:String!, email:String!, password:String!):User

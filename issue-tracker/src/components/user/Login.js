@@ -10,6 +10,7 @@ import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { yupResolver } from '@hookform/resolvers';
 import * as yup from "yup";
 import Error from '../Error';
+import {useHistory} from "react-router-dom";
   
 const schema = yup.object().shape({
     username: yup.string().when('loginStatus',{
@@ -27,17 +28,17 @@ const schema = yup.object().shape({
     }),
   });
 
-const Login = () =>{
+const Login = ({user}) =>{
+    const history = useHistory();
     const [loginStatus, setLoginStatus] = useState(true);
-    const [error, setError] = useState('');
+    const [errorMut, setErrorMut] = useState('');
     const { register, handleSubmit, reset, errors } = useForm({
         resolver: yupResolver(schema)
       });
     const [signUp] = useMutation(SIGN_UP, {
-        onError: (error) =>  setError(error.graphQLErrors[0].message) });
-    const [login, {data}] = useMutation(LOGIN, {
-        onError: (error) =>  setError(error.graphQLErrors[0].message) });
-    const [token, setToken] = useState('');
+        onError: (error) =>  setErrorMut(error.graphQLErrors[0].message) });
+    const [login, {data, error}] = useMutation(LOGIN, {
+        onError: (error) =>  setErrorMut(error.graphQLErrors[0].message) });
     const [passwordShown, setPasswordShown] = useState(false);
     const eye = <FontAwesomeIcon icon={faEye} />;
 
@@ -46,25 +47,27 @@ const Login = () =>{
     }
     const handleLogin=handleSubmit(({username,password})=>{
         login({variables:{username, password}});
+        if(!error){
+            history.push('');
+        }
         reset();
     });
+
     const handleSignUp=handleSubmit(({username,password,email})=>{
         signUp({variables:{username, password, email}});
         reset();
+        setLoginStatus(!loginStatus);
     });
     useEffect(()=>{
         if(data){
-            setToken(data.loginUser);
-            localStorage.setItem('auth', token)
+            localStorage.setItem('auth', data.loginUser);
         }
-    },[data, token])
-
+    },[data])
     useEffect(()=>{
-        if(error){
-            setTimeout(()=>{setError(null)}, 5000);
+        if(errorMut){
+            setTimeout(()=>{setErrorMut(null)}, 5000);
         }
-    },[error])
-    console.log(error, typeof error);
+    },[errorMut])
     return(
         <Form style={{width: "40%",
         margin: "0 auto"}} 
@@ -102,10 +105,9 @@ const Login = () =>{
                 reset();}}>{loginStatus  ? 'need to create an account?' : 'already have an account?'}
             </Button>
             </Form.Group>
-            <Error error={error}/>
+            <Error error={errorMut}/>
             
         </Form>
     )
 }
-//<Error error={Object.values(error)}/>
 export default Login;

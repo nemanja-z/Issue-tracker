@@ -12,3 +12,10 @@ export const LOGIN = gql`
     mutation loginUser($username:String!, $password:String!){
         loginUser(username:$username, password:$password)
     }`;
+
+export const AUTH = gql`
+    query Authenticated{ 
+        currentUser{
+        username
+        email
+    }}`;
