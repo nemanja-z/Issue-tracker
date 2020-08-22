@@ -3,9 +3,10 @@ import Button from 'react-bootstrap/Button';
 import { useApolloClient } from '@apollo/client';
 import {useHistory} from "react-router-dom";
 
-const Homepage = ({token}) => {
+const Homepage = () => {
     const history = useHistory();
     const client = useApolloClient();
+    const token = localStorage.getItem('auth');
     const logOut = () => {
         client.resetStore();
         localStorage.clear();

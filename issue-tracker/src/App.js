@@ -16,16 +16,16 @@ import {useQuery} from "@apollo/client";
 import {AUTH} from "./queries/user/queries";
 
 const App = () => {
-  const token = localStorage.getItem('auth');
-  console.log(token)
+  //const [token, setToken] = useState(null);
+  //const token = localStorage.getItem('auth');
   return (
     <Router>
       <Switch>
           <Route path="/login">
              <Login/>
           </Route>
-          <PrivateRoute token={token} path="/">
-              <Homepage token={token}/>
+          <PrivateRoute path="/">
+              <Homepage/>
           </PrivateRoute>
       </Switch>
     </Router>

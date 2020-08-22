@@ -38,19 +38,18 @@ const Login = () =>{
     const [signUp] = useMutation(SIGN_UP, {
         onError: (error) =>  setErrorMut(error.graphQLErrors[0].message) });
     const [login, {data, error}] = useMutation(LOGIN, {
-        onError: (error) =>  setErrorMut(error.graphQLErrors[0].message) });
+        onError: (error) =>  setErrorMut(error.graphQLErrors[0].message),
+        onCompleted:()=>history.push("/")});
     const [passwordShown, setPasswordShown] = useState(false);
     const eye = <FontAwesomeIcon icon={faEye} />;
 
     const toggleVisibility=()=>{
         setPasswordShown(passwordShown ? false : true);
     }
-    const handleLogin=handleSubmit(({username,password})=>{
+     const handleLogin=handleSubmit(({username,password})=>{
         login({variables:{username, password}});
         reset();
-        history.push("/");
-    });
-    
+    }); 
 
     const handleSignUp=handleSubmit(({username,password,email})=>{
         signUp({variables:{username, password, email}});
