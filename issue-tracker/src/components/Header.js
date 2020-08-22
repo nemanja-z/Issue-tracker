@@ -14,11 +14,13 @@ const Header = ({logOut}) => {
     return(
         <>
         <Navbar bg="dark" variant="dark">
-            <Navbar.Brand href="#home">Issue buster</Navbar.Brand>
+            <Navbar.Brand >Issue buster</Navbar.Brand>
             <Nav className="mr-auto">
                 <Link to="/dashboard" className="nav-link">Dashboard</Link>
-                <Link to="/projects" className="nav-link">Projects</Link>
-                <Link to="/issues" className="nav-link">Issues</Link>
+                <Link to="/roles" className="nav-link">Manage Role Assignment</Link>
+                <Link to="/users" className="nav-link">Manage Project Users</Link>
+                <Link to="/project" className="nav-link">My projects</Link>
+                <Link to="/tickets" className="nav-link">My tickets</Link>
             </Nav>
             <Form inline>
                 <FormControl type="text" placeholder="Search" className="mr-sm-2"/>
