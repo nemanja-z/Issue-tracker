@@ -1,25 +1,20 @@
 import React from "react";
-import Button from 'react-bootstrap/Button';
 import { useApolloClient } from '@apollo/client';
 import {useHistory} from "react-router-dom";
+import Header from "./Header";
+//import {Switch, Link} from "react-router-dom";
 
 const Homepage = () => {
     const history = useHistory();
     const client = useApolloClient();
-    const token = localStorage.getItem('auth');
     const logOut = () => {
         client.resetStore();
         localStorage.clear();
         history.push("/login");
     };
 
-    return(<div>
-        {token&&(<><h1>Hello there! Authentication's working!!</h1>
-        <Button
-            size='lg'
-            variant='primary'
-            onClick={logOut}>Logout</Button></>)}
-        </div>
+    return(
+        <Header logOut={logOut}/>
     )
 }
 

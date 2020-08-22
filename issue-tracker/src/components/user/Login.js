@@ -31,14 +31,14 @@ const schema = yup.object().shape({
 const Login = () =>{
     let history = useHistory();
     const [loginStatus, setLoginStatus] = useState(true);
-    const [errorMut, setErrorMut] = useState('');
+    const [error, setError] = useState('');
     const { register, handleSubmit, reset, errors } = useForm({
         resolver: yupResolver(schema)
       });
     const [signUp] = useMutation(SIGN_UP, {
-        onError: (error) =>  setErrorMut(error.graphQLErrors[0].message) });
-    const [login, {data, error}] = useMutation(LOGIN, {
-        onError: (error) =>  setErrorMut(error.graphQLErrors[0].message),
+        onError: (error) =>  setError(error.graphQLErrors[0].message) });
+    const [login, {data}] = useMutation(LOGIN, {
+        onError: (error) =>  setError(error.graphQLErrors[0].message),
         onCompleted:()=>history.push("/")});
     const [passwordShown, setPasswordShown] = useState(false);
     const eye = <FontAwesomeIcon icon={faEye} />;
@@ -57,17 +57,17 @@ const Login = () =>{
         setLoginStatus(!loginStatus);
     });
 
-    useEffect(()=>{
+     useEffect(()=>{
         if(data){
             localStorage.setItem('auth', data.loginUser);
         }
-    },[data])
+    },[data]) 
 
     useEffect(()=>{
-        if(errorMut){
-            setTimeout(()=>{setErrorMut(null)}, 5000);
+        if(error){
+            setTimeout(()=>{setError(null)}, 5000);
         }
-    },[errorMut])
+    },[error])
     return(
         <Form style={{width: "40%",
         margin: "0 auto"}} 
@@ -105,7 +105,7 @@ const Login = () =>{
                 reset();}}>{loginStatus  ? 'need to create an account?' : 'already have an account?'}
             </Button>
             </Form.Group>
-            <Error error={errorMut}/>
+            <Error error={error}/>
             
         </Form>
     )

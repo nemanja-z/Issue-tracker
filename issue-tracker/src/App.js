@@ -1,4 +1,4 @@
-import React, {useState,useEffect} from 'react';
+import React from 'react';
 import './App.css';
 import Login from "./components/user/Login";
 import Homepage from "./components/Homepage";
@@ -6,18 +6,12 @@ import PrivateRoute from "./components/PrivateRoute";
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  Link,
-  Redirect,
-  useHistory,
-  useLocation
+  Route
 } from "react-router-dom";
-import {useQuery} from "@apollo/client";
-import {AUTH} from "./queries/user/queries";
+//import {useQuery} from "@apollo/client";
+//import {AUTH} from "./queries/user/queries";
 
 const App = () => {
-  //const [token, setToken] = useState(null);
-  //const token = localStorage.getItem('auth');
   return (
     <Router>
       <Switch>
