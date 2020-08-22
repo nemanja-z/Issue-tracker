@@ -6,10 +6,12 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import PropTypes from 'prop-types';
 import {Link} from "react-router-dom";
+import "./css/header.css";
+import Dropdown from "react-bootstrap/Dropdown";
+import NavLink from "react-bootstrap/NavLink";
+import NavDropdown from "react-bootstrap/NavDropdown";
 
 const Header = ({logOut}) => {
-
-
 
     return(
         <>
@@ -17,10 +19,17 @@ const Header = ({logOut}) => {
             <Navbar.Brand >Issue buster</Navbar.Brand>
             <Nav className="mr-auto">
                 <Link to="/dashboard" className="nav-link">Dashboard</Link>
-                <Link to="/roles" className="nav-link">Manage Role Assignment</Link>
-                <Link to="/users" className="nav-link">Manage Project Users</Link>
+                <NavDropdown title="Manage"  id="nav-dropdown">
+                    <Link to="/roles" className="nav-item">User Roles</Link>
+                    <Dropdown.Divider />
+                    <Link to="/users" className="nav-item">Project Users</Link>
+                    <Dropdown.Divider />
+                    <Link to="/project" className="nav-item">My projects</Link>
+                    <Dropdown.Divider />
+                    <Link to="/tickets"  className="nav-item">My tickets</Link>
+                </NavDropdown>
                 <Link to="/project" className="nav-link">My projects</Link>
-                <Link to="/tickets" className="nav-link">My tickets</Link>
+                <Link to="/tickets"  className="nav-link">My tickets</Link>
             </Nav>
             <Form inline>
                 <FormControl type="text" placeholder="Search" className="mr-sm-2"/>
