@@ -2,7 +2,8 @@ import React from "react";
 import { useApolloClient } from '@apollo/client';
 import {useHistory} from "react-router-dom";
 import Header from "./Header";
-//import {Switch, Link} from "react-router-dom";
+import {Switch, Route} from "react-router-dom";
+import AllProjects from "./project/AllProjects";
 
 const Homepage = () => {
     const history = useHistory();
@@ -14,7 +15,23 @@ const Homepage = () => {
     };
 
     return(
+        <>
         <Header logOut={logOut}/>
+        <Switch>
+            <Route path="/tickets">
+
+            </Route>
+            <Route path="/users">
+                
+            </Route>
+            <Route path="/roles">
+                
+            </Route>
+            <Route path="/projects">
+                <AllProjects/>
+            </Route>
+        </Switch>
+        </>
     )
 }
 

@@ -3,8 +3,10 @@ export default `
       id:ID!
       name:String!
       url:String
+      Users:[User]
   }
   type Query{
+    roles:[String]
     allProjects:[Project]
   }
   type Mutation{

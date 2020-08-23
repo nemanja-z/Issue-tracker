@@ -1,10 +1,12 @@
+import { compileFunction } from "vm";
+
 export default {
     Query:{
         allProjects:async(_,args,{models})=>{
-            const projects=await models.Project.findAll({});
+            const projects=await models.Project.findAll({ include:[{model:models.User}]});
+            console.log(projects)
             return projects; 
-        }
-    },
+        }},
     Mutation: {
         createProject: async (_, args, { models, user }) => {
             if(!user){
