@@ -9,7 +9,7 @@ const AllProjects = () => {
     if(loading) return <span>loading...</span>;
     console.log(data);
     return(
-        <Table striped bordered hover variant="dark">
+        <Table striped bordered hover>
         <thead>
             <tr>
                 <th>Project</th>
@@ -17,6 +17,15 @@ const AllProjects = () => {
                 <th>Url</th>
             </tr>
         </thead>
+        <tbody>
+            {data.allProjectManagers.map(p=>
+            <tr key={p.project}>
+                <td>{p.project}</td>
+                <td>{p.project_lead}</td>
+                <td>{p.url}</td>
+            </tr>
+            )}
+        </tbody>
         </Table>
     )
 }

@@ -5,23 +5,25 @@ export default {
             return projects; 
         },
         allProjectManagers:async(_, args, {models})=>{
-            try{const projectManager=await models.Role.findAll({where:{role:"Manager"} });
-            const managers = projectManager.map(p=>{
-                return {user:p.UserId,
-                project:p.ProjectId}});
-            const finale =await models.sequelize.transaction(async t=>{
-                let project_lead;
-                let project;
-                let project_leads=[];
-                for(let i=0; i<managers.length; i++){
-                    project_lead=await models.User.findOne({where:{id:managers[i].user}},{ transaction: t });
-                    project=await models.Project.findOne({where:{id:managers[i].project}},{ transaction: t });
-                    project_leads=[...project_leads, {project_lead:project_lead.username,project:project.name}];
-                }
-                return project_leads;
-            });
-            return finale;}
-            catch(e){
+            try{
+                const projectManager=await models.Role.findAll({where:{role:"Manager"} });
+                const managers = projectManager.map(p=>{
+                    return {user:p.UserId,
+                    project:p.ProjectId}});
+                const targetQuery =await models.sequelize.transaction(async t=>{
+                    let project_lead, project;
+                    /* let project;
+                    let url; */
+                    let project_leads=[];
+                    for(let i=0; i<managers.length; i++){
+                        project_lead=await models.User.findOne({where:{id:managers[i].user}},{ transaction: t });
+                        project=await models.Project.findOne({where:{id:managers[i].project}},{ transaction: t });
+                        project_leads=[...project_leads, {leaderId:project_lead.id, project_lead:project_lead.username,project:project.name, url:project.url}];
+                    }
+                    return project_leads;
+                 });
+                return targetQuery;
+            }catch(e){
                 console.log(e);
             }
         }},

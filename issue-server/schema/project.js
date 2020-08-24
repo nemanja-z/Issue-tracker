@@ -6,11 +6,12 @@ export default `
       Users:[User]
   }
   type ProjectManager{
+    leaderId:ID!
     project_lead:String
     project:String
+    url:String
   }
   type Query{
-    roles:[String]
     allProjects:[Project]
     allProjectManagers:[ProjectManager]
   }

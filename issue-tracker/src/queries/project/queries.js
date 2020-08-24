@@ -2,11 +2,9 @@ import {gql} from '@apollo/client';
 
 
 export const PROJECTS = gql`
-query{allProjects{
-    name
+query {allProjectManagers{
+	leaderId
+    project_lead
+    project
     url
-    id
-    Users{
-        username
-    }
-  }}`;
+}}`;
