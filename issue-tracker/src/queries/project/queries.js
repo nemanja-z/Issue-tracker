@@ -8,8 +8,5 @@ query{allProjects{
     id
     Users{
         username
-        Role{
-            role
-        }
     }
   }}`;

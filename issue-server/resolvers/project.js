@@ -1,11 +1,29 @@
-import { compileFunction } from "vm";
-
 export default {
     Query:{
         allProjects:async(_,args,{models})=>{
             const projects=await models.Project.findAll({ include:[{model:models.User}]});
-            console.log(projects)
             return projects; 
+        },
+        allProjectManagers:async(_, args, {models})=>{
+            try{const projectManager=await models.Role.findAll({where:{role:"Manager"} });
+            const managers = projectManager.map(p=>{
+                return {user:p.UserId,
+                project:p.ProjectId}});
+            const finale =await models.sequelize.transaction(async t=>{
+                let project_lead;
+                let project;
+                let project_leads=[];
+                for(let i=0; i<managers.length; i++){
+                    project_lead=await models.User.findOne({where:{id:managers[i].user}},{ transaction: t });
+                    project=await models.Project.findOne({where:{id:managers[i].project}},{ transaction: t });
+                    project_leads=[...project_leads, {project_lead:project_lead.username,project:project.name}];
+                }
+                return project_leads;
+            });
+            return finale;}
+            catch(e){
+                console.log(e);
+            }
         }},
     Mutation: {
         createProject: async (_, args, { models, user }) => {
@@ -16,9 +34,11 @@ export default {
                 const project=await models.Project.create({
                     ...args});
                 await project.addUser(user,{through:{role:'Admin'}});
+                if(!args.role){
+                    await project.addUser(user,{through:{role:'Manager'}});
+                }
                 return true;
             } catch (err) {
-                throw new Error(err);
                 console.log(err);
                 return false;
             }
@@ -29,10 +49,11 @@ export default {
             }
             const targetProject=await models.Project.findOne({where:{name:project}});
             const addUserRole=await models.User.findOne({where:{username}});
-            const user_role=await models.Role.findOne({where:{
+            const userRole=await models.Role.findOne({where:{
                 UserId:user.id,
                 ProjectId:targetProject.id
             }});
+            console.log(userRole)
             const roleCheck=await models.Role.findOne({where:{
                 UserId:addUserRole.id,
                 ProjectId:targetProject.id
@@ -43,18 +64,16 @@ export default {
             if(!addUserRole){
                 throw new Error('User doesn\'t exist');
             }
-            if(roleCheck.role!==null){
+            if(roleCheck){
                 throw new Error('User cannot have more than one role');
             }
-            
-            if(!user_role.role==='Admin'){
+            if(!(userRole.role==='Admin')){
                 throw new Error('You are not authorized to add members');
             }
             try{
                 await targetProject.addUser(addUserRole,{through:{role}});
                 return true;
             }catch(e){
-                throw new Error(err);
                 console.log(e);
                 return false;
             }
