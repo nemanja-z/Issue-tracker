@@ -10,6 +10,7 @@ export default `
     project_lead:String
     project:String
     url:String
+    projectId:String
   }
   type Query{
     allProjects:[Project]

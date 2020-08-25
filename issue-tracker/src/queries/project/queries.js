@@ -7,4 +7,5 @@ query {allProjectManagers{
     project_lead
     project
     url
+    projectId
 }}`;
