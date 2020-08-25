@@ -11,7 +11,8 @@ module.exports = {
         allowNull: false
       },
       description: {
-        type: Sequelize.DataTypes.STRING
+        type: Sequelize.DataTypes.STRING,
+        allowNull:false
       },
       priority: {
         type: Sequelize.DataTypes.ENUM("Highest", "High", "Medium", "Low", "Lowest"),

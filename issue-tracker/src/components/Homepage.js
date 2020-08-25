@@ -4,6 +4,8 @@ import {useHistory} from "react-router-dom";
 import Header from "./Header";
 import {Switch, Route} from "react-router-dom";
 import AllProjects from "./project/AllProjects";
+import Project from "./project/Project";
+
 
 const Homepage = () => {
     const history = useHistory();
@@ -26,6 +28,9 @@ const Homepage = () => {
             </Route>
             <Route path="/roles">
                 
+            </Route>
+            <Route path="/projects/:id">
+                <Project/>
             </Route>
             <Route path="/projects">
                 <AllProjects/>

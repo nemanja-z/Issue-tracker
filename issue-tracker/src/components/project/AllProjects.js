@@ -9,7 +9,7 @@ const AllProjects = () => {
     const { loading, error, data } = useQuery(PROJECTS);
     if(loading) return <span>loading...</span>;
     if(error){
-        return <Error error={error}/>
+        return <Error error={error.message}/>
     }
     return(
         <Table striped bordered hover>

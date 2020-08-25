@@ -10,7 +10,8 @@ module.exports =(sequelize, DataTypes) => {
       allowNull: false
     },
     description: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
+      allowNull:false
     },
     priority: {
       type: DataTypes.ENUM("Highest", "High", "Medium", "Low", "Lowest"),
