@@ -5,8 +5,7 @@ export default `
     description: String,
     priority: String
     resolution: String
-    Project:Project
-    reporter:User
+    reporter:ID!
   }
   input Fields{
     issue_type:String!
@@ -16,7 +15,7 @@ export default `
     project:String!
   }
   type Query{
-    allIssues: [Issue]
+    allIssues(projectId:String!): [Issue]
   }
   type Mutation{
     createIssue(input:Fields):Boolean!

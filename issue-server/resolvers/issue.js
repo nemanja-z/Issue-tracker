@@ -1,4 +1,10 @@
 export default {
+    Query:{
+        allIssues: async(_, args, {models}) =>{
+            const issues=await models.Issue.findAll({where:{project:args.projectId}});
+            return issues;
+        }
+    },
     Mutation: {
         createIssue: async (_, {input}, { models, user }) => {
             if(!user){
@@ -21,7 +27,6 @@ export default {
                 });
                 return true;
             } catch (err) {
-                throw new Error(err);
                 console.log(err);
                 return false;
             } 
@@ -47,7 +52,6 @@ export default {
                 targetIssue.addUser(assignee,{through:"Assignee"});
                 return true;
             }catch(err){
-                throw new Error(err);
                 console.log(err);
                 return false;
             }
