@@ -20,15 +20,6 @@ const Homepage = () => {
         <>
         <Header logOut={logOut}/>
         <Switch>
-            <Route path="/tickets">
-
-            </Route>
-            <Route path="/users">
-                
-            </Route>
-            <Route path="/roles">
-                
-            </Route>
             <Route path="/projects/:id">
                 <Project/>
             </Route>
