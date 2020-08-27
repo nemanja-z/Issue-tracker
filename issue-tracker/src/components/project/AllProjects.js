@@ -6,7 +6,9 @@ import {Link} from "react-router-dom";
 import Error from "../Error";
 
 const AllProjects = () => {
-    const { loading, error, data } = useQuery(PROJECTS);
+    const { loading, error, data } = useQuery(PROJECTS, {
+        onError: (error) =>  console.log(error.graphQLErrors[0].message)
+    });
     if(loading) return <span>loading...</span>;
     if(error){
         return <Error error={error.message}/>

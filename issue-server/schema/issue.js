@@ -19,7 +19,8 @@ export default `
     project:String!
   }
   type Query{
-    allIssues(projectId:String!): [Issue]
+    allIssues(projectId:String): [Issue]
+    targetIssue(issueId:String): Issue
   }
   type Mutation{
     createIssue(input:Fields):Boolean!

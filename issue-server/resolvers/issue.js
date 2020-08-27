@@ -2,7 +2,12 @@ export default {
     Query:{
         allIssues: async(_, args, {models}) =>{
             const issues=await models.Issue.findAll({where:{project:args.projectId}});
-            return issues;
+                return issues;
+            
+        },
+        targetIssue:async(_, args, {models})=>{
+            const issue=await models.Issue.findOne({where:{id:args.issueId}});
+            return issue;
         }
     },
     Mutation: {
