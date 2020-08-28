@@ -7,11 +7,13 @@ export default `
     priority: String
     resolution: String
     status:String
+    summary:String
     reporter:ID!
     createdAt:Date
     updatedAt:Date
   }
   input Fields{
+    summary:String!
     issue_type:String!
     description: String,
     priority: String

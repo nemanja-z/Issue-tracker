@@ -11,6 +11,9 @@ module.exports = {
         allowNull: false
       },
       description: {
+        type: Sequelize.DataTypes.STRING
+      },
+      summary:{
         type: Sequelize.DataTypes.STRING,
         allowNull:false
       },
