@@ -19,8 +19,6 @@ const Header = ({logOut}) => {
                 <Link to="/dashboard" className="nav-link">Dashboard</Link>
                 <NavDropdown title="Projects" id="nav-dropdown">
                     <Link to="/projects" className="nav-item">All Projects</Link>
-                    <Dropdown.Divider />
-                    <Link to="/user/projects" className="nav-item">My Projects</Link>
                 </NavDropdown>
                 <NavDropdown title="Issues" id="nav-dropdown">
                     <Link to="/issues" className="nav-item">Search for issues</Link>

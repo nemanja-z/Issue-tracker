@@ -15,16 +15,17 @@ const Project = () => {
     const { loading, error, data } = useQuery(ISSUES, {
         variables: { projectId:id.slice(1) },
       });
-    console.log(issueId)
     if (loading) return <span>loading...</span>;
     if (error) return <Error error={error.message}/>;
+    console.log(data)
+    
     return( 
     <Tab.Container id="list-group-tabs-example">
     <Row>
       <Col sm={2}>
       <ListGroup fixed="left">
                 {data.allIssues.map(issue=>
-                        <ListGroup.Item key={issue.id} onClick={()=>setIssueId(issue.id)}>{issue.summary}</ListGroup.Item>)}
+                  <ListGroup.Item key={issue.id} onClick={()=>setIssueId(issue.id)}>{issue.summary}</ListGroup.Item>)}
           </ListGroup>
       </Col>
       <Col sm={8}>
@@ -38,6 +39,5 @@ const Project = () => {
     )
 }
 
-//<Issue issue={issue}/>
-//<Link key={issue.id} to={`/projects/:id/issue/:${issue.id}`} className="list-group-item">{issue.description}</Link> )}
 export default Project;
+
