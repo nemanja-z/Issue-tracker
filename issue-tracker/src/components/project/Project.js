@@ -24,7 +24,7 @@ const Project = () => {
       <Col sm={2}>
       <ListGroup fixed="left">
                 {data.allIssues.map(issue=>
-                        <ListGroup.Item key={issue.id} onClick={()=>setIssueId(issue.id)}>{issue.description}</ListGroup.Item>)}
+                        <ListGroup.Item key={issue.id} onClick={()=>setIssueId(issue.id)}>{issue.summary}</ListGroup.Item>)}
           </ListGroup>
       </Col>
       <Col sm={8}>
