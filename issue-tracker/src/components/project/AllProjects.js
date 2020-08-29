@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 
 
 const AllProjects = ({projects}) => {
-    
     return(
         <Table striped bordered hover>
         <thead>

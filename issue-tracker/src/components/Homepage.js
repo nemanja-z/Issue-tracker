@@ -6,6 +6,7 @@ import {Switch, Route} from "react-router-dom";
 import AllProjects from "./project/AllProjects";
 import Project from "./project/Project";
 import IssueForm from './issue/IssueForm';
+import ProjectForm from './project/ProjectForm';
 import {useQuery} from "@apollo/client";
 import {PROJECTS} from "../queries/project/queries";
 import Error from "./Error";
@@ -38,6 +39,9 @@ const Homepage = () => {
             </Route>
             <Route path="/new-issue">
               {data && <IssueForm projects={data.allProjectManagers}/>}
+            </Route>
+            <Route path="/new-project">
+              <ProjectForm/>
             </Route>
         </Switch>
         </>
