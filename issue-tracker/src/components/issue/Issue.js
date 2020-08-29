@@ -4,6 +4,9 @@ import {ISSUE} from "../../queries/issue/queries";
 import {useQuery} from "@apollo/client";
 import Error from "../Error";
 import Card from "react-bootstrap/Card";
+import CardDeck from "react-bootstrap/CardDeck";
+
+
 
 const Issue = ({issueId}) => {
   const { loading, error, data } = useQuery(ISSUE, {
@@ -11,7 +14,9 @@ const Issue = ({issueId}) => {
   });
   if (loading) return <span>loading...</span>;
   if (error) return <Error error={error.message}/>;
-  return(<Card bg="light">
+  return(
+  <CardDeck>
+    <Card  text="info">
       <Card.Body>
         <Card.Title>Details</Card.Title>
             <Card.Text>
@@ -30,17 +35,27 @@ const Issue = ({issueId}) => {
             Status: {data.targetIssue.status}
             </Card.Text>
             <Card.Text>
+            Created: {new Date(data.targetIssue.createdAt).toUTCString()}
+            </Card.Text>
+            <Card.Text>
+            Updated: {new Date(data.targetIssue.updatedAt).toUTCString()}
+            </Card.Text>
+            </Card.Body>
+            </Card>
+            <Card  text="info">
+            <Card.Body>
+            <Card.Title>
+              People
+            </Card.Title>
+            <Card.Text>
             Reporter: {data.targetIssue.reporter}
-            </Card.Text>
+            </Card.Text> 
             <Card.Text>
-            UpdatedAt: {data.targetIssue.updatedAt}
-            </Card.Text>
-            <Card.Text>
-            CreatedAt: {data.targetIssue.createdAt}
-            </Card.Text>
+            Assignee: {}
+            </Card.Text> 
         </Card.Body>
     </Card>
-
+</CardDeck>
           
     )
 }

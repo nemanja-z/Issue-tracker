@@ -2,7 +2,6 @@ export default {
     Query:{
         allIssues: async(_, args, {models}) =>{
             const issues=await models.Issue.findAll({where:{project:args.projectId}});
-            console.log(issues)
             return issues;
             
         },

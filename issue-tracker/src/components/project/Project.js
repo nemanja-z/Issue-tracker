@@ -23,7 +23,7 @@ const Project = () => {
     <Tab.Container id="list-group-tabs-example">
     <Row>
       <Col sm={2}>
-      <ListGroup fixed="left">
+          <ListGroup fixed="left">
                 {data.allIssues.map(issue=>
                   <ListGroup.Item key={issue.id} onClick={()=>setIssueId(issue.id)}>{issue.summary}</ListGroup.Item>)}
           </ListGroup>
