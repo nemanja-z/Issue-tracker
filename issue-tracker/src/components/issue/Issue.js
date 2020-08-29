@@ -16,7 +16,7 @@ const Issue = ({issueId}) => {
   if (error) return <Error error={error.message}/>;
   return(
   <CardDeck>
-    <Card  text="info">
+    <Card text="info">
       <Card.Body>
         <Card.Title>Details</Card.Title>
             <Card.Text>
