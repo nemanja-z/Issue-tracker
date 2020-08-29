@@ -3,16 +3,13 @@ import {ISSUES} from "../../queries/issue/queries";
 import {useParams} from "react-router-dom";
 import {useQuery} from "@apollo/client";
 import Error from "../Error";
-import IssueForm from '../issue/IssueForm'
 import ListGroup from "react-bootstrap/ListGroup";
 import Col from "react-bootstrap/Col";
 import Tab from "react-bootstrap/Tab";
 import Row from "react-bootstrap/Row";
-import Button from "react-bootstrap/Button";
 import Issue from "../issue/Issue";
 
 const Project = () => {
-    const [toggleForm, setToggleForm] = useState(false);
     const {id} = useParams();
     const [issueId, setIssueId] = useState(null);
     const { loading, error, data } = useQuery(ISSUES, {
@@ -24,7 +21,6 @@ const Project = () => {
     
     return( 
     <Tab.Container id="list-group-tabs-example">
-    <Button onClick={()=>setToggleForm(!toggleForm)}>{toggleForm ? 'See issues' : 'Add issue'}</Button>
     <Row>
       <Col sm={2}>
           <ListGroup fixed="left">
@@ -33,12 +29,10 @@ const Project = () => {
           </ListGroup>
       </Col>
       <Col sm={8}>
-      {!toggleForm&&(<Tab.Content>
+      <Tab.Content>
         {issueId && <Issue issueId={issueId}/>}
-      </Tab.Content>)}
-      {toggleForm&&(<Tab.Content>
-        {<IssueForm toggle={toggleForm}/>}
-      </Tab.Content>)}
+      </Tab.Content>
+      
     </Col>
       </Row>
       </Tab.Container>

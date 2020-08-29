@@ -1,18 +1,11 @@
 import React from "react";
-import {useQuery} from "@apollo/client";
-import {PROJECTS} from "../../queries/project/queries";
 import Table from "react-bootstrap/Table";
 import {Link} from "react-router-dom";
-import Error from "../Error";
+import PropTypes from 'prop-types';
 
-const AllProjects = () => {
-    const { loading, error, data } = useQuery(PROJECTS, {
-        onError: (error) =>  console.log(error.graphQLErrors[0].message)
-    });
-    if(loading) return <span>loading...</span>;
-    if(error){
-        return <Error error={error.message}/>
-    }
+
+const AllProjects = ({projects}) => {
+    
     return(
         <Table striped bordered hover>
         <thead>
@@ -23,7 +16,7 @@ const AllProjects = () => {
             </tr>
         </thead>
         <tbody>
-            {data.allProjectManagers.map(p=>
+            {projects.map(p=>
             <tr key={p.project}>
                 <td><Link to={`/projects/:${p.projectId}`}>{p.project}</Link></td>
                 <td><Link to={`/projects/:${p.leaderId}`}>{p.project_lead}</Link></td>
@@ -34,5 +27,7 @@ const AllProjects = () => {
         </Table>
     )
 }
-
+AllProjects.propTypes={
+    projects:PropTypes.array
+}
 export default AllProjects;

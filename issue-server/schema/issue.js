@@ -14,6 +14,7 @@ export default `
   }
   input Fields{
     summary:String!
+    status:String!
     issue_type:String!
     description: String,
     priority: String

@@ -29,3 +29,6 @@ query Issue($issueId:String){
                 createdAt
                 updatedAt}
 }`;
+export const REPORT=gql`
+mutation createIssue($input:Fields){
+        createIssue(input:$input)}`;

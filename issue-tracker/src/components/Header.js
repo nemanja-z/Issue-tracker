@@ -19,9 +19,13 @@ const Header = ({logOut}) => {
                 <Link to="/dashboard" className="nav-link">Dashboard</Link>
                 <NavDropdown title="Projects" id="nav-dropdown">
                     <Link to="/projects" className="nav-item">All Projects</Link>
+                    <Dropdown.Divider />
+                    <Link to="/new-project" className="nav-item">Create Project</Link>
                 </NavDropdown>
                 <NavDropdown title="Issues" id="nav-dropdown">
                     <Link to="/issues" className="nav-item">Search for issues</Link>
+                    <Dropdown.Divider />
+                    <Link to="/new-issue" className="nav-item">Report Issue</Link>
                 </NavDropdown>
                 <NavDropdown title="Manage"  id="nav-dropdown">
                     <Link to="/roles" className="nav-item">User Roles</Link>
