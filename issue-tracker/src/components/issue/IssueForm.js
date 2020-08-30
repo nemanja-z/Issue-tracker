@@ -6,15 +6,31 @@ import PropTypes from 'prop-types';
 import {REPORT} from "../../queries/issue/queries";
 import {useMutation} from "@apollo/client";
 import shortid from 'shortid';
+import { yupResolver } from '@hookform/resolvers';
+import * as yup from "yup";
 
-const IssueForm = ({projects}) => {
-    const [reportIssue] = useMutation(REPORT);
-    const { register, handleSubmit, reset, errors } = useForm();
+const schema = yup.object().shape({
+    summary: yup.string().min(5).required(),
+    issue_type: yup.string().required(),
+    priority:yup.string(),
+    description:yup.string(),
+    resolution:yup.string(),
+    status:yup.string(),
+    project:yup.string().required()
+  });
+
+const IssueForm = ({projects, history}) => {
+    const [reportIssue] = useMutation(REPORT, {
+        onCompleted:()=>history.push("/")
+    });
+    const { register, handleSubmit, reset, errors } = useForm({
+        resolver: yupResolver(schema)
+      });
     const createIssue=handleSubmit(({summary, description, priority, resolution, status, issue_type, project})=>{
         reportIssue({variables:{input:{summary, description, priority, resolution, status, issue_type, project}}});
         reset();
     }); 
-    return(
+    return(<>
         <Form onSubmit={createIssue}>
         <Form.Row>
         <Form.Group>
@@ -85,10 +101,12 @@ const IssueForm = ({projects}) => {
         <Button variant="primary" type="submit">
           Submit
         </Button>
-      </Form>)
+      </Form>
+      </>)
 }
 
 IssueForm.propTypes={
-    projects:PropTypes.array
+    projects:PropTypes.array,
+    history:PropTypes.object.isRequired
 }
 export default IssueForm;

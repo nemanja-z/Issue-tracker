@@ -38,10 +38,10 @@ const Homepage = () => {
               {data&&<AllProjects projects={data.allProjectManagers}/>}
             </Route>
             <Route path="/new-issue">
-              {data && <IssueForm projects={data.allProjectManagers}/>}
+              {data && <IssueForm history={history} projects={data.allProjectManagers}/>}
             </Route>
             <Route path="/new-project">
-              <ProjectForm/>
+              <ProjectForm history={history}/>
             </Route>
         </Switch>
         </>

@@ -17,7 +17,6 @@ const Project = () => {
       });
     if (loading) return <span>loading...</span>;
     if (error) return <Error error={error.message}/>;
-    console.log(data)
     
     return( 
     <Tab.Container id="list-group-tabs-example">

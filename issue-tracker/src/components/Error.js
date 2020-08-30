@@ -4,7 +4,6 @@ import Card from 'react-bootstrap/Card';
 
 
 const Error = ({error}) => {
-    
     const show = error ? 
     <Alert variant={'warning'}>
         <Alert.Heading>
@@ -17,5 +16,6 @@ const Error = ({error}) => {
             </Card>
     )
 }
+
 
 export default Error;
