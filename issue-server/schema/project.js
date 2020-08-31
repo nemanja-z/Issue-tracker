@@ -16,6 +16,7 @@ export default `
     allProjects:[Project]
     userProjects:[ProjectManager]
     allProjectManagers:[ProjectManager]
+    
   }
   type Mutation{
       createProject(name:String!, url:String, role:String):Boolean!

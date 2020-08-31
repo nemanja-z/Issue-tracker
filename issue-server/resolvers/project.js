@@ -74,7 +74,6 @@ export default {
                 UserId:user.id,
                 ProjectId:targetProject.id
             }});
-            console.log(userRole)
             const roleCheck=await models.Role.findOne({where:{
                 UserId:addUserRole.id,
                 ProjectId:targetProject.id
@@ -88,7 +87,7 @@ export default {
             if(roleCheck){
                 throw new Error('User cannot have more than one role');
             }
-            if(!(userRole.role==='Admin')){
+            if(!(userRole.role==='Admin' || userRole.role==='Manager')){
                 throw new Error('You are not authorized to add members');
             }
             try{

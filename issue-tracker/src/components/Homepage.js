@@ -13,6 +13,7 @@ import AddUser from './user/AddUser';
 import AddRole from './role/AddRole';
 import {useQuery} from "@apollo/client";
 import {PROJECTS} from "../queries/project/queries";
+import {USER_PROJECTS} from "../queries/project/queries";
 import Error from "./Error";
 import Spinner from 'react-bootstrap/Spinner';
 
@@ -24,13 +25,16 @@ const Homepage = () => {
         localStorage.clear();
         history.push("/login");
     };
+    const { loading:user_loading, error:user_error, data:user_data } = useQuery(USER_PROJECTS, {
+        onError: (error) =>  console.log(error.graphQLErrors[0].message)
+    });
     const { loading, error, data } = useQuery(PROJECTS, {
         onError: (error) =>  console.log(error.graphQLErrors[0].message)
     });
-    if (loading) return (<Spinner animation="border" role="status">
+    if (loading||user_loading) return (<Spinner animation="border" role="status">
                     <span className="sr-only">Loading...</span>
               </Spinner>);
-    if(error){
+    if(error||user_error){
         return <Error error={error.message}/>
     }
     return(
@@ -53,13 +57,13 @@ const Homepage = () => {
                 <AddUser/>
             </Route>
             <Route path="/add-roles">
-               {data && <AddRole projects={data.allProjectManagers}/>}
+               {user_data && <AddRole projects={user_data.userProjects}/>}
             </Route>
             <Route path="/assigned-issues">
                 <Assigned/>
             </Route>
             <Route path="/user-projects">
-                <MyProjects/>
+            {user_data && <MyProjects projects={user_data.userProjects}/>}
             </Route>
         </Switch>
         </>
