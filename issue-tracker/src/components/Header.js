@@ -18,23 +18,23 @@ const Header = ({logOut}) => {
             <Nav className="mr-auto">
                 <Link to="/dashboard" className="nav-link">Dashboard</Link>
                 <NavDropdown title="Projects" id="nav-dropdown">
+                    <Link to="/user-projects" className="nav-item">My Projects</Link>
+                    <Dropdown.Divider />
                     <Link to="/projects" className="nav-item">All Projects</Link>
                     <Dropdown.Divider />
                     <Link to="/new-project" className="nav-item">Create Project</Link>
                 </NavDropdown>
                 <NavDropdown title="Issues" id="nav-dropdown">
+                    <Link to="/assigned-issues" className="nav-item">Assigned to me</Link>
+                    <Dropdown.Divider />
                     <Link to="/issues" className="nav-item">Search for issues</Link>
                     <Dropdown.Divider />
                     <Link to="/new-issue" className="nav-item">Report Issue</Link>
                 </NavDropdown>
                 <NavDropdown title="Manage"  id="nav-dropdown">
-                    <Link to="/roles" className="nav-item">User Roles</Link>
+                    <Link to="/add-roles" className="nav-item">User Roles</Link>
                     <Dropdown.Divider />
-                    <Link to="/users" className="nav-item">Project Users</Link>
-                    <Dropdown.Divider />
-                    <Link to="/projects" className="nav-item">My projects</Link>
-                    <Dropdown.Divider />
-                    <Link to="/tickets"  className="nav-item">My tickets</Link>
+                    <Link to="/add-users" className="nav-item">Project Users</Link>
                 </NavDropdown>
             </Nav>
             <Form inline>

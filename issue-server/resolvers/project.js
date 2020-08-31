@@ -4,6 +4,27 @@ export default {
             const projects=await models.Project.findAll({ include:[{model:models.User}]});
             return projects; 
         },
+        userProjects:async(_, args, {models, user})=>{
+            try{
+                const projectManager=await models.Role.findAll({where:{role:"Manager"} });
+                const managers = projectManager.map(p=>{
+                    return {user:p.UserId,
+                    project:p.ProjectId}});
+                const targetQuery =await models.sequelize.transaction(async t=>{
+                    let project_lead, project;
+                    let project_leads=[];
+                    for(let i=0; i<managers.length; i++){
+                        project_lead=await models.User.findOne({where:{id:managers[i].user}},{ transaction: t });
+                        project=await models.Project.findOne({where:{id:managers[i].project}},{ transaction: t });
+                        project_leads=[...project_leads, {leaderId:project_lead.id, project_lead:project_lead.username,project:project.name, url:project.url, projectId:project.id}];
+                    }
+                    return project_leads;
+                 });
+                return targetQuery.filter(t=>t.project_lead===user.username);
+            }catch(e){
+                console.log(e);
+            }
+        },
         allProjectManagers:async(_, args, {models})=>{
             try{
                 const projectManager=await models.Role.findAll({where:{role:"Manager"} });
@@ -12,8 +33,6 @@ export default {
                     project:p.ProjectId}});
                 const targetQuery =await models.sequelize.transaction(async t=>{
                     let project_lead, project;
-                    /* let project;
-                    let url; */
                     let project_leads=[];
                     for(let i=0; i<managers.length; i++){
                         project_lead=await models.User.findOne({where:{id:managers[i].user}},{ transaction: t });

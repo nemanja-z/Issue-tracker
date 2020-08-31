@@ -14,6 +14,7 @@ export default `
   }
   type Query{
     allProjects:[Project]
+    userProjects:[ProjectManager]
     allProjectManagers:[ProjectManager]
   }
   type Mutation{

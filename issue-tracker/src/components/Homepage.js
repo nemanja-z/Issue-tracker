@@ -43,6 +43,18 @@ const Homepage = () => {
             <Route path="/new-project">
               <ProjectForm history={history}/>
             </Route>
+            <Route path="/add-users">
+
+            </Route>
+            <Route path="/add-roles">
+
+            </Route>
+            <Route path="/assigned-issues">
+
+            </Route>
+            <Route path="/user-projects">
+
+            </Route>
         </Switch>
         </>
     )
