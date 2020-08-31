@@ -30,7 +30,7 @@ const IssueForm = ({projects, history}) => {
         reportIssue({variables:{input:{summary, description, priority, resolution, status, issue_type, project}}});
         reset();
     }); 
-    return(<>
+    return(
         <Form onSubmit={createIssue}>
         <Form.Row>
         <Form.Group>
@@ -102,7 +102,7 @@ const IssueForm = ({projects, history}) => {
           Submit
         </Button>
       </Form>
-      </>)
+      )
 }
 
 IssueForm.propTypes={

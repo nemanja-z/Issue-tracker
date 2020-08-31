@@ -27,8 +27,7 @@ const Homepage = () => {
     const { loading, error, data } = useQuery(PROJECTS, {
         onError: (error) =>  console.log(error.graphQLErrors[0].message)
     });
-    if (loading) 
-          return (<Spinner animation="border" role="status">
+    if (loading) return (<Spinner animation="border" role="status">
                     <span className="sr-only">Loading...</span>
               </Spinner>);
     if(error){
@@ -54,7 +53,7 @@ const Homepage = () => {
                 <AddUser/>
             </Route>
             <Route path="/add-roles">
-                <AddRole/>
+               {data && <AddRole projects={data.allProjectManagers}/>}
             </Route>
             <Route path="/assigned-issues">
                 <Assigned/>

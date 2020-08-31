@@ -27,7 +27,7 @@ const ProjectForm = ({history}) => {
 
 
 
-    return( <>
+    return( 
             <Form inline='true' onSubmit={handleNewProject}>
             <Form.Group>
                 <Form.Label>Project name</Form.Label>
@@ -42,8 +42,7 @@ const ProjectForm = ({history}) => {
             <Button variant="primary" type="submit">
                     Submit
             </Button>
-            </Form>
-            </>)
+            </Form>)
 }
 ProjectForm.propTypes={
     history:PropTypes.object.isRequired

@@ -12,10 +12,20 @@ export const LOGIN = gql`
     mutation loginUser($username:String!, $password:String!){
         loginUser(username:$username, password:$password)
     }`;
+export const ADD_ROLE = gql`
+    mutation addRole($project:String!, $username:String!, $role:String!){
+        addRole(project:$project, username:$username, role:$role)
+    }`;
 
 export const AUTH = gql`
     query Authenticated{ 
         currentUser{
         username
         email
+    }}`;
+export const ALL_USERS = gql`
+    query{allUsers{
+        username
+        email
+        id
     }}`;
