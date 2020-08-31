@@ -8,6 +8,8 @@ import Col from "react-bootstrap/Col";
 import Tab from "react-bootstrap/Tab";
 import Row from "react-bootstrap/Row";
 import Issue from "../issue/Issue";
+import Spinner from 'react-bootstrap/Spinner';
+
 
 const Project = () => {
     const {id} = useParams();
@@ -15,7 +17,10 @@ const Project = () => {
     const { loading, error, data } = useQuery(ISSUES, {
         variables: { projectId:id.slice(1) },
       });
-    if (loading) return <span>loading...</span>;
+      if (loading) 
+          return (<Spinner animation="border" role="status">
+                    <span className="sr-only">Loading...</span>
+              </Spinner>);
     if (error) return <Error error={error.message}/>;
     
     return( 

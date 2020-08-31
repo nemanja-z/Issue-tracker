@@ -18,7 +18,6 @@ const ProjectForm = ({history}) => {
     const { register, handleSubmit, reset, errors } = useForm({
         resolver: yupResolver(schema)
       });
-      console.log(errors, 'ceras')
     const [createProject] = useMutation(CREATE,{
         onCompleted:()=>history.push("/")});
     const handleNewProject=handleSubmit(({name,url})=>{

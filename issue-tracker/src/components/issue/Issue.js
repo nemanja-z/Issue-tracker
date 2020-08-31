@@ -5,14 +5,17 @@ import {useQuery} from "@apollo/client";
 import Error from "../Error";
 import Card from "react-bootstrap/Card";
 import CardDeck from "react-bootstrap/CardDeck";
-
+import Spinner from 'react-bootstrap/Spinner';
 
 
 const Issue = ({issueId}) => {
   const { loading, error, data } = useQuery(ISSUE, {
     variables: { issueId },
   });
-  if (loading) return <span>loading...</span>;
+  if (loading) 
+  return (<Spinner animation="border" role="status">
+                <span className="sr-only">Loading...</span>
+          </Spinner>);
   if (error) return <Error error={error.message}/>;
   return(
   <CardDeck>
