@@ -8,6 +8,10 @@ export default {
         targetIssue:async(_, args, {models})=>{
             const issue=await models.Issue.findOne({where:{id:args.issueId}});
             return issue;
+        },
+        issuesAll:async(_, args, {models})=>{
+            const issue=await models.Issue.findAll({});
+            return issue;
         }
     },
     Mutation: {

@@ -12,8 +12,7 @@ const Issue = ({issueId}) => {
   const { loading, error, data } = useQuery(ISSUE, {
     variables: { issueId },
   });
-  if (loading) 
-  return (<Spinner animation="border" role="status">
+  if (loading) return (<Spinner animation="border" role="status">
                 <span className="sr-only">Loading...</span>
           </Spinner>);
   if (error) return <Error error={error.message}/>;

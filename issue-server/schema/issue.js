@@ -22,6 +22,7 @@ export default `
     project:String!
   }
   type Query{
+    issuesAll:[Issue]
     allIssues(projectId:String): [Issue]
     targetIssue(issueId:String): Issue
   }

@@ -9,7 +9,7 @@ import Assigned from './issue/Assigned';
 import Project from "./project/Project";
 import IssueForm from './issue/IssueForm';
 import ProjectForm from './project/ProjectForm';
-import AddUser from './user/AddUser';
+import AssignUser from './user/AssignUser';
 import AddRole from './role/AddRole';
 import {useQuery} from "@apollo/client";
 import {PROJECTS} from "../queries/project/queries";
@@ -35,7 +35,7 @@ const Homepage = () => {
                     <span className="sr-only">Loading...</span>
               </Spinner>);
     if(error||user_error){
-        return <Error error={error.message}/>
+        return error?<Error error={error.message}/>:<Error error={user_error.message}/>
     }
     return(
         <>
@@ -54,7 +54,7 @@ const Homepage = () => {
               <ProjectForm history={history}/>
             </Route>
             <Route path="/add-users">
-                <AddUser/>
+                {user_data && <AssignUser projects={user_data.userProjects}/>}
             </Route>
             <Route path="/add-roles">
                {user_data && <AddRole projects={user_data.userProjects}/>}
