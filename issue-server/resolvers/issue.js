@@ -1,3 +1,4 @@
+const { Op } = require("sequelize");
 export default {
     Query:{
         allIssues: async(_, args, {models}) =>{
@@ -9,9 +10,19 @@ export default {
             const issue=await models.Issue.findOne({where:{id:args.issueId}});
             return issue;
         },
-        issuesAll:async(_, args, {models})=>{
-            const issue=await models.Issue.findAll({});
-            return issue;
+        issuesAll:async(_, args, {models,user})=>{
+            const role=await models.Role.findAll({where:
+                {UserId:user.id,
+                    role:{[Op.not]:"Contractor"}}});
+            const userIssues =await models.sequelize.transaction(async t=>{
+                let allIssues=[];
+                for(let i=0; i<role.length;i++){
+                    const issue = await models.Issue.findOne({where:{project:role[i].ProjectId}});
+                    allIssues=[...allIssues, issue]
+                }
+                return allIssues.filter(issue=>issue!==null)
+            })
+            return userIssues;
         }
     },
     Mutation: {

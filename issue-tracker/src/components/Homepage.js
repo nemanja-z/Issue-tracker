@@ -53,7 +53,7 @@ const Homepage = () => {
             <Route path="/new-project">
               <ProjectForm history={history}/>
             </Route>
-            <Route path="/add-users">
+            <Route path="/assign-users">
                 {user_data && <AssignUser projects={user_data.userProjects}/>}
             </Route>
             <Route path="/add-roles">

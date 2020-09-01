@@ -34,7 +34,7 @@ const Header = ({logOut}) => {
                 <NavDropdown title="Manage"  id="nav-dropdown">
                     <Link to="/add-roles" className="nav-item">User Roles</Link>
                     <Dropdown.Divider />
-                    <Link to="/add-users" className="nav-item">Project Users</Link>
+                    <Link to="/assign-users" className="nav-item">Project Users</Link>
                 </NavDropdown>
             </Nav>
             <Form inline>

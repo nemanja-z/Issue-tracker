@@ -11,7 +11,8 @@ export default {
                     return {user:p.UserId,
                     project:p.ProjectId}});
                 const targetQuery =await models.sequelize.transaction(async t=>{
-                    let project_lead, project;
+                    let project_lead;
+                    let project;
                     let project_leads=[];
                     for(let i=0; i<managers.length; i++){
                         project_lead=await models.User.findOne({where:{id:managers[i].user}},{ transaction: t });

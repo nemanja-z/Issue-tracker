@@ -39,12 +39,13 @@ const AssignUser = ({projects}) => {
     if(error||issue_error) {
         return error?<Error error={error.message}/>:<Error error={issue_error.message}/>
     }
-
     const addAssignment=handleSubmit(({project, user, issue})=>{
         assignUser({project, user, issue});
         reset();
-    }); 
-
+    });
+    if(issue_data.issuesAll.length===0){
+        return <Error error={'You cannot assign because you aren\'t member of any project!'}/>
+    }
     return(<Form inline='true' onSubmit={addAssignment}>
         <Form.Group>
             <Form.Label>Issue</Form.Label>

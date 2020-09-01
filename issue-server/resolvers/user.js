@@ -6,8 +6,7 @@ dotenv.config();
 export default {
     Query:{
         allUsers:async(_,args,{models})=>{
-            const users=await models.User.findAll({
-            });
+            const users=await models.User.findAll({});
             return users;
         },
         currentUser:async(_,args,{models, user})=>{

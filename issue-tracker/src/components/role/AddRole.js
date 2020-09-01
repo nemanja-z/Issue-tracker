@@ -28,9 +28,11 @@ const AddRole = ({projects}) => {
     const { loading, error, data } = useQuery(ALL_USERS, {
         onError: (error) =>  console.log(error.graphQLErrors[0].message)
     });
-    if(loading)  return (<Spinner animation="border" role="status">
+    if(loading)  {
+        return (<Spinner animation="border" role="status">
                     <span className="sr-only">Loading...</span>
                   </Spinner>);
+                  }
     if(error) return <Error error={error.message}/>
     const assignRole=handleSubmit(({project, username, role})=>{
         addRole({project, username, role});
