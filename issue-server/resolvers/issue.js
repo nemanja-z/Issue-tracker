@@ -2,12 +2,14 @@ const { Op } = require("sequelize");
 export default {
     Query:{
         allIssues: async(_, args, {models}) =>{
-            const issues=await models.Issue.findAll({where:{project:args.projectId}});
+            const issues=await models.Issue.findAll({where:{project:args.projectId},
+            include:{model:models.Project}});
             return issues;
             
         },
         targetIssue:async(_, args, {models})=>{
-            const issue=await models.Issue.findOne({where:{id:args.issueId}});
+            const issue=await models.Issue.findOne({where:{id:args.issueId},
+                include:{model:models.Project}});
             return issue;
         },
         issuesAll:async(_, args, {models,user})=>{
@@ -17,7 +19,7 @@ export default {
             const userIssues =await models.sequelize.transaction(async t=>{
                 let allIssues=[];
                 for(let i=0; i<role.length;i++){
-                    const issue = await models.Issue.findOne({where:{project:role[i].ProjectId}});
+                    const issue = await models.Issue.findOne({where:{project:role[i].ProjectId},include:{model:models.Project}});
                     allIssues=[...allIssues, issue]
                 }
                 return allIssues.filter(issue=>issue!==null)

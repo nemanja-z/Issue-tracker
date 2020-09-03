@@ -31,9 +31,10 @@ const Homepage = () => {
     const { loading, error, data } = useQuery(PROJECTS, {
         onError: (error) =>  console.log(error.graphQLErrors[0].message)
     });
-    if (loading||user_loading) return (<Spinner animation="border" role="status">
+    if (loading||user_loading){ 
+        return (<Spinner animation="border" role="status">
                     <span className="sr-only">Loading...</span>
-              </Spinner>);
+              </Spinner>);}
     if(error||user_error){
         return error?<Error error={error.message}/>:<Error error={user_error.message}/>
     }
@@ -42,7 +43,7 @@ const Homepage = () => {
         <Header logOut={logOut}/>
         <Switch>
             <Route path="/projects/:id">
-                <Project/>
+                <Project history={history}/>
             </Route>
             <Route path="/projects">
               {data&&<AllProjects projects={data.allProjectManagers}/>}

@@ -13,7 +13,11 @@ query Issue($projectId:String){
                 reporter
                 status
                 createdAt
-                updatedAt}
+                updatedAt
+                Project{
+                        name
+                        url
+                }}
 }`;
 export const ISSUE=gql`
 query Issue($issueId:String){
@@ -27,7 +31,11 @@ query Issue($issueId:String){
                 reporter
                 status
                 createdAt
-                updatedAt}
+                updatedAt
+                Project{
+                        name
+                        url
+                }}
 }`;
 export const REPORT=gql`
 mutation createIssue($input:Fields){
@@ -49,4 +57,8 @@ query {issuesAll{
         status
         createdAt
         updatedAt
+        Project{
+                name
+                url
+        }
 }}`;

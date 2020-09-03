@@ -8,8 +8,6 @@ import {
   Switch,
   Route
 } from "react-router-dom";
-//import {useQuery} from "@apollo/client";
-//import {AUTH} from "./queries/user/queries";
 
 const App = () => {
   return (

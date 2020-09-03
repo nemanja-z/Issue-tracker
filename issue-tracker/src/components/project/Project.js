@@ -9,9 +9,9 @@ import Tab from "react-bootstrap/Tab";
 import Row from "react-bootstrap/Row";
 import Issue from "../issue/Issue";
 import Spinner from 'react-bootstrap/Spinner';
+import Card from 'react-bootstrap/Card';
 
-
-const Project = () => {
+const Project = ({history}) => {
     const {id} = useParams();
     const [issueId, setIssueId] = useState(null);
     const { loading, error, data } = useQuery(ISSUES, {
@@ -22,14 +22,23 @@ const Project = () => {
                     <span className="sr-only">Loading...</span>
               </Spinner>);
     if (error) return <Error error={error.message}/>;
-    
+    if (data.allIssues.length===0) {
+      setTimeout(()=>{history.push("/projects")}, 5000);
+      return <Error error={'This project doesn\'t have created issues'}/>;
+    }
     return( 
     <Tab.Container id="list-group-tabs-example">
     <Row>
       <Col sm={2}>
           <ListGroup fixed="left">
                 {data.allIssues.map(issue=>
-                  <ListGroup.Item key={issue.id} onClick={()=>setIssueId(issue.id)}>{issue.summary}</ListGroup.Item>)}
+                  <ListGroup.Item key={issue.id} onClick={()=>setIssueId(issue.id)}>
+                  <Card>
+                  <Card.Title>{issue.Project.name}</Card.Title>
+                  <Card.Text>
+                  Summary: {issue.summary}
+                  </Card.Text>
+                  </Card></ListGroup.Item>)}
           </ListGroup>
       </Col>
       <Col sm={8}>
