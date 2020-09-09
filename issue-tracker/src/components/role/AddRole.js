@@ -20,7 +20,7 @@ const schema = yup.object().shape({
   });
 
 
-const AddRole = ({projects}) => {
+const AddRole = ({project}) => {
     const [addRole] = useMutation(ADD_ROLE);
     const { register, handleSubmit, reset, errors } = useForm({
         resolver: yupResolver(schema)
@@ -45,8 +45,7 @@ const AddRole = ({projects}) => {
             <Form.Label>Project</Form.Label>
             
             <Form.Control placeholder="project" name="project" type='text' ref={register} id='project' as="select" custom>
-            {projects.map(project=>
-                <option key={shortid.generate()} value={project.project}>{project.project}</option>)}
+                <option value={project}>{project}</option>
             </Form.Control>
             <Form.Text>{errors.project?.message}</Form.Text>
         </Form.Group>
