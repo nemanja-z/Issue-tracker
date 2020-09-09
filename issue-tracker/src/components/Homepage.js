@@ -48,9 +48,6 @@ const Homepage = () => {
             <Route path="/projects">
               {data&&<AllProjects projects={data.allProjectManagers}/>}
             </Route>
-            <Route path="/new-issue">
-              {data && <IssueForm history={history} projects={data.allProjectManagers}/>}
-            </Route>
             <Route path="/new-project">
               <ProjectForm history={history}/>
             </Route>
@@ -71,6 +68,8 @@ const Homepage = () => {
     )
 }
 
-
+/*<Route path="/new-issue">
+              {data && <IssueForm history={history} projects={data.allProjectManagers}/>}
+            </Route>*/
 
 export default Homepage;

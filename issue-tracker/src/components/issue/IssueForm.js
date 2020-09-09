@@ -15,19 +15,18 @@ const schema = yup.object().shape({
     priority:yup.string(),
     description:yup.string(),
     resolution:yup.string(),
-    status:yup.string(),
-    project:yup.string().required()
+    status:yup.string()
   });
 
-const IssueForm = ({projects, history}) => {
+const IssueForm = ({project, setShow, show}) => {
     const [reportIssue] = useMutation(REPORT, {
-        onCompleted:()=>history.push("/")
+        onCompleted:()=>setShow(!show)
     });
     const { register, handleSubmit, reset, errors } = useForm({
         resolver: yupResolver(schema)
       });
-    const createIssue=handleSubmit(({summary, description, priority, resolution, status, issue_type, project})=>{
-        reportIssue({variables:{input:{summary, description, priority, resolution, status, issue_type, project}}});
+    const createIssue=handleSubmit(({summary, description, priority, resolution, status, issue_type})=>{
+        reportIssue({variables:{input:{summary, description, priority, resolution, status, issue_type, project:project.allIssues[0].Project.name}}});
         reset();
     }); 
     return(
@@ -88,15 +87,6 @@ const IssueForm = ({projects, history}) => {
             </Form.Control>
             <Form.Text>{errors.status?.message}</Form.Text>
         </Form.Group>
-        <Form.Group>
-            <Form.Label>Project</Form.Label>
-            
-            <Form.Control placeholder="project" name="project" type='text' ref={register} id='project' as="select" custom>
-            {projects.map(project=>
-                <option key={shortid.generate()} value={project.project}>{project.project}</option>)}
-            </Form.Control>
-            <Form.Text>{errors.status?.message}</Form.Text>
-        </Form.Group>
         </Form.Row>
         <Button variant="primary" type="submit">
           Submit
@@ -106,7 +96,8 @@ const IssueForm = ({projects, history}) => {
 }
 
 IssueForm.propTypes={
-    projects:PropTypes.array,
-    history:PropTypes.object.isRequired
+    project:PropTypes.object,
+    show:PropTypes.bool.isRequired,
+    setShow:PropTypes.func.isRequired
 }
 export default IssueForm;
