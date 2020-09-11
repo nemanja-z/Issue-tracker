@@ -39,7 +39,10 @@ const Login = () =>{
         onError: (error) =>  setError(error.graphQLErrors[0].message) });
     const [login, {data}] = useMutation(LOGIN, {
         onError: (error) =>  setError(error.graphQLErrors[0].message),
-        onCompleted:()=>history.push("/")});
+        onCompleted:(data)=>{
+            localStorage.setItem('auth', data.loginUser);
+            history.push("/");
+    }});
     const [passwordShown, setPasswordShown] = useState(false);
     const eye = <FontAwesomeIcon icon={faEye} />;
 
@@ -56,12 +59,6 @@ const Login = () =>{
         reset();
         setLoginStatus(!loginStatus);
     });
-
-     useEffect(()=>{
-        if(data){
-            localStorage.setItem('auth', data.loginUser);
-        }
-    },[data]) 
 
     useEffect(()=>{
         if(error){

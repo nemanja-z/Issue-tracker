@@ -4,7 +4,8 @@ import {Link} from "react-router-dom";
 import PropTypes from 'prop-types';
 import ModalRole from "../role/ModalRole";
 
-const AllProjects = ({projects}) => {
+const AllProjects = ({projects, username}) => {
+    console.log(projects)
     return(
         <Table striped bordered hover>
         <thead>
@@ -21,7 +22,7 @@ const AllProjects = ({projects}) => {
                 <td><Link to={`/projects/:${p.projectId}`}>{p.project}</Link></td>
                 <td><Link to={`/projects/:${p.leaderId}`}>{p.project_lead}</Link></td>
                 <td>{p.url}</td>
-                <td><ModalRole project={p.project}/></td>
+                {username === p.project_lead ? <td><ModalRole project={p.project}/></td> : <td></td>}
             </tr>
             )}
         </tbody>
@@ -29,6 +30,7 @@ const AllProjects = ({projects}) => {
     )
 }
 AllProjects.propTypes={
-    projects:PropTypes.array
+    projects:PropTypes.array,
+    username:PropTypes.string
 }
 export default AllProjects;

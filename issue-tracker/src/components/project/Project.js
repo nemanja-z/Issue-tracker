@@ -29,13 +29,15 @@ const Project = ({history}) => {
     if (error) return <Error error={error.message}/>;
     
     if (data.allIssues.length===0) {
-      setTimeout(()=>{history.push("/projects")}, 5000);
-      return <Error error={'This project doesn\'t have created issues'}/>;
+      return(
+        <div>
+          {data && <ModalIssue id={id.slice(1)}/>}
+        </div>
+      )
     }
-    console.log(data)
     return( 
     <Tab.Container id="list-group-tabs-example">
-    {data && <ModalIssue project={data}/>}
+    {data && <ModalIssue id={id.slice(1)}/>}
     <Row>
       <Col sm={2}>
           <ListGroup fixed="left">
@@ -51,7 +53,7 @@ const Project = ({history}) => {
       </Col>
       <Col sm={8}>
       <Tab.Content>
-        {issueId && <Issue issueId={issueId}/>}
+        {issueId && <Issue issueId={issueId} id={id.slice(1)}/>}
       </Tab.Content>
       
     </Col>

@@ -4,10 +4,12 @@ import Button from 'react-bootstrap/Button';
 import { useForm } from "react-hook-form";
 import PropTypes from 'prop-types';
 import {REPORT} from "../../queries/issue/queries";
+import {PROJECT} from "../../queries/project/queries";
 import {useMutation} from "@apollo/client";
-import shortid from 'shortid';
 import { yupResolver } from '@hookform/resolvers';
 import * as yup from "yup";
+import {useQuery} from "@apollo/client";
+
 
 const schema = yup.object().shape({
     summary: yup.string().min(5).required(),
@@ -18,7 +20,7 @@ const schema = yup.object().shape({
     status:yup.string()
   });
 
-const IssueForm = ({project, setShow, show}) => {
+const IssueForm = ({ setShow, show, id}) => {
     const [reportIssue] = useMutation(REPORT, {
         onCompleted:()=>setShow(!show)
     });
@@ -26,9 +28,12 @@ const IssueForm = ({project, setShow, show}) => {
         resolver: yupResolver(schema)
       });
     const createIssue=handleSubmit(({summary, description, priority, resolution, status, issue_type})=>{
-        reportIssue({variables:{input:{summary, description, priority, resolution, status, issue_type, project:project.allIssues[0].Project.name}}});
+        reportIssue({variables:{input:{summary, description, priority, resolution, status, issue_type, project:data.findProject.name}}});
         reset();
     }); 
+    const {data} = useQuery(PROJECT,{
+        variables:{projectId: id}});
+
     return(
         <Form onSubmit={createIssue}>
         <Form.Row>
@@ -96,7 +101,7 @@ const IssueForm = ({project, setShow, show}) => {
 }
 
 IssueForm.propTypes={
-    project:PropTypes.object,
+    id:PropTypes.string,
     show:PropTypes.bool.isRequired,
     setShow:PropTypes.func.isRequired
 }

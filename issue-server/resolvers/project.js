@@ -4,6 +4,10 @@ export default {
             const projects=await models.Project.findAll({ include:[{model:models.User}]});
             return projects; 
         },
+        findProject:async(_, args, {models})=>{
+            const projects=await models.Project.findOne({where:{id:args.projectId}, include:[{model:models.User}]});
+            return projects; 
+        },
         userProjects:async(_, args, {models, user})=>{
             try{
                 const projectManager=await models.Role.findAll({where:{role:"Manager"} });

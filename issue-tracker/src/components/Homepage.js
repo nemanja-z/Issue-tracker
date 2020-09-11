@@ -21,7 +21,6 @@ const Homepage = () => {
     const history = useHistory();
     const client = useApolloClient();
     const logOut = () => {
-        client.resetStore();
         localStorage.clear();
         history.push("/login");
     };
@@ -38,6 +37,8 @@ const Homepage = () => {
     if(error||user_error){
         return error?<Error error={error.message}/>:<Error error={user_error.message}/>
     }
+    const username=user_data.userProjects[0]?.project_lead;
+
     return(
         <>
         <Header logOut={logOut}/>
@@ -46,7 +47,7 @@ const Homepage = () => {
                 <Project history={history}/>
             </Route>
             <Route path="/projects">
-              {data&&<AllProjects projects={data.allProjectManagers}/>}
+              {data&&<AllProjects projects={data.allProjectManagers} username={username}/>}
             </Route>
             <Route path="/new-project">
               <ProjectForm history={history}/>
