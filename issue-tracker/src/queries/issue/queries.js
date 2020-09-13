@@ -42,8 +42,9 @@ mutation createIssue($input:Fields){
         createIssue(input:$input)}`;
 
 export const ASSIGN=gql`
-mutation assignIssue($user:String!, $issue:String!, $project:String!){
-        assignIssue(user:$user, issue:$issue, project:$project)}`;
+mutation assigne($user:String!, $issue:String!, $project:String!){
+        assignUser(user:$user, issue:$issue, project:$project)
+}`;
 
 export const ISSUE_LIST=gql`
 query {issuesAll{

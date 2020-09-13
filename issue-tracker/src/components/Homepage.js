@@ -38,13 +38,14 @@ const Homepage = () => {
         return error?<Error error={error.message}/>:<Error error={user_error.message}/>
     }
     const username=user_data.userProjects[0]?.project_lead;
+    const projects = user_data.userProjects?.map(project=>project);
 
     return(
         <>
         <Header logOut={logOut}/>
         <Switch>
             <Route path="/projects/:id">
-                <Project history={history}/>
+                <Project projects={projects}/>
             </Route>
             <Route path="/projects">
               {data&&<AllProjects projects={data.allProjectManagers} username={username}/>}

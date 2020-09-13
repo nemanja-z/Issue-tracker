@@ -14,7 +14,7 @@ import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 
 
-const Project = ({history}) => {
+const Project = ({projects}) => {
     const {id} = useParams();
     const [issueId, setIssueId] = useState(null);
     const { loading, error, data } = useQuery(ISSUES, {
@@ -53,7 +53,7 @@ const Project = ({history}) => {
       </Col>
       <Col sm={8}>
       <Tab.Content>
-        {issueId && <Issue issueId={issueId} id={id.slice(1)}/>}
+        {issueId && <Issue projects={projects} issueId={issueId}/>}
       </Tab.Content>
       
     </Col>
@@ -64,4 +64,3 @@ const Project = ({history}) => {
 }
 
 export default Project;
-

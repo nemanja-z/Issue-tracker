@@ -7,18 +7,22 @@ import Card from "react-bootstrap/Card";
 import CardDeck from "react-bootstrap/CardDeck";
 import Spinner from 'react-bootstrap/Spinner';
 import './index.css';
+import ModalAssign from "../user/ModalAssign";
 
 
-
-const Issue = ({issueId}) => {
+const Issue = ({issueId, projects}) => {
   const { loading, error, data } = useQuery(ISSUE, {
     variables: { issueId },
   });
-  if (loading) return (<Spinner animation="border" role="status">
+  console.log(issueId)
+  if (loading) {
+    return (<Spinner animation="border" role="status">
                 <span className="sr-only">Loading...</span>
-          </Spinner>);
+          </Spinner>);}
   if (error) return <Error error={error.message}/>;
   return(
+    <>
+  <ModalAssign projects={projects}/>
   <CardDeck>
     <Card>
         <Card.Body>
@@ -69,7 +73,7 @@ const Issue = ({issueId}) => {
         </Card.Body>
     </Card>
 </CardDeck>
-          
+      </>    
     )
 }
  Issue.propTypes = {

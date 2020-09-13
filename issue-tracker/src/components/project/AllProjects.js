@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import ModalRole from "../role/ModalRole";
 
 const AllProjects = ({projects, username}) => {
-    console.log(projects)
     return(
         <Table striped bordered hover>
         <thead>

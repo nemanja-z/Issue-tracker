@@ -23,7 +23,7 @@ const schema = yup.object().shape({
 const AssignUser = ({projects}) => {
     const [assignUser] = useMutation(ASSIGN);
     const { loading:issue_loading, error:issue_error, data:issue_data } = useQuery(ISSUE_LIST,{
-        onError: (error) =>  console.log(issue_error.graphQLErrors[0].message)
+        onError: (error) =>  console.log(error.graphQLErrors[0].message)
     });
     const { register, handleSubmit, reset, errors } = useForm({
         resolver: yupResolver(schema)
@@ -40,7 +40,8 @@ const AssignUser = ({projects}) => {
         return error?<Error error={error.message}/>:<Error error={issue_error.message}/>
     }
     const addAssignment=handleSubmit(({project, user, issue})=>{
-        assignUser({project, user, issue});
+        console.log(user, 'user')
+        assignUser({variables:{project, user, issue}});
         reset();
     });
     if(issue_data.issuesAll.length===0){
