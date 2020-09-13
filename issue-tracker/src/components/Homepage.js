@@ -5,9 +5,7 @@ import Header from "./Header";
 import {Switch, Route} from "react-router-dom";
 import AllProjects from "./project/AllProjects";
 import MyProjects from "./project/MyProjects";
-import Assigned from './issue/Assigned';
 import Project from "./project/Project";
-import IssueForm from './issue/IssueForm';
 import ProjectForm from './project/ProjectForm';
 import AssignUser from './user/AssignUser';
 import AddRole from './role/AddRole';
@@ -58,9 +56,6 @@ const Homepage = () => {
             </Route>
             <Route path="/add-roles">
                {user_data && <AddRole projects={user_data.userProjects}/>}
-            </Route>
-            <Route path="/assigned-issues">
-                <Assigned/>
             </Route>
             <Route path="/user-projects">
             {user_data && <MyProjects projects={user_data.userProjects}/>}

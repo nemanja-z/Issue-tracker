@@ -12,6 +12,7 @@ import Issue from "../issue/Issue";
 import Spinner from 'react-bootstrap/Spinner';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
+import './index.css';
 
 
 const Project = ({projects}) => {
