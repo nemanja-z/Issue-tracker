@@ -12,6 +12,7 @@ export default `
     reporter:ID!
     createdAt:Date
     updatedAt:Date
+    Users:[User]
   }
   input Fields{
     summary:String!

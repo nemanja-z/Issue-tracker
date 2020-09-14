@@ -17,7 +17,8 @@ query Issue($projectId:String){
                 Project{
                         name
                         url
-                }}
+                }
+        }
 }`;
 export const ISSUE=gql`
 query Issue($issueId:String){
@@ -35,6 +36,10 @@ query Issue($issueId:String){
                 Project{
                         name
                         url
+                }
+                Users{
+                        username
+                        email
                 }}
 }`;
 export const REPORT=gql`

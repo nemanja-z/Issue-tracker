@@ -9,7 +9,9 @@ export default {
         },
         targetIssue:async(_, args, {models})=>{
             const issue=await models.Issue.findOne({where:{id:args.issueId},
-                include:{model:models.Project}});
+                include:[{model:models.Project}, {model:models.User, through:{
+                    model:models.Assignee
+                }}]});
             return issue;
         },
         issuesAll:async(_, args, {models,user})=>{

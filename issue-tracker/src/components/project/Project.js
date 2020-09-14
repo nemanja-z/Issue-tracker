@@ -28,7 +28,6 @@ const Project = ({projects}) => {
         </Spinner>);
             }
     if (error) return <Error error={error.message}/>;
-    
     if (data.allIssues.length===0) {
       return(
         <div>

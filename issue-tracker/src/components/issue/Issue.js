@@ -20,6 +20,7 @@ const Issue = ({issueId, projects}) => {
                 <span className="sr-only">Loading...</span>
           </Spinner>);}
   if (error) return <Error error={error.message}/>;
+  console.log(data)
   return(
     <>
   <ModalAssign projects={projects}/>
@@ -37,7 +38,8 @@ const Issue = ({issueId, projects}) => {
   </Row>
   <Row >
     <Col>Reporter: {data.targetIssue.reporter}</Col>
-    <Col>Assigned to: </Col>
+    <Col>Assigned to: {data.targetIssue.Users?.map(user=>
+    <p key={user.username}>{user.username}</p>)}</Col>
   </Row>
   <Row >
     <Col>Created: {new Date(data.targetIssue.createdAt).toUTCString()}</Col>
