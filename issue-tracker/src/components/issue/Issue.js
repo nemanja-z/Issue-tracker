@@ -9,7 +9,7 @@ import Container from "react-bootstrap/Container";
 import Spinner from 'react-bootstrap/Spinner';
 import './index.css';
 import ModalAssign from "../user/ModalAssign";
-
+import CommentForm from "../comment/CommentForm";
 
 const Issue = ({issueId, projects}) => {
   const { loading, error, data } = useQuery(ISSUE, {
@@ -46,6 +46,7 @@ const Issue = ({issueId, projects}) => {
     <Col>Updated: {new Date(data.targetIssue.updatedAt).toUTCString()}</Col>
   </Row>
   </Container>
+  <CommentForm issueId={issueId}/>
       </>    
     )
 }

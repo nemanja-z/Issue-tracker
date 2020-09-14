@@ -31,5 +31,6 @@ export default `
   type Mutation{
     createIssue(input:Fields):Boolean!
     assignUser(user:String!, issue:String!, project:String!):Boolean!
+    postComment(comment:String!, issueId:String!):Boolean!
   }
 `;

@@ -4,10 +4,6 @@ module.exports =(sequelize, DataTypes) => {
             type:DataTypes.STRING
           }
     });
-    Comment.associate = models => {
-        Comment.belongsToMany(models.Issue, {
-          through: "Post"
-        });
-    }
+    
     return Comment;
   };

@@ -11,7 +11,7 @@ module.exports = {
           allowNull: false,
           type: Sequelize.DATE,
         },
-        CommentId: {
+        UserId: {
           type: Sequelize.DataTypes.UUID,
           defaultValue: Sequelize.DataTypes.UUIDV4,
           primaryKey: true
