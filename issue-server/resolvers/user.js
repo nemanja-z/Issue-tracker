@@ -30,7 +30,6 @@ export default {
 
             } catch (err) {
                 throw new Error(err);
-                console.log(err);
             }
         },
         loginUser: async (_, args, { models }) => {

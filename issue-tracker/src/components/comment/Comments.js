@@ -11,12 +11,12 @@ const Comments = ({issueId}) => {
     const { loading, error, data } = useQuery(COMMENTS, {
         variables: { issueId },
       });
-      if (loading) {
-        return (<Spinner animation="border" role="status">
-                    <span className="sr-only">Loading...</span>
-              </Spinner>);}
-      if (error) return <Error error={error.message}/>;
-      console.log(data)
+    if (loading) {
+    return (<Spinner animation="border" role="status">
+                <span className="sr-only">Loading...</span>
+            </Spinner>);}
+    if (error) return <Error error={error.message}/>;
+    console.log(data)
     return(
     <ListGroup>
         {data.issueComment?.map(c=>
