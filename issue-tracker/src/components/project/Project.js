@@ -35,6 +35,7 @@ const Project = ({projects}) => {
         </div>
       )
     }
+    console.log(data.allIssues)
     return( 
     <Tab.Container id="list-group-tabs-example">
     {data && <ModalIssue id={id.slice(1)}/>}

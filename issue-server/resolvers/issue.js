@@ -12,7 +12,10 @@ export default {
                 include:[{model:models.Project}, {model:models.User, through:{
                     model:models.Assignee
                 }}]});
-            console.log(issue)
+            return issue;
+        },
+        issueComment:async(_, args, {models})=>{
+            const issue=await models.Comment.findAll({where:{IssueId:args.issueId}});
             return issue;
         },
         issuesAll:async(_, args, {models,user})=>{
@@ -87,12 +90,12 @@ export default {
                 throw new Error('You are not authorized to report issue!');
             }
             const issue = await models.Issue.findOne({where:{id:args.issueId}});
-            const loggedUser = await models.User.findOne({where:{id:user.id}});
             if(!issue){
                 throw new Error('Issue doesn\'t exist');
             }
             try{
-                await issue.addComment(loggedUser, {through:{comment:args.comment}});
+                await issue.addUser(user, {through:{comment:args.comment}})
+                //await models.Comment.create({comment:args.comment, UserId:user.id, IssueId:issue.id});
                 return true;
             }catch(e){
                 console.log(e);

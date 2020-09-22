@@ -10,6 +10,8 @@ import Spinner from 'react-bootstrap/Spinner';
 import './index.css';
 import ModalAssign from "../user/ModalAssign";
 import CommentForm from "../comment/CommentForm";
+import Comments from "../comment/Comments";
+
 
 const Issue = ({issueId, projects}) => {
   const { loading, error, data } = useQuery(ISSUE, {
@@ -20,7 +22,6 @@ const Issue = ({issueId, projects}) => {
                 <span className="sr-only">Loading...</span>
           </Spinner>);}
   if (error) return <Error error={error.message}/>;
-  console.log(data)
   return(
     <>
   <ModalAssign projects={projects}/>
@@ -47,6 +48,7 @@ const Issue = ({issueId, projects}) => {
   </Row>
   </Container>
   <CommentForm issueId={issueId}/>
+  <Comments issueId={issueId}/>
       </>    
     )
 }

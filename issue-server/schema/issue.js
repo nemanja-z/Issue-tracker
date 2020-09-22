@@ -1,5 +1,8 @@
 export default `
   scalar Date
+  type Comment{
+    comment:String
+  }
   type Issue{
     id:ID!
     issue_type:String!
@@ -27,6 +30,7 @@ export default `
     issuesAll:[Issue]
     allIssues(projectId:String): [Issue]
     targetIssue(issueId:String): Issue
+    issueComment(issueId:String): [Comment]
   }
   type Mutation{
     createIssue(input:Fields):Boolean!

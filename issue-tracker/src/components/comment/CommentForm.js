@@ -18,11 +18,13 @@ const CommentForm = ({issueId}) => {
         resolver: yupResolver(schema)
       });
     const [postComment] = useMutation(POST,{
+        onComplete:()=>console.log('It\'s working'),
         onError:(e)=>console.log(e)});
     const handleComment=handleSubmit(({comment})=>{
         postComment({variables:{comment,issueId}});
         reset();
     }); 
+    console.log(postComment)
 
 
 

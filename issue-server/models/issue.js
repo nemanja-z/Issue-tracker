@@ -46,8 +46,9 @@ module.exports =(sequelize, DataTypes) => {
     Issue.belongsToMany(models.User, {
       through: "Assignee"
     });
-    Issue.belongsToMany(models.Comment, {
-      through: "Post"
+    Issue.belongsToMany(models.User, {
+      through: "Comment",
+      
     });
   }; 
   return Issue;
