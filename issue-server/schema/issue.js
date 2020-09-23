@@ -3,6 +3,9 @@ export default `
   type Comment{
     comment:String
   }
+  type UserComment{
+    Users:Comment
+  }
   type Issue{
     id:ID!
     issue_type:String!

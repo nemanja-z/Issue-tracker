@@ -15,8 +15,9 @@ export default {
             return issue;
         },
         issueComment:async(_, args, {models})=>{
-            const issue=await models.Comment.findAll({where:{IssueId:args.issueId}});
-            return issue;
+            const comments=await models.Comment.findAll({where:{IssueId:args.issueId}});
+            console.log(comments)
+            return comments;
         },
         issuesAll:async(_, args, {models,user})=>{
             const role=await models.Role.findAll({where:
@@ -94,8 +95,8 @@ export default {
                 throw new Error('Issue doesn\'t exist');
             }
             try{
-                await issue.addUser(user, {through:{comment:args.comment}})
-                //await models.Comment.create({comment:args.comment, UserId:user.id, IssueId:issue.id});
+                await models.Comment.create({comment:args.comment, UserId:user.id, IssueId:args.issueId});
+                //await issue.addUser(user, {through:{comment:args.comment}});
                 return true;
             }catch(e){
                 console.log(e);

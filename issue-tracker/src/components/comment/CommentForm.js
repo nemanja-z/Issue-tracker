@@ -24,10 +24,7 @@ const CommentForm = ({issueId}) => {
         postComment({variables:{comment,issueId}});
         reset();
     }); 
-    console.log(postComment)
-
-
-
+    
     return( 
             <Form inline='true' onSubmit={handleComment}>
             <Form.Group>
