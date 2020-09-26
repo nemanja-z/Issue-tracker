@@ -38,7 +38,7 @@ module.exports =(sequelize, DataTypes) => {
         onUpdate: 'CASCADE',
         onDelete: 'SET NULL',
     }
-  })
+  });
    Issue.associate = models => {
     Issue.belongsTo(models.Project, {
       foreignKey: "project"
@@ -46,12 +46,9 @@ module.exports =(sequelize, DataTypes) => {
     Issue.belongsToMany(models.User, {
       through: "Assignee"
     });
-    Issue.belongsToMany(models.User, {
-      through:{ 
-        model:"Comment",
-        unique: false
-      },
-      constraints: false
+    Issue.hasMany(models.Comment, {
+      foreignKey: 'issueId',
+      constraints: false,
     });
   }; 
   return Issue;

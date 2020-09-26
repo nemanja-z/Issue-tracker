@@ -20,6 +20,7 @@
     "react-hook-form": "^6.4.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
+    "sequelize": "^6.3.5",
     "shortid": "^2.2.15",
     "yup": "^0.29.3"
   },
@@ -43,5 +44,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "sequelize-cli": "^6.2.0"
   }
 }

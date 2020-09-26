@@ -28,13 +28,6 @@ module.exports =(sequelize, DataTypes) => {
     User.belongsToMany(models.Issue, {
       through: "Assignee"
     });
-    User.belongsToMany(models.Issue, {
-        through:{
-          model:"Comment",
-          unique: false
-        },
-        constraints: false
-      });
 }
   return User;
 };

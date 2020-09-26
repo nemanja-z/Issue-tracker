@@ -3,6 +3,11 @@ module.exports = {
     return queryInterface.createTable(
       'Comment',
       {
+        id: {
+          type: Sequelize.DataTypes.UUID,
+          defaultValue: Sequelize.DataTypes.UUIDV4,
+          primaryKey: true
+        },
         createdAt: {
           allowNull: false,
           type: Sequelize.DATE,
@@ -11,15 +16,15 @@ module.exports = {
           allowNull: false,
           type: Sequelize.DATE,
         },
-        UserId: {
+        commenter: {
           type: Sequelize.DataTypes.UUID,
-          defaultValue: Sequelize.DataTypes.UUIDV4,
-          primaryKey: true
-        },
-        IssueId: {
-          type: Sequelize.DataTypes.UUID,
-          defaultValue: Sequelize.DataTypes.UUIDV4,
-          primaryKey: true
+            allowNull: false,
+            references: {
+              model: "User",
+              key: "id"
+            },
+            onUpdate: 'CASCADE',
+            onDelete: 'SET NULL',
         },
         comment:{
           type:Sequelize.DataTypes.STRING
