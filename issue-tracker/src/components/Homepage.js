@@ -51,12 +51,6 @@ const Homepage = () => {
             <Route path="/new-project">
               <ProjectForm history={history}/>
             </Route>
-            <Route path="/assign-users">
-                {user_data && <AssignUser projects={user_data.userProjects}/>}
-            </Route>
-            <Route path="/add-roles">
-               {user_data && <AddRole projects={user_data.userProjects}/>}
-            </Route>
             <Route path="/user-projects">
             {user_data && <MyProjects projects={user_data.userProjects}/>}
             </Route>
@@ -64,9 +58,5 @@ const Homepage = () => {
         </>
     )
 }
-
-/*<Route path="/new-issue">
-              {data && <IssueForm history={history} projects={data.allProjectManagers}/>}
-            </Route>*/
 
 export default Homepage;

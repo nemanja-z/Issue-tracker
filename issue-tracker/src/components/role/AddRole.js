@@ -26,6 +26,7 @@ const AddRole = ({project}) => {
         resolver: yupResolver(schema)
       });
     const { loading, error, data } = useQuery(ALL_USERS, {
+        variables:{me:true},
         onError: (error) =>  console.log(error.graphQLErrors[0].message)
     });
     if(loading)  {

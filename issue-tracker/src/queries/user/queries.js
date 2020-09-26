@@ -24,7 +24,8 @@ export const AUTH = gql`
         email
     }}`;
 export const ALL_USERS = gql`
-    query{allUsers{
+    query users($me:Boolean){
+        allUsers(me:$me){
         username
         email
         id

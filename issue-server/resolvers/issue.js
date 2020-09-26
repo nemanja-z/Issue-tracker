@@ -16,7 +16,6 @@ export default {
         },
         issueComment:async(_, args, {models})=>{
             const comments=await models.Comment.findAll({where:{issueId:args.issueId}});
-            console.log(comments)
             return comments;
         },
         issuesAll:async(_, args, {models,user})=>{

@@ -1,13 +1,17 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 import dotenv from 'dotenv';
+const { Op } = require("sequelize");
 const {UserInputError, AuthenticationError} = require('apollo-server');
 dotenv.config();
 export default {
     Query:{
-        allUsers:async(_,args,{models})=>{
-            const users=await models.User.findAll({});
-            return users;
+        allUsers:async(_,args,{models,user})=>{
+            return args.me ? await models.User.findAll({}) : await models.User.findAll({where:{
+                username:{
+                    [Op.not]:user.username
+                }
+            }});
         },
         currentUser:async(_,args,{models, user})=>{
              const currentUser = await models.User.findOne({where:{id:user.id}});

@@ -5,7 +5,7 @@ export default `
       email:String!
   }
   type Query{
-    allUsers: [User]
+    allUsers(me:Boolean): [User]
     currentUser: User
   }
   type Mutation{

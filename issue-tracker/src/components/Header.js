@@ -28,13 +28,6 @@ const Header = ({logOut}) => {
                     <Link to="/assigned-issues" className="nav-item">Assigned to me</Link>
                     <Dropdown.Divider />
                     <Link to="/issues" className="nav-item">Search for issues</Link>
-                    <Dropdown.Divider />
-                    <Link to="/new-issue" className="nav-item">Report Issue</Link>
-                </NavDropdown>
-                <NavDropdown title="Manage"  id="nav-dropdown">
-                    <Link to="/add-roles" className="nav-item">User Roles</Link>
-                    <Dropdown.Divider />
-                    <Link to="/assign-users" className="nav-item">Project Users</Link>
                 </NavDropdown>
             </Nav>
             <Form inline>
