@@ -7,8 +7,7 @@ import AllProjects from "./project/AllProjects";
 import MyProjects from "./project/MyProjects";
 import Project from "./project/Project";
 import ProjectForm from './project/ProjectForm';
-import AssignUser from './user/AssignUser';
-import AddRole from './role/AddRole';
+import AssignedToMe from "./issue/AssignedToMe";
 import {useQuery} from "@apollo/client";
 import {PROJECTS} from "../queries/project/queries";
 import {USER_PROJECTS} from "../queries/project/queries";
@@ -53,6 +52,9 @@ const Homepage = () => {
             </Route>
             <Route path="/user-projects">
             {user_data && <MyProjects projects={user_data.userProjects}/>}
+            </Route>
+            <Route path="/assigned-issues">
+            <AssignedToMe projects={projects}/>
             </Route>
         </Switch>
         </>

@@ -29,7 +29,7 @@ const AssignUser = ({projects}) => {
         resolver: yupResolver(schema)
       });
     const { loading, error, data } = useQuery(ALL_USERS,{
-        variables:{me:false},
+        variables:{me:true},
         onError: (error) =>  console.log(error.graphQLErrors[0].message)
     });
     if(loading||issue_loading) { 

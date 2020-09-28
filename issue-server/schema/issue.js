@@ -3,9 +3,6 @@ export default `
   type Comment{
     comment:String
   }
-  type UserComment{
-    Users:Comment
-  }
   type Issue{
     id:ID!
     issue_type:String!
@@ -31,6 +28,7 @@ export default `
   }
   type Query{
     issuesAll:[Issue]
+    assignedToMe: [Issue]
     allIssues(projectId:String): [Issue]
     targetIssue(issueId:String): Issue
     issueComment(issueId:String): [Comment]

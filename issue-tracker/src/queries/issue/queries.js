@@ -20,6 +20,23 @@ query Issue($projectId:String){
                 }
         }
 }`;
+export const ASSIGNED=gql`
+query {assignedToMe{
+                id
+                summary
+                issue_type
+                description
+                priority
+                resolution
+                reporter
+                status
+                createdAt
+                updatedAt
+                Project{
+                        name
+                        url
+                }
+}}`;
 export const ISSUE=gql`
 query Issue($issueId:String){
         targetIssue(issueId:$issueId){

@@ -14,6 +14,13 @@ export default {
                 }}]});
             return issue;
         },
+        assignedToMe:async(_,args,{models, user})=>{
+            return await models.Issue.findAll({
+                include:[{model:models.Project}, {model:models.User, through:{
+                    model:models.Assignee
+                },
+                where:{username:user.username}}]});
+        },
         issueComment:async(_, args, {models})=>{
             const comments=await models.Comment.findAll({where:{issueId:args.issueId}});
             return comments;
