@@ -11,6 +11,7 @@ import Row from "react-bootstrap/Row";
 import Issue from "../issue/Issue";
 import Spinner from 'react-bootstrap/Spinner';
 import Card from 'react-bootstrap/Card';
+import Table from "react-bootstrap/Table";
 import './index.css';
 
 
@@ -38,16 +39,27 @@ const Project = ({projects}) => {
     <Tab.Container id="list-group-tabs-example">
     {data && <ModalIssue id={id.slice(1)}/>}
     <Row>
-      <Col sm={2}>
-          <ListGroup fixed="left">
+      <Col sm={4}>
+          <ListGroup>
                 {data.allIssues.map(issue=>
                   <ListGroup.Item key={issue.id} onClick={()=>setIssueId(issue.id)}>
-                  <Card>
-                  <Card.Title>{issue.Project.name}</Card.Title>
-                  <Card.Text>
-                  Summary: {issue.summary}
-                  </Card.Text>
-                  </Card></ListGroup.Item>)}
+                 <Table>
+                   <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Project</th>
+                      <th>Summary</th>
+                    </tr>
+                   </thead>
+                   <tbody>
+                     <tr>
+                       <td>{issue.id}</td>
+                       <td>{issue.Project.name}</td>
+                       <td>{issue.summary}</td>
+                     </tr>
+                   </tbody>
+                 </Table>
+                  </ListGroup.Item>)}
           </ListGroup>
       </Col>
       <Col sm={8}>
@@ -63,3 +75,10 @@ const Project = ({projects}) => {
 }
 
 export default Project;
+
+/* <Card>
+                  <Card.Title>{issue.Project.name}</Card.Title>
+                  <Card.Text>
+                  Summary: {issue.summary}
+                  </Card.Text>
+                  </Card> */

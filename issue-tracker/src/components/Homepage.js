@@ -3,11 +3,7 @@ import { useApolloClient } from '@apollo/client';
 import {useHistory} from "react-router-dom";
 import Header from "./Header";
 import {Switch, Route} from "react-router-dom";
-import AllProjects from "./project/AllProjects";
-import MyProjects from "./project/MyProjects";
 import Project from "./project/Project";
-import ProjectForm from './project/ProjectForm';
-import AssignedToMe from "./issue/AssignedToMe";
 import {useQuery} from "@apollo/client";
 import {PROJECTS} from "../queries/project/queries";
 import {USER_PROJECTS} from "../queries/project/queries";
@@ -45,20 +41,8 @@ const Homepage = () => {
             <Route path="/projects/:id">
                 <Project projects={projects}/>
             </Route>
-            <Route path="/projects">
-              {data&&<AllProjects projects={data.allProjectManagers} username={username}/>}
-            </Route>
-            <Route path="/new-project">
-              <ProjectForm history={history}/>
-            </Route>
-            <Route path="/user-projects">
-            {user_data && <MyProjects projects={user_data.userProjects}/>}
-            </Route>
-            <Route path="/assigned-issues">
-            <AssignedToMe projects={projects}/>
-            </Route>
             <Route path="/my-view">
-            {(user_data&&data) && <MyView history={history} my_projects={user_data.userProjects} projects={data.allProjectManagers} username={username}/>}
+            {(user_data&&data&&projects) && <MyView projectList={projects} history={history} my_projects={user_data.userProjects} projects={data.allProjectManagers} username={username}/>}
             </Route>
         </Switch>
         </>
