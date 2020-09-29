@@ -19,7 +19,7 @@ const ProjectForm = ({history}) => {
         resolver: yupResolver(schema)
       });
     const [createProject] = useMutation(CREATE,{
-        onCompleted:()=>history.push("/")});
+        onCompleted:()=>history.push("/my-view")});
     const handleNewProject=handleSubmit(({name,url})=>{
         createProject({variables:{name,url}});
         reset();

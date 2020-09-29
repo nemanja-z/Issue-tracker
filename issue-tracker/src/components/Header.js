@@ -14,9 +14,9 @@ const Header = ({logOut}) => {
     return(
         <>
         <Navbar bg="dark" variant="dark">
-            <Navbar.Brand >Issue buster</Navbar.Brand>
+            <Navbar.Brand >Bug tracker</Navbar.Brand>
             <Nav className="mr-auto">
-                <Link to="/dashboard" className="nav-link">Dashboard</Link>
+                <Link to="/my-view" className="nav-link">My View</Link>
                 <NavDropdown title="Projects" id="nav-dropdown">
                     <Link to="/user-projects" className="nav-item">My Projects</Link>
                     <Dropdown.Divider />
@@ -26,13 +26,9 @@ const Header = ({logOut}) => {
                 </NavDropdown>
                 <NavDropdown title="Issues" id="nav-dropdown">
                     <Link to="/assigned-issues" className="nav-item">Assigned to me</Link>
-                    <Dropdown.Divider />
-                    <Link to="/issues" className="nav-item">Search for issues</Link>
                 </NavDropdown>
             </Nav>
             <Form inline>
-                <FormControl type="text" placeholder="Search" className="mr-sm-2"/>
-                <Button variant="outline-info">Search</Button>
                 <Button variant="secondary" onClick={logOut}>Log Out</Button>
             </Form>
         </Navbar>

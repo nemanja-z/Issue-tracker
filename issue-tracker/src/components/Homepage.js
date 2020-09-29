@@ -13,6 +13,8 @@ import {PROJECTS} from "../queries/project/queries";
 import {USER_PROJECTS} from "../queries/project/queries";
 import Error from "./Error";
 import Spinner from 'react-bootstrap/Spinner';
+import MyView from './MyView';
+
 
 const Homepage = () => {
     const history = useHistory();
@@ -34,9 +36,8 @@ const Homepage = () => {
     if(error||user_error){
         return error?<Error error={error.message}/>:<Error error={user_error.message}/>
     }
-    const username=user_data.userProjects[0]?.project_lead;
+    const username=user_data.userProjects[0]?.project_lead || '';
     const projects = user_data.userProjects?.map(project=>project);
-
     return(
         <>
         <Header logOut={logOut}/>
@@ -55,6 +56,9 @@ const Homepage = () => {
             </Route>
             <Route path="/assigned-issues">
             <AssignedToMe projects={projects}/>
+            </Route>
+            <Route path="/my-view">
+            {(user_data&&data) && <MyView history={history} my_projects={user_data.userProjects} projects={data.allProjectManagers} username={username}/>}
             </Route>
         </Switch>
         </>

@@ -30,6 +30,6 @@ const AllProjects = ({projects, username}) => {
 }
 AllProjects.propTypes={
     projects:PropTypes.array,
-    username:PropTypes.string
+    username:PropTypes.string.isRequired
 }
 export default AllProjects;

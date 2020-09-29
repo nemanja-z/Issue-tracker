@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 import PropTypes from 'prop-types';
 import ModalRole from "../role/ModalRole";
 
-const MyProjects = ({projects}) =>{
+const MyProjects = ({my_projects}) =>{
     return(
         <Table striped bordered hover>
         <thead>
@@ -16,7 +16,7 @@ const MyProjects = ({projects}) =>{
             </tr>
         </thead>
         <tbody>
-            {projects.map(p=>
+            {my_projects.map(p=>
             <tr key={p.project}>
                 <td><Link to={`/projects/:${p.projectId}`}>{p.project}</Link></td>
                 <td><Link to={`/projects/:${p.leaderId}`}>{p.project_lead}</Link></td>
@@ -30,7 +30,7 @@ const MyProjects = ({projects}) =>{
 }
 
 MyProjects.propTypes={
-    projects:PropTypes.array
+    my_projects:PropTypes.array
 }
 
 export default MyProjects;

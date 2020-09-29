@@ -21,13 +21,16 @@ const AssignedToMe = ({projects}) => {
             }
     if (error) return <Error error={error.message}/>;
     console.log(data)
-    /* if (data.allIssues.length===0) {
+    if (data.assignedToMe.length===0) {
       return(
-        <div>
-          {data && <ModalIssue id={id.slice(1)}/>}
-        </div>
+        <Card>
+            <Card.Text>
+            There are not issues assigned to you
+            </Card.Text>
+        </Card>
+
       )
-    } */
+    } 
     return( 
     <Tab.Container id="list-group-tabs-example">
     <Row>

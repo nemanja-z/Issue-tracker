@@ -11,7 +11,6 @@ import Row from "react-bootstrap/Row";
 import Issue from "../issue/Issue";
 import Spinner from 'react-bootstrap/Spinner';
 import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button';
 import './index.css';
 
 
@@ -35,7 +34,6 @@ const Project = ({projects}) => {
         </div>
       )
     }
-    console.log(data.allIssues)
     return( 
     <Tab.Container id="list-group-tabs-example">
     {data && <ModalIssue id={id.slice(1)}/>}
