@@ -41,7 +41,7 @@ const Login = () =>{
         onError: (error) =>  setError(error.graphQLErrors[0].message),
         onCompleted:(data)=>{
             localStorage.setItem('auth', data.loginUser);
-            history.push("/");
+            history.push("/home");
     }});
     const [passwordShown, setPasswordShown] = useState(false);
     const eye = <FontAwesomeIcon icon={faEye} />;

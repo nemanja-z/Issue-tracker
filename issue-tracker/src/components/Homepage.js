@@ -10,7 +10,7 @@ import {USER_PROJECTS} from "../queries/project/queries";
 import Error from "./Error";
 import Spinner from 'react-bootstrap/Spinner';
 import MyView from './MyView';
-
+import AssignedToMe from "./issue/AssignedToMe";
 
 const Homepage = () => {
     const history = useHistory();
@@ -41,8 +41,11 @@ const Homepage = () => {
             <Route path="/projects/:id">
                 <Project projects={projects}/>
             </Route>
-            <Route path="/my-view">
-            {(user_data&&data&&projects) && <MyView projectList={projects} history={history} my_projects={user_data.userProjects} projects={data.allProjectManagers} username={username}/>}
+            <Route path="/home">
+            {(user_data&&data&&projects) && <MyView  history={history} my_projects={user_data.userProjects} projects={data.allProjectManagers} username={username}/>}
+            </Route>
+            <Route path="/my_tasks">
+                <AssignedToMe projectList={projects}/>
             </Route>
         </Switch>
         </>

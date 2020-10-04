@@ -5,6 +5,7 @@ import ListGroup from "react-bootstrap/ListGroup";
 import Col from "react-bootstrap/Col";
 import Tab from "react-bootstrap/Tab";
 import Row from "react-bootstrap/Row";
+import Container from "react-bootstrap/Container";
 import Spinner from 'react-bootstrap/Spinner';
 import Card from 'react-bootstrap/Card';
 import {useQuery} from "@apollo/client";
@@ -31,7 +32,8 @@ const AssignedToMe = ({projectList}) => {
 
       )
     } 
-    return( 
+    return(
+      <Container>
     <Tab.Container id="list-group-tabs-example">
     <Row>
       <Col sm={2}>
@@ -53,6 +55,7 @@ const AssignedToMe = ({projectList}) => {
     </Col>
       </Row>
       </Tab.Container>
+      </Container>
     )
 }
 

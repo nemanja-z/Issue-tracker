@@ -5,15 +5,17 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import MyProjects from './project/MyProjects';
 import AllProjects from './project/AllProjects';
 import ModalProject from './project/ModalProject';
-import AssignedToMe from './issue/AssignedToMe';
 import Card from 'react-bootstrap/Card';
 
-const MyView = ({history, my_projects, projects, username, projectList}) => {
+const MyView = ({history, my_projects, projects, username}) => {
   const [value, setValue] = useState('all');
 
     return(
         <>
         <Container>
+        <Card>
+        <Card.Header as="h2">Home</Card.Header>
+        </Card>
         <ButtonGroup toggle>
         <ToggleButton
             key='a'
@@ -42,12 +44,6 @@ const MyView = ({history, my_projects, projects, username, projectList}) => {
           <Container>
           <ModalProject history={history}/>
         {value === 'm' ? <MyProjects my_projects={my_projects}/> : <AllProjects projects={projects} username={username}/>}
-        </Container>
-        <Container>
-        <Card>
-            <Card.Title>Issues assigned to you</Card.Title>
-        </Card>
-        <AssignedToMe projectList={projectList}/>
         </Container>
         </>
     )
