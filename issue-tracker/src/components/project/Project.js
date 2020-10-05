@@ -11,6 +11,7 @@ import Row from "react-bootstrap/Row";
 import Issue from "../issue/Issue";
 import Spinner from 'react-bootstrap/Spinner';
 import Card from 'react-bootstrap/Card';
+import Container from "react-bootstrap/Container";
 import Table from "react-bootstrap/Table";
 import './index.css';
 
@@ -28,14 +29,8 @@ const Project = ({projects}) => {
         </Spinner>);
             }
     if (error) return <Error error={error.message}/>;
-    if (data.allIssues.length===0) {
-      return(
-        <div>
-          {data && <ModalIssue id={id.slice(1)}/>}
-        </div>
-      )
-    }
     return( 
+    <Container>
     <Tab.Container id="list-group-tabs-example">
     {data && <ModalIssue id={id.slice(1)}/>}
     <Row>
@@ -43,22 +38,12 @@ const Project = ({projects}) => {
           <ListGroup>
                 {data.allIssues.map(issue=>
                   <ListGroup.Item key={issue.id} onClick={()=>setIssueId(issue.id)}>
-                 <Table>
-                   <thead>
-                    <tr>
-                      <th>ID</th>
-                      <th>Project</th>
-                      <th>Summary</th>
-                    </tr>
-                   </thead>
-                   <tbody>
-                     <tr>
-                       <td>{issue.id}</td>
-                       <td>{issue.Project.name}</td>
-                       <td>{issue.summary}</td>
-                     </tr>
-                   </tbody>
-                 </Table>
+                  <Card>
+                    <Card.Body>
+                      <Card.Title>{issue.Project.name}</Card.Title>
+                      <Card.Text>{issue.summary}</Card.Text>
+                    </Card.Body>
+                  </Card>
                   </ListGroup.Item>)}
           </ListGroup>
       </Col>
@@ -70,15 +55,22 @@ const Project = ({projects}) => {
     </Col>
       </Row>
       </Tab.Container>
-                          
+      </Container>                   
     )
 }
 
 export default Project;
-
-/* <Card>
-                  <Card.Title>{issue.Project.name}</Card.Title>
-                  <Card.Text>
-                  Summary: {issue.summary}
-                  </Card.Text>
-                  </Card> */
+/*<Table>
+                   <thead>
+                    <tr>
+                      <th>Project</th>
+                      <th>Summary</th>
+                    </tr>
+                   </thead>
+                   <tbody>
+                     <tr>
+                       <td>{issue.Project.name}</td>
+                       <td>{issue.summary}</td>
+                     </tr>
+                   </tbody>
+                 </Table>*/

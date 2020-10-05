@@ -3,7 +3,7 @@ import Modal from "react-bootstrap/Modal";
 import ProjectForm from "./ProjectForm";
 import Button from "react-bootstrap/Button";
 
-const ModalProject = ({history}) => {
+const ModalProject = ({history, updateCacheWith}) => {
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
@@ -19,7 +19,7 @@ const ModalProject = ({history}) => {
           <Modal.Title>Create new project</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-        <ProjectForm history={history}/>
+        <ProjectForm history={history} updateCacheWith={updateCacheWith} show={show} setShow={setShow}/>
         </Modal.Body>
         <Modal.Footer onClick={handleClose}>
             <Modal.Footer>Close</Modal.Footer>

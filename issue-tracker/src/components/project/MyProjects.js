@@ -11,7 +11,7 @@ const MyProjects = ({my_projects}) =>{
             <tr>
                 <th>Project</th>
                 <th>Project_lead</th>
-                <th>Url</th>
+                <th>Updated</th>
                 <th>Add User</th>
             </tr>
         </thead>
@@ -20,7 +20,7 @@ const MyProjects = ({my_projects}) =>{
             <tr key={p.project}>
                 <td><Link to={`/projects/:${p.projectId}`}>{p.project}</Link></td>
                 <td><Link to={`/projects/:${p.leaderId}`}>{p.project_lead}</Link></td>
-                <td>{p.url}</td>
+                <td>{new Date(p.updatedAt).toUTCString()}</td>
                 <td><ModalRole project={p.project}/></td>
             </tr>
             )}

@@ -33,7 +33,10 @@ const AssignedToMe = ({projectList}) => {
       )
     } 
     return(
-      <Container>
+    <Container>
+    <Card>
+        <Card.Header as="h2">Issues assigned to you</Card.Header>
+    </Card>
     <Tab.Container id="list-group-tabs-example">
     <Row>
       <Col sm={2}>

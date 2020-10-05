@@ -46,13 +46,13 @@ export default {
                 throw new Error('You are not authorized to report issue!');
             }
             const targetProject=await models.Project.findOne({where:{name:input.project}});
-            const user_role=await models.Role.findOne({where:{
+            /* const user_role=await models.Role.findOne({where:{
                 UserId:user.id,
                 ProjectId:targetProject.id
             }});
             if(!user_role){
                 throw new Error('You are not authorized to report issue');
-            }
+            } */
             
              try {
                 await models.Issue.create({

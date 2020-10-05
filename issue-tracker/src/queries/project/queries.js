@@ -8,12 +8,16 @@ query {allProjectManagers{
     project
     url
     projectId
+    createdAt
+    updatedAt
 }}`;
 export const PROJECT = gql`
 query project($projectId:String!){
     findProject(projectId:$projectId){
     name
     url
+    createdAt
+    updatedAt
 }}`;
 export const CREATE = gql`
 mutation createProject($name:String!, $url:String){
@@ -26,4 +30,6 @@ query {userProjects{
     project
     url
     projectId
+    createdAt
+    updatedAt
 }}`;

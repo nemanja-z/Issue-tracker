@@ -32,6 +32,17 @@ const Homepage = () => {
     if(error||user_error){
         return error?<Error error={error.message}/>:<Error error={user_error.message}/>
     }
+    const updateCacheWith = project => {
+        const includedIn = (set, object) =>
+        set.map(b => b.id).includes(object.id)
+        const dataInStore = client.readQuery({ query: PROJECTS });
+        if (!includedIn(dataInStore.allProjectManagers, project)) {
+          client.writeQuery({
+            query: PROJECTS,
+            data: { allProjectManagers: dataInStore.allProjectManagers.concat(project) }
+          });
+        }
+      }
     const username=user_data.userProjects[0]?.project_lead || '';
     const projects = user_data.userProjects?.map(project=>project);
     return(
@@ -42,7 +53,7 @@ const Homepage = () => {
                 <Project projects={projects}/>
             </Route>
             <Route path="/home">
-            {(user_data&&data&&projects) && <MyView  history={history} my_projects={user_data.userProjects} projects={data.allProjectManagers} username={username}/>}
+            {(user_data&&data&&projects) && <MyView  updateCacheWith={updateCacheWith} history={history} projects={data.allProjectManagers} username={username}/>}
             </Route>
             <Route path="/my_tasks">
                 <AssignedToMe projectList={projects}/>

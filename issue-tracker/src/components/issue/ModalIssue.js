@@ -2,6 +2,8 @@ import React, {useState} from "react";
 import Modal from "react-bootstrap/Modal";
 import IssueForm from "./IssueForm";
 import Button from "react-bootstrap/Button";
+import Container from "react-bootstrap/Container";
+
 
 const ModalIssue = ({id}) => {
     const [show, setShow] = useState(false);
@@ -10,7 +12,7 @@ const ModalIssue = ({id}) => {
     const handleShow = () => setShow(true);
     
     return(
-    <>
+    <Container>
     <Button onClick={handleShow}>
       Report an issue
     </Button>
@@ -25,7 +27,7 @@ const ModalIssue = ({id}) => {
             <Modal.Footer>Close</Modal.Footer>
         </Modal.Footer>
     </Modal>
-    </>
+    </Container>
     )
 }
 

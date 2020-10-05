@@ -24,8 +24,8 @@ const Issue = ({issueId, projects}) => {
   if (error) return <Error error={error.message}/>;
   return(
     <>
-  <ModalAssign projects={projects}/>
   <Container>
+  <ModalAssign projects={projects}/>
   <Row>
     <Col>Type: {data.targetIssue.issue_type}</Col>
     <Col>Priority: {data.targetIssue.priority}</Col>

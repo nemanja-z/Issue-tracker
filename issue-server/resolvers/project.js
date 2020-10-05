@@ -42,7 +42,7 @@ export default {
                     for(let i=0; i<managers.length; i++){
                         project_lead=await models.User.findOne({where:{id:managers[i].user}},{ transaction: t });
                         project=await models.Project.findOne({where:{id:managers[i].project}},{ transaction: t });
-                        project_leads=[...project_leads, {leaderId:project_lead.id, project_lead:project_lead.username,project:project.name, url:project.url, projectId:project.id}];
+                        project_leads=[...project_leads,{createdAt:project_lead.createdAt, updatedAt:project_lead.updatedAt, leaderId:project_lead.id, project_lead:project_lead.username,project:project.name, url:project.url, projectId:project.id}];
                     }
                     return project_leads;
                  });
