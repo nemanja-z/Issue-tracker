@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import ModalRole from "../role/ModalRole";
 
 const AllProjects = ({projects, username}) => {
-    console.log(projects)
+    console.log(username)
     return(
         <Table striped bordered hover>
         <thead>
@@ -20,7 +20,7 @@ const AllProjects = ({projects, username}) => {
             <tr key={p.project}>
                 <td><Link to={`/projects/:${p.projectId}`}>{p.project}</Link></td>
                 <td><Link to={`/projects/:${p.leaderId}`}>{p.project_lead}</Link></td>
-                {username === p.project_lead ? <td><ModalRole project={p.project}/></td> : <td></td>}
+                {username===p.leaderId ? <td><ModalRole project={p.project}/></td> : <td></td>}
             </tr>
             )}
         </tbody>
@@ -28,7 +28,6 @@ const AllProjects = ({projects, username}) => {
     )
 }
 AllProjects.propTypes={
-    projects:PropTypes.array,
-    username:PropTypes.string.isRequired
+    projects:PropTypes.array
 }
 export default AllProjects;

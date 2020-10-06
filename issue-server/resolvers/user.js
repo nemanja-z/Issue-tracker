@@ -13,7 +13,7 @@ export default {
                 }
             }});
         },
-        currentUser:async(_,args,{models, user})=>{
+        me:async(_,args,{models, user})=>{
              const currentUser = await models.User.findOne({where:{id:user.id}});
              return currentUser;
         }

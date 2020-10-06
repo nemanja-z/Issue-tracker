@@ -8,8 +8,6 @@ query {allProjectManagers{
     project
     url
     projectId
-    createdAt
-    updatedAt
 }}`;
 export const PROJECT = gql`
 query project($projectId:String!){
@@ -30,6 +28,4 @@ query {userProjects{
     project
     url
     projectId
-    createdAt
-    updatedAt
 }}`;

@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import {LOGIN,SIGN_UP} from "../../queries/user/queries";
+import {LOGIN, SIGN_UP} from "../../queries/user/queries";
 import {useMutation} from "@apollo/client";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';

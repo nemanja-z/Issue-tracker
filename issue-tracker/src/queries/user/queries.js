@@ -18,10 +18,10 @@ export const ADD_ROLE = gql`
     }`;
 
 export const AUTH = gql`
-    query Authenticated{ 
-        currentUser{
+    query {me{ 
         username
         email
+        id
     }}`;
 export const ALL_USERS = gql`
     query users($me:Boolean){

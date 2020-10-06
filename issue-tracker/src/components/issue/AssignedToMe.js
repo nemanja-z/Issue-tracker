@@ -21,14 +21,15 @@ const AssignedToMe = ({projectList}) => {
         </Spinner>);
             }
     if (error) return <Error error={error.message}/>;
-    console.log(data)
     if (data.assignedToMe.length===0) {
       return(
+        <Container>
         <Card>
             <Card.Text>
             There are not issues assigned to you
             </Card.Text>
         </Card>
+        </Container>
 
       )
     } 

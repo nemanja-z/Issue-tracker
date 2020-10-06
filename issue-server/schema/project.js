@@ -9,13 +9,11 @@ export default `
       updatedAt:Date
   }
   type ProjectManager{
-    leaderId:ID!
+    leaderId:ID
     project_lead:String
     project:String
     url:String
     projectId:String
-    createdAt:Date
-    updatedAt:Date
   }
   type Query{
     allProjects:[Project]

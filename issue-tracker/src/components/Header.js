@@ -9,20 +9,18 @@ import '@trendmicro/react-sidenav/dist/react-sidenav.css';
 
 const Header = ({logOut}) => {
     return(
-            <SideNav>
+            <SideNav style={{backgroundColor:"transparent"}}>
             <SideNav.Nav>
                 <NavItem>
-                <Link to="/home" className="nav-link">Home</Link>
+                    <Link to="/home" className="nav-link">Home</Link>
                 </NavItem>
-            </SideNav.Nav>
-            <SideNav.Nav>
-            <NavItem>
-                <Link to="/my_tasks" className="nav-link">My Tasks</Link>
-                </NavItem>
-            </SideNav.Nav>
-            <SideNav.Nav>
+            
                 <NavItem>
-                <Button className="btn" onClick={logOut}>Log Out</Button>
+                    <Link to="/my_tasks" className="nav-link">My Tasks</Link>
+                </NavItem>
+            
+                <NavItem>
+                    <Button className="btn" onClick={logOut}>Log Out</Button>
                 </NavItem>
             </SideNav.Nav>
             </SideNav>
