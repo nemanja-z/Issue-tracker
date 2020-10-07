@@ -23,18 +23,18 @@ const AssignedToMe = ({projectList}) => {
     if (error) return <Error error={error.message}/>;
     if (data.assignedToMe.length===0) {
       return(
-        <Container>
+        <>
         <Card>
             <Card.Text>
             There are not issues assigned to you
             </Card.Text>
         </Card>
-        </Container>
+        </>
 
       )
     } 
     return(
-    <Container>
+    <>
     <Card>
         <Card.Header as="h2">Issues assigned to you</Card.Header>
     </Card>
@@ -59,7 +59,7 @@ const AssignedToMe = ({projectList}) => {
     </Col>
       </Row>
       </Tab.Container>
-      </Container>
+      </>
     )
 }
 

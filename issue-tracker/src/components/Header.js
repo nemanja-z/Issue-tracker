@@ -4,26 +4,30 @@ import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import PropTypes from 'prop-types';
 import {Link} from "react-router-dom";
-import SideNav, { Toggle, Nav, NavItem, NavIcon, NavText } from '@trendmicro/react-sidenav';
+import SideNav, { NavItem} from '@trendmicro/react-sidenav';
 import '@trendmicro/react-sidenav/dist/react-sidenav.css';
+import NavDropdown from 'react-bootstrap/NavDropdown';
 
-const Header = ({logOut}) => {
-    return(
+
+const Header = ({logOut, username}) => {
+    return(<Container style={{border:"solid"}}>
             <SideNav style={{backgroundColor:"transparent"}}>
             <SideNav.Nav>
                 <NavItem>
                     <Link to="/home" className="nav-link">Home</Link>
                 </NavItem>
-            
                 <NavItem>
                     <Link to="/my_tasks" className="nav-link">My Tasks</Link>
                 </NavItem>
-            
                 <NavItem>
-                    <Button className="btn" onClick={logOut}>Log Out</Button>
+                    <Link to="/manage" className="nav-link">Manage</Link>
                 </NavItem>
+                <NavDropdown title={username}>
+                    <Button className="nav-dropdown-item" size="sm" onClick={logOut}>Log Out</Button>
+                </NavDropdown>
             </SideNav.Nav>
             </SideNav>
+            </Container>
     )
 }
 Header.propTypes={

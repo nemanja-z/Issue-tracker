@@ -24,7 +24,7 @@ const Issue = ({issueId, projects}) => {
   if (error) return <Error error={error.message}/>;
   return(
     <>
-  <Container>
+    <div className="container">
   <ModalAssign projects={projects}/>
   <Row>
     <Col>Type: {data.targetIssue.issue_type}</Col>
@@ -46,10 +46,12 @@ const Issue = ({issueId, projects}) => {
     <Col>Created: {new Date(data.targetIssue.createdAt).toUTCString()}</Col>
     <Col>Updated: {new Date(data.targetIssue.updatedAt).toUTCString()}</Col>
   </Row>
-  </Container>
+  </div>
+  <>
   <CommentForm issueId={issueId}/>
   <Comments issueId={issueId}/>
-      </>    
+      </>
+      </> 
     )
 }
  Issue.propTypes = {

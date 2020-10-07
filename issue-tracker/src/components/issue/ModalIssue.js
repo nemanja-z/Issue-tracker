@@ -12,7 +12,7 @@ const ModalIssue = ({id}) => {
     const handleShow = () => setShow(true);
     
     return(
-    <Container>
+    <>
     <Button onClick={handleShow}>
       Report an issue
     </Button>
@@ -27,7 +27,7 @@ const ModalIssue = ({id}) => {
             <Modal.Footer>Close</Modal.Footer>
         </Modal.Footer>
     </Modal>
-    </Container>
+    </>
     )
 }
 

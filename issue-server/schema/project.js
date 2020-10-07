@@ -22,7 +22,7 @@ export default `
     findProject(projectId: String!):Project
   }
   type Mutation{
-      createProject(name:String!, url:String, role:String):Boolean!
+      createProject(name:String!, url:String):Boolean!
       addRole(username:String!, project:String!, role:String!):Boolean!
   }
 `;

@@ -4,17 +4,18 @@ import AllProjects from './project/AllProjects';
 import ModalProject from './project/ModalProject';
 import Card from 'react-bootstrap/Card';
 
-const MyView = ({history, projects, username, updateCacheWith}) => {
+const MyView = ({history, projects, username, updateCacheWith, users}) => {
 
     return(
         
-        <Container>
+        <>
         <Card>
         <Card.Header as="h2">Home</Card.Header>
         <Card.Link><ModalProject history={history} updateCacheWith={updateCacheWith}/></Card.Link>
         </Card>
-        <AllProjects projects={projects} username={username}/>
-        </Container>
+        <br/>
+        <AllProjects users={users} projects={projects} username={username}/>
+        </>
     )
 }
 

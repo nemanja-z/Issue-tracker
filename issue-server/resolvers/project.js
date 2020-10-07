@@ -61,10 +61,8 @@ export default {
             try {
                 const project=await models.Project.create({
                     ...args});
-                await project.addUser(user,{through:{role:'Admin'}});
-                if(!args.role){
-                    await project.addUser(user,{through:{role:'Manager'}});
-                }
+                //await project.addUser(user,{through:{role:'Admin'}});
+                await project.addUser(user,{through:{role:'Manager'}});
                 return true;
             } catch (err) {
                 console.log(err);

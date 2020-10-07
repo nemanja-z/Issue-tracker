@@ -11,8 +11,6 @@ import Row from "react-bootstrap/Row";
 import Issue from "../issue/Issue";
 import Spinner from 'react-bootstrap/Spinner';
 import Card from 'react-bootstrap/Card';
-import Container from "react-bootstrap/Container";
-import Table from "react-bootstrap/Table";
 import './index.css';
 
 
@@ -30,47 +28,32 @@ const Project = ({projects}) => {
             }
     if (error) return <Error error={error.message}/>;
     return( 
-    <Container>
-    <Tab.Container id="list-group-tabs-example">
-    {data && <ModalIssue id={id.slice(1)}/>}
-    <Row>
-      <Col sm={4}>
-          <ListGroup>
-                {data.allIssues.map(issue=>
-                  <ListGroup.Item key={issue.id} onClick={()=>setIssueId(issue.id)}>
-                  <Card>
-                    <Card.Body>
-                      <Card.Title>{issue.Project.name}</Card.Title>
-                      <Card.Text>{issue.summary}</Card.Text>
-                    </Card.Body>
-                  </Card>
-                  </ListGroup.Item>)}
-          </ListGroup>
-      </Col>
-      <Col sm={8}>
-      <Tab.Content>
-        {issueId && <Issue projects={projects} issueId={issueId}/>}
-      </Tab.Content>
-      
-    </Col>
-      </Row>
+      <>
+        <Tab.Container id="list-group-tabs-example">
+        {data && <ModalIssue id={id.slice(1)}/>}
+        <Row>
+          <Col sm={4}>
+              <ListGroup>
+                    {data.allIssues.map(issue=>
+                      <ListGroup.Item key={issue.id} onClick={()=>setIssueId(issue.id)}>
+                      <Card>
+                        <Card.Body>
+                          <Card.Title>{issue.Project.name}</Card.Title>
+                          <Card.Text>{issue.summary}</Card.Text>
+                        </Card.Body>
+                      </Card>
+                      </ListGroup.Item>)}
+              </ListGroup>
+          </Col>
+          <Col sm={8}>
+          <Tab.Content>
+            {issueId && <Issue projects={projects} issueId={issueId}/>}
+          </Tab.Content>
+          </Col>
+        </Row>
       </Tab.Container>
-      </Container>                   
+      </>                   
     )
 }
 
 export default Project;
-/*<Table>
-                   <thead>
-                    <tr>
-                      <th>Project</th>
-                      <th>Summary</th>
-                    </tr>
-                   </thead>
-                   <tbody>
-                     <tr>
-                       <td>{issue.Project.name}</td>
-                       <td>{issue.summary}</td>
-                     </tr>
-                   </tbody>
-                 </Table>*/

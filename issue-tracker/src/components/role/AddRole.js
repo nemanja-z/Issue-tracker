@@ -20,21 +20,18 @@ const schema = yup.object().shape({
   });
 
 
-const AddRole = ({project}) => {
+const AddRole = ({project, users}) => {
     const [addRole] = useMutation(ADD_ROLE);
     const { register, handleSubmit, reset, errors } = useForm({
         resolver: yupResolver(schema)
       });
-    const { loading, error, data } = useQuery(ALL_USERS, {
-        variables:{me:false},
-        onError: (error) =>  console.log(error.graphQLErrors[0].message)
-    });
-    if(loading)  {
+    
+    /* if(loading)  {
         return (<Spinner animation="border" role="status">
                     <span className="sr-only">Loading...</span>
                   </Spinner>);
                   }
-    if(error) return <Error error={error.message}/>
+    if(error) return <Error error={error.message}/> */
     const assignRole=handleSubmit(({project, username, role})=>{
         addRole({project, username, role});
         reset();
@@ -53,8 +50,8 @@ const AddRole = ({project}) => {
         <Form.Group>
             <Form.Label>Username</Form.Label>
             <Form.Control placeholder="username" name="username" type='text' ref={register} id='username' as="select" custom>
-            {data.allUsers.map(d=>
-                <option key={shortid.generate()} value={d.username}>{d.username}</option>)}
+            {users.map(user=>
+                <option key={shortid.generate()} value={user.username}>{user.username}</option>)}
             </Form.Control>
             <Form.Text>{errors.username?.message}</Form.Text>
         </Form.Group>
