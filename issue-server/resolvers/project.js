@@ -73,8 +73,19 @@ export default {
             if(!user){
                 throw new Error('You are not authorized to add roles!')
             }
-            const targetProject=await models.Project.findOne({where:{name:project}});
-            const addUserRole=await models.User.findOne({where:{username}});
+            let targetProject;
+            let addUserRole;
+            try{
+                 targetProject=await models.Project.findOne({where:{name:project}});
+            }catch(e){
+                throw new Error('Project doesn\'t exist');
+            }
+            try{
+                 addUserRole=await models.User.findOne({where:{username}});
+            }catch(e){
+                throw new Error('User doesn\'t exist');
+            }
+
             const userRole=await models.Role.findOne({where:{
                 UserId:user.id,
                 ProjectId:targetProject.id
@@ -83,12 +94,12 @@ export default {
                 UserId:addUserRole.id,
                 ProjectId:targetProject.id
             }});
-            if(!targetProject){
+            /* if(!targetProject){
                 throw new Error('Project doesn\'t exist');
-            }
+            } 
             if(!addUserRole){
                 throw new Error('User doesn\'t exist');
-            }
+            }*/
             if(roleCheck){
                 throw new Error('User cannot have more than one role');
             }
@@ -98,6 +109,7 @@ export default {
             try{
                 await targetProject.addUser(addUserRole,{through:{role}});
                 return true;
+                //return true;
             }catch(e){
                 console.log(e);
                 return false;

@@ -66,13 +66,13 @@ const Homepage = () => {
                 <Project projects={projects}/>
             </Route>
             <Route path="/home">
-            {(data, users_data, id) && <MyView users={users_data.allUsers} username={id} updateCacheWith={updateCacheWith} history={history} projects={data.allProjectManagers}/>}
+            {(data && users_data && id) && <MyView users={users_data.allUsers} username={id} updateCacheWith={updateCacheWith} history={history} projects={data.allProjectManagers}/>}
             </Route>
             <Route path="/my_tasks">
                 <AssignedToMe projectList={projects}/>
             </Route>
             <Route path="/manage">
-                <ManageUsers />
+              {(users_data && projects) &&  <ManageUsers user_projects={projects} users={users_data.allUsers}/>}
             </Route>
         </Switch>
         </Container>
