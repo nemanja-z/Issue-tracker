@@ -17,6 +17,9 @@ module.exports =(sequelize, DataTypes) => {
     Project.hasMany(models.Issue,{
       foreignKey: "project"
     });
+    Project.belongsTo(models.User,{
+      as:"project_lead"
+    });
     Project.belongsToMany(models.User,{
       through:"Role"
     });

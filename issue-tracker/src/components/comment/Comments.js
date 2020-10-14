@@ -16,7 +16,7 @@ const Comments = ({issueId}) => {
                 <span className="sr-only">Loading...</span>
             </Spinner>);}
     if (error) return <Error error={error.message}/>;
-    console.log(data)
+    console.log(data, 'comm')
     return(
     <ListGroup>
         {data.issueComment?.map(c=>

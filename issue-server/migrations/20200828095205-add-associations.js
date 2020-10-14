@@ -28,6 +28,51 @@ module.exports = {
             onDelete: 'SET NULL',
           },
         )
+      }).then(()=>{
+        return queryInterface.addColumn(
+          'Project', 
+          'project_leadId', 
+          {
+            type: Sequelize.DataTypes.UUID,
+            allowNull: false,
+            references: {
+            model: "User",
+            key: "id"
+          },
+            onUpdate: 'CASCADE',
+            onDelete: 'SET NULL',
+          },
+        )
+      }).then(()=>{
+        return queryInterface.addColumn(
+          'Issue', 
+          'reporterId', 
+          {
+            type: Sequelize.DataTypes.UUID,
+            allowNull: false,
+            references: {
+            model: "User",
+            key: "id"
+          },
+            onUpdate: 'CASCADE',
+            onDelete: 'SET NULL',
+          },
+        )
+      }).then(()=>{
+        return queryInterface.addColumn(
+          'Comment', 
+          'commenterId', 
+          {
+            type: Sequelize.DataTypes.UUID,
+            allowNull: false,
+            references: {
+            model: "User",
+            key: "id"
+          },
+            onUpdate: 'CASCADE',
+            onDelete: 'SET NULL',
+          },
+        )
       })},
   down: (queryInterface, Sequelize) => {
         return queryInterface.removeColumn(
@@ -37,5 +82,20 @@ module.exports = {
           return queryInterface.removeColumn(
             'Comment', 
             'issueId' 
+          )
+        }).then(()=>{
+          return queryInterface.removeColumn(
+            'Project', 
+            'project_leadId' 
+          )
+        }).then(()=>{
+          return queryInterface.removeColumn(
+            'Issue', 
+            'reporterId' 
+          )
+        }).then(()=>{
+          return queryInterface.removeColumn(
+            'Comment', 
+            'commenterId' 
           )
         })}}

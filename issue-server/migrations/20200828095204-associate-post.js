@@ -16,16 +16,6 @@ module.exports = {
           allowNull: false,
           type: Sequelize.DATE,
         },
-        commenter: {
-          type: Sequelize.DataTypes.UUID,
-            allowNull: false,
-            references: {
-              model: "User",
-              key: "id"
-            },
-            onUpdate: 'CASCADE',
-            onDelete: 'SET NULL',
-        },
         comment:{
           type:Sequelize.DataTypes.STRING
         }

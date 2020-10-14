@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect} from 'react';
 import {LOGIN, SIGN_UP} from "../../queries/user/queries";
 import {useMutation} from "@apollo/client";
 import Form from 'react-bootstrap/Form';
@@ -35,6 +35,8 @@ const Login = () =>{
     const { register, handleSubmit, reset, errors } = useForm({
         resolver: yupResolver(schema)
       });
+    const [profile, setProfile] = useState(null);
+    
     const [signUp] = useMutation(SIGN_UP, {
         onError: (error) =>  setError(error.graphQLErrors[0].message) });
     const [login, {data}] = useMutation(LOGIN, {
@@ -46,6 +48,8 @@ const Login = () =>{
     const [passwordShown, setPasswordShown] = useState(false);
     const eye = <FontAwesomeIcon icon={faEye} />;
 
+    
+
     const toggleVisibility=()=>{
         setPasswordShown(passwordShown ? false : true);
     }
@@ -54,8 +58,8 @@ const Login = () =>{
         reset();
     }); 
 
-    const handleSignUp=handleSubmit(({username,password,email})=>{
-        signUp({variables:{username, password, email}});
+    const handleSignUp=handleSubmit(({username, password, email})=>{
+        signUp({variables:{username, password, email, profile}});
         reset();
         setLoginStatus(!loginStatus);
     });
@@ -64,7 +68,8 @@ const Login = () =>{
         if(error){
             setTimeout(()=>{setError(null)}, 5000);
         }
-    },[error])
+    },[error]);
+    console.log(profile)
     return(
         <Form style={{width: "40%",
         margin: "0 auto"}} 
@@ -86,10 +91,17 @@ const Login = () =>{
                 </InputGroup>
             </Form.Group>
             {!loginStatus&&(
+                <>
             <Form.Group>
                 <Form.Control placeholder="email" name="email" type='text' ref={register} id='email'/>
                 <Form.Text>{errors.email?.message}</Form.Text>
-            </Form.Group>)}
+            </Form.Group>
+            <div className="form-group files">
+                <label>Upload Your File </label>
+                <input type="file" name="profile"  onChange={({ target: { validity, files: [file] } })=>
+                validity.valid && setProfile(file)}/>
+              </div>
+            </>)}
             <Form.Group>
             <Button type="submit">{loginStatus ? 'Login' : 'Sign Up'}</Button>
             </Form.Group>

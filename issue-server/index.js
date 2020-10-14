@@ -1,5 +1,5 @@
 const { ApolloServer } = require('apollo-server');
-import models from './models';
+import {db as models} from './models';
 const { mergeTypeDefs } = require('@graphql-tools/merge');
 const { mergeResolvers } = require('@graphql-tools/merge');
 const { loadFilesSync } = require('@graphql-tools/load-files');

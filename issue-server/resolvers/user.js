@@ -1,9 +1,9 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-import dotenv from 'dotenv';
 const { Op } = require("sequelize");
 const {UserInputError, AuthenticationError} = require('apollo-server');
-dotenv.config();
+import {cloudinary} from "../models";
+
 export default {
     Query:{
         allUsers:async(_,args,{models,user})=>{
@@ -24,16 +24,31 @@ export default {
                 throw new UserInputError('All fields are required');
             }
             const saltRounds = 10;
+            let profile="";
             try {
+                const {createReadStream} = await args.profile;
+                await new Promise((resolve, reject) => {
+                    const streamLoad = cloudinary.uploader.upload_stream(function (error, result) {
+                        if (result) {
+                            profile = result.secure_url;
+                            resolve(profile)
+                        } else {
+                            reject(error);
+                        }
+                    });
+    
+                    createReadStream().pipe(streamLoad);
+                })
                 const user = await models.User.create({
                     username: args.username,
                     email: args.email,
+                    profile,
                     passwordHash: await bcrypt.hash(args.password, saltRounds)
                 });
                 return user;
 
             } catch (err) {
-                throw new Error(err);
+                throw new Error(err.message);
             }
         },
         loginUser: async (_, args, { models }) => {

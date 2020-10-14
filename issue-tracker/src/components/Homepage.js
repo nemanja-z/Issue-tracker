@@ -57,6 +57,8 @@ const Homepage = () => {
       }
     const id=data_me?.me?.id;
     const username=data_me?.me?.username;
+    const profilePic = data_me?.me?.profile;
+    console.log(profilePic)
     const projects = user_data.userProjects?.map(project=>project);
     return(
         <Container>

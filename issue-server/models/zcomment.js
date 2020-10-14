@@ -7,22 +7,15 @@ module.exports =(sequelize, DataTypes) => {
       },
       comment:{
           type:DataTypes.STRING
-        },
-      commenter:{
-        type: DataTypes.UUID,
-          allowNull: false,
-          references: {
-            model: "User",
-            key: "id"
-          },
-          onUpdate: 'CASCADE',
-          onDelete: 'SET NULL',
-      }
+        }
     });
     Comment.associate = models => {
       Comment.belongsTo(models.Issue, {
         foreignKey: "issueId",
         constraints: false
+      });
+      Comment.belongsTo(models.User, {
+        as:"commenter"
       });
     }
     return Comment;

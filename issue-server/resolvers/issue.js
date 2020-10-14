@@ -23,6 +23,7 @@ export default {
         },
         issueComment:async(_, args, {models})=>{
             const comments=await models.Comment.findAll({where:{issueId:args.issueId}});
+            console.log(comments)
             return comments;
         },
         issuesAll:async(_, args, {models,user})=>{
@@ -101,7 +102,10 @@ export default {
                 throw new Error('Issue doesn\'t exist');
             }
             try{
-                await models.Comment.create({comment:args.comment, commenter:user.id, issueId:args.issueId});
+                await models.Comment.create({
+                    comment:args.comment, 
+                    commenter:user.id, 
+                    issueId:args.issueId});
                 return true;
             }catch(e){
                 console.log(e);

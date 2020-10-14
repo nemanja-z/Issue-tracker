@@ -27,21 +27,14 @@ module.exports =(sequelize, DataTypes) => {
     status:{
       type: DataTypes.ENUM("Reopened","Resolved","Closed","Active","Open"),
       defaultValue:"Open"
-    },  
-    reporter:{
-      type: DataTypes.UUID,
-        allowNull: false,
-        references: {
-          model: "User",
-          key: "id"
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'SET NULL',
     }
   });
    Issue.associate = models => {
     Issue.belongsTo(models.Project, {
       foreignKey: "project"
+    });
+    Issue.belongsTo(models.User, {
+      as: "reporter"
     });
     Issue.belongsToMany(models.User, {
       through: "Assignee"

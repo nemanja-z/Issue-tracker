@@ -21,6 +21,9 @@ module.exports = {
         is: /^[0-9a-f]{64}$/i,
         allowNull: false,
       },
+      profile:{
+        type: Sequelize.DataTypes.STRING()
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

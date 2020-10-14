@@ -4,6 +4,7 @@ import App from './App';
 import {ApolloClient, InMemoryCache, HttpLink, ApolloProvider} from '@apollo/client';
 import { setContext } from "@apollo/client/link/context";
 import { onError } from "@apollo/client/link/error";
+import { createUploadLink } from 'apollo-upload-client';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
@@ -28,7 +29,7 @@ const resetToken=onError(({networkError})=>{
   }
 });
 const authFlowLink = withToken.concat(resetToken);
-const httpLink=new HttpLink({uri:'http://localhost:4000'})
+const httpLink=createUploadLink({uri:'http://localhost:4000/graphql'});
 const client=new ApolloClient({
   link:authFlowLink.concat(httpLink),
   cache:new InMemoryCache()

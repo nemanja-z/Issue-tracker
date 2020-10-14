@@ -2,6 +2,7 @@ export default `
   scalar Date
   type Comment{
     comment:String
+    commenter:User
   }
   type Issue{
     id:ID!

@@ -19,11 +19,23 @@ module.exports =(sequelize, DataTypes) => {
       type: DataTypes.STRING(64),
       is: /^[0-9a-f]{64}$/i,
       allowNull: false,
+    },
+    profile:{
+      type: DataTypes.STRING
     }
   });
   User.associate = (models) => {
     User.belongsToMany(models.Project, {
       through: "Role"
+    });
+    User.hasMany(models.Project, {
+      as:"project_lead"
+    });
+    User.hasMany(models.Issue, {
+      as:"reporter"
+    });
+    User.hasMany(models.Issue, {
+      as:"commenter"
     });
     User.belongsToMany(models.Issue, {
       through: "Assignee"

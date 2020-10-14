@@ -7,6 +7,7 @@ const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || 'development';
 const config = configVar[env];
 const db = {};
+const cloudinary = require('cloudinary').v2;
 
 let sequelize;
 if (config.use_env_variable) {
@@ -29,6 +30,14 @@ Object.keys(db).forEach(modelName => {
     db[modelName].associate(db);
   }
 });
+
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.API_KEY,
+  api_secret: process.env.API_SECRET
+});
+
+
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
-module.exports = db;
+module.exports = {db, cloudinary};
