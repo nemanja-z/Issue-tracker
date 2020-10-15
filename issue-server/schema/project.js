@@ -4,7 +4,7 @@ export default `
       id:ID!
       name:String!
       url:String
-      Users:[User]
+      projectLead:User
       createdAt:Date
       updatedAt:Date
   }

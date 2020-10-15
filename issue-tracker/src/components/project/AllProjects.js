@@ -16,10 +16,10 @@ const AllProjects = ({projects, username, users}) => {
         </thead>
         <tbody>
             {projects.map(p=>
-            <tr key={p.project}>
-                <td><Link to={`/projects/:${p.projectId}`}>{p.project}</Link></td>
-                <td><Link to={`/projects/:${p.leaderId}`}>{p.project_lead}</Link></td>
-                {username===p.leaderId ? <td><ModalRole users={users} project={p.project}/></td> : <td></td>}
+            <tr key={p.name}>
+                <td><Link to={`/projects/:${p.id}`}>{p.name}</Link></td>
+                <td><Link to={`/projects/:${p.projectLead.id}`}>{p.projectLead.username}</Link></td>
+                {username===p.projectLead.id ? <td><ModalRole users={users} project={p.project}/></td> : <td></td>}
             </tr>
             )}
         </tbody>

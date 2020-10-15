@@ -5,7 +5,7 @@ import Header from "./Header";
 import {Switch, Route} from "react-router-dom";
 import Project from "./project/Project";
 import {useQuery} from "@apollo/client";
-import {PROJECTS, USER_PROJECTS} from "../queries/project/queries";
+import {PROJECTS,ALL_PROJECTS, USER_PROJECTS} from "../queries/project/queries";
 import {AUTH, ALL_USERS} from "../queries/user/queries";
 import Error from "./Error";
 import Container from "react-bootstrap/Container";
@@ -29,7 +29,7 @@ const Homepage = () => {
     const { loading:user_loading, error:user_error, data:user_data } = useQuery(USER_PROJECTS, {
         onError: (error) =>  console.log(error.graphQLErrors[0].message)
     });
-    const { loading, error, data } = useQuery(PROJECTS, {
+    const { loading, error, data } = useQuery(ALL_PROJECTS, {
         onError: (error) =>  console.log(error.graphQLErrors[0].message)
     });
     const { loading:users_loading, error:users_error, data:users_data } = useQuery(ALL_USERS, {
@@ -62,13 +62,13 @@ const Homepage = () => {
     const projects = user_data.userProjects?.map(project=>project);
     return(
         <Container>
-        {username && <Header logOut={logOut} username={username}/>}
+        {username && <Header picture={profilePic} logOut={logOut} username={username}/>}
         <Switch>
             <Route path="/projects/:id">
                 <Project projects={projects}/>
             </Route>
             <Route path="/home">
-            {(data && users_data && id) && <MyView users={users_data.allUsers} username={id} updateCacheWith={updateCacheWith} history={history} projects={data.allProjectManagers}/>}
+            {(data && users_data && id) && <MyView users={users_data.allUsers} username={id} updateCacheWith={updateCacheWith} history={history} projects={data.allProjects}/>}
             </Route>
             <Route path="/my_tasks">
                 <AssignedToMe projectList={projects}/>

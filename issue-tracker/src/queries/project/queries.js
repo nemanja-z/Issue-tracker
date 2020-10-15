@@ -9,6 +9,17 @@ query {allProjectManagers{
     url
     projectId
 }}`;
+export const ALL_PROJECTS = gql`
+query {allProjects{
+    id
+    name
+    url
+    projectLead{
+        username
+        email
+        id
+    }
+}}`;
 export const PROJECT = gql`
 query project($projectId:String!){
     findProject(projectId:$projectId){

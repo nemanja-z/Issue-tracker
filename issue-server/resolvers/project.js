@@ -1,7 +1,8 @@
 export default {
     Query:{
         allProjects:async(_,args,{models})=>{
-            const projects=await models.Project.findAll({ include:[{model:models.User}]});
+            const projects=await models.Project.findAll({include:'projectLead'});
+            console.log(projects, 'pro')
             return projects; 
         },
         findProject:async(_, args, {models})=>{
@@ -35,8 +36,11 @@ export default {
             try{
                 const projectManager=await models.Role.findAll({where:{role:"Manager"} });
                 const managers = projectManager.map(p=>{
-                    return {user:p.UserId,
-                    project:p.ProjectId}});
+                    return {
+                        user:p.UserId,
+                        project:p.ProjectId
+                    }});
+                console.log(managers, 'managers')
                 const targetQuery =await models.sequelize.transaction(async t=>{
                     let project_lead;
                     let project;
@@ -60,7 +64,11 @@ export default {
             }
             try {
                 const project=await models.Project.create({
-                    ...args});
+                    name:args.name,
+                    url:args.url,
+                    projectLeadId:user.id
+            });
+                console.log(project)
                 //await project.addUser(user,{through:{role:'Admin'}});
                 await project.addUser(user,{through:{role:'Manager'}});
                 return true;

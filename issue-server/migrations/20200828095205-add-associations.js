@@ -31,7 +31,7 @@ module.exports = {
       }).then(()=>{
         return queryInterface.addColumn(
           'Project', 
-          'project_leadId', 
+          'projectLeadId', 
           {
             type: Sequelize.DataTypes.UUID,
             allowNull: false,
@@ -86,7 +86,7 @@ module.exports = {
         }).then(()=>{
           return queryInterface.removeColumn(
             'Project', 
-            'project_leadId' 
+            'projectLeadId' 
           )
         }).then(()=>{
           return queryInterface.removeColumn(

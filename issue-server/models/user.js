@@ -29,13 +29,16 @@ module.exports =(sequelize, DataTypes) => {
       through: "Role"
     });
     User.hasMany(models.Project, {
-      as:"project_lead"
+      as:"projectLead",
+      foreignKey:"projectLeadId"
     });
     User.hasMany(models.Issue, {
-      as:"reporter"
+      as:"reporter",
+      foreignKey:"reporterId"
     });
     User.hasMany(models.Issue, {
-      as:"commenter"
+      as:"commenter",
+      foreignKey:"commenterId"
     });
     User.belongsToMany(models.Issue, {
       through: "Assignee"

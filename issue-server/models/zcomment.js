@@ -15,7 +15,8 @@ module.exports =(sequelize, DataTypes) => {
         constraints: false
       });
       Comment.belongsTo(models.User, {
-        as:"commenter"
+        as:"commenter",
+        foreignKey:"commenterId"
       });
     }
     return Comment;

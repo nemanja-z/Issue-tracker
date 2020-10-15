@@ -18,7 +18,8 @@ module.exports =(sequelize, DataTypes) => {
       foreignKey: "project"
     });
     Project.belongsTo(models.User,{
-      as:"project_lead"
+      as:"projectLead",
+      foreignKey:"projectLeadId"
     });
     Project.belongsToMany(models.User,{
       through:"Role"
