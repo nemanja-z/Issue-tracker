@@ -36,7 +36,7 @@ module.exports =(sequelize, DataTypes) => {
       as:"reporter",
       foreignKey:"reporterId"
     });
-    User.hasMany(models.Issue, {
+    User.hasMany(models.Comment, {
       as:"commenter",
       foreignKey:"commenterId"
     });

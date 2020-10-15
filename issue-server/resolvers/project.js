@@ -2,7 +2,6 @@ export default {
     Query:{
         allProjects:async(_,args,{models})=>{
             const projects=await models.Project.findAll({include:'projectLead'});
-            console.log(projects, 'pro')
             return projects; 
         },
         findProject:async(_, args, {models})=>{

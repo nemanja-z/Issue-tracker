@@ -3,7 +3,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { useForm } from "react-hook-form";
 import PropTypes from 'prop-types';
-import {REPORT} from "../../queries/issue/queries";
+import {REPORT, ISSUES} from "../../queries/issue/queries";
 import {PROJECT} from "../../queries/project/queries";
 import {useMutation} from "@apollo/client";
 import { yupResolver } from '@hookform/resolvers';
@@ -22,6 +22,7 @@ const schema = yup.object().shape({
 
 const IssueForm = ({ setShow, show, id}) => {
     const [reportIssue] = useMutation(REPORT, {
+        refetchQueries:[{query:ISSUES}],
         onCompleted:()=>setShow(!show)
     });
     const { register, handleSubmit, reset, errors } = useForm({

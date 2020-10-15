@@ -2,7 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import {CREATE, PROJECTS} from "../../queries/project/queries";
+import {CREATE, ALL_PROJECTS} from "../../queries/project/queries";
 import {useMutation} from "@apollo/client";
 import PropTypes from 'prop-types';
 import { yupResolver } from '@hookform/resolvers';
@@ -19,7 +19,7 @@ const ProjectForm = ({history, updateCacheWith, show, setShow}) => {
         resolver: yupResolver(schema)
       });
     const [createProject] = useMutation(CREATE,{
-        refetchQueries:[{query:PROJECTS}],
+        refetchQueries:[{query:ALL_PROJECTS}],
         onCompleted:()=>{
             history.push("/home")
             setShow(!show)},

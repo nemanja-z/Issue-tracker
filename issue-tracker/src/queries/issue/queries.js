@@ -10,7 +10,12 @@ query Issue($projectId:String){
                 description
                 priority
                 resolution
-                reporter
+                reporter{
+                        username
+                        email
+                        profile
+                        id
+                }
                 status
                 createdAt
                 updatedAt
@@ -28,7 +33,12 @@ query {assignedToMe{
                 description
                 priority
                 resolution
-                reporter
+                reporter{
+                        username
+                        email
+                        profile
+                        id
+                }
                 status
                 createdAt
                 updatedAt
@@ -46,7 +56,12 @@ query Issue($issueId:String){
                 description
                 priority
                 resolution
-                reporter
+                reporter{
+                        username
+                        email
+                        profile
+                        id
+                }
                 status
                 createdAt
                 updatedAt
@@ -76,7 +91,12 @@ query {issuesAll{
         description
         priority
         resolution
-        reporter
+        reporter{
+                username
+                email
+                profile
+                id
+        }
         status
         createdAt
         updatedAt

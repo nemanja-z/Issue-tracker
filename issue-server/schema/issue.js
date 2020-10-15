@@ -13,7 +13,7 @@ export default `
     status:String
     Project:Project
     summary:String!
-    reporter:ID!
+    reporter:User!
     createdAt:Date
     updatedAt:Date
     Users:[User]

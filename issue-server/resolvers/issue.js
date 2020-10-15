@@ -3,27 +3,28 @@ export default {
     Query:{
         allIssues: async(_, args, {models}) =>{
             const issues=await models.Issue.findAll({where:{project:args.projectId},
-            include:{model:models.Project}});
+            include:[{model:models.Project}, {model:models.User, as:'reporter'}]});
+            console.log(issues)
             return issues;
             
         },
         targetIssue:async(_, args, {models})=>{
             const issue=await models.Issue.findOne({where:{id:args.issueId},
-                include:[{model:models.Project}, {model:models.User, through:{
+                include:[{model:models.Project}, {model:models.User, as:'reporter'}, {model:models.User, through:{
                     model:models.Assignee
                 }}]});
+                console.log(issue)
             return issue;
         },
         assignedToMe:async(_,args,{models, user})=>{
             return await models.Issue.findAll({
-                include:[{model:models.Project}, {model:models.User, through:{
+                include:[{model:models.Project}, {model:models.User, as:'reporter'}, {model:models.User, through:{
                     model:models.Assignee
                 },
                 where:{username:user.username}}]});
         },
         issueComment:async(_, args, {models})=>{
             const comments=await models.Comment.findAll({where:{issueId:args.issueId}});
-            console.log(comments)
             return comments;
         },
         issuesAll:async(_, args, {models,user})=>{
@@ -58,9 +59,14 @@ export default {
              try {
                 await models.Issue.create({
                     ...input,
-                    reporter: user.id,
+                    reporterId: user.id,
                     project:targetProject.id
                 });
+                console.log(await models.Issue.create({
+                    ...input,
+                    reporterId: user.id,
+                    project:targetProject.id
+                }))
                 return true;
             } catch (err) {
                 console.log(err);
@@ -104,7 +110,7 @@ export default {
             try{
                 await models.Comment.create({
                     comment:args.comment, 
-                    commenter:user.id, 
+                    commenterId:user.id, 
                     issueId:args.issueId});
                 return true;
             }catch(e){
