@@ -34,9 +34,12 @@ mutation createProject($name:String!, $url:String){
 }`;
 export const USER_PROJECTS = gql`
 query {userProjects{
-	leaderId
-    project_lead
-    project
+	id
+    name
     url
-    projectId
+    projectLead{
+        username
+        email
+        id
+    }
 }}`;

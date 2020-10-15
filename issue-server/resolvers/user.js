@@ -7,7 +7,7 @@ import {cloudinary} from "../models";
 export default {
     Query:{
         allUsers:async(_,args,{models,user})=>{
-            return args.me ? await models.User.findAll({}) : await models.User.findAll({where:{
+            return await args.me ? await models.User.findAll({}) : await models.User.findAll({where:{
                 username:{
                     [Op.not]:user.username
                 }

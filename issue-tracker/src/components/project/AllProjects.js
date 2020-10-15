@@ -19,7 +19,7 @@ const AllProjects = ({projects, username, users}) => {
             <tr key={p.name}>
                 <td><Link to={`/projects/:${p.id}`}>{p.name}</Link></td>
                 <td><Link to={`/projects/:${p.projectLead.id}`}>{p.projectLead.username}</Link></td>
-                {username===p.projectLead.id ? <td><ModalRole users={users} project={p.project}/></td> : <td></td>}
+                {username===p.projectLead.id ? <td><ModalRole users={users} project={p.name}/></td> : <td></td>}
             </tr>
             )}
         </tbody>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useMemo} from "react";
 import { useApolloClient } from '@apollo/client';
 import {useHistory} from "react-router-dom";
 import Header from "./Header";
@@ -22,6 +22,7 @@ const Homepage = () => {
         localStorage.clear();
         history.push("/login");
     };
+    
     const { loading:me_loading, error:me_error, data:data_me } = useQuery(AUTH, {
         pollInterval:1000,
         onError: (error) =>  console.log(error.graphQLErrors[0].message)
@@ -36,6 +37,11 @@ const Homepage = () => {
         variables:{me:false},
         onError: (error) =>  console.log(error.graphQLErrors[0].message)
     });
+    const id=useMemo(()=>data_me?.me?.id, [data_me]);
+    const username=useMemo(()=>data_me?.me?.username, [data_me]);
+    const profilePic = useMemo(()=>data_me?.me?.profile, [data_me]);
+    const projects = useMemo(()=>user_data?.userProjects?.map(project=>project), [user_data]);
+    console.log(projects)
     if (users_loading||me_loading||loading||user_loading){ 
         return (<Spinner animation="border" role="status">
                     <span className="sr-only">Loading...</span>
@@ -43,23 +49,17 @@ const Homepage = () => {
     if(error||user_error||users_error||me_error){
         return error?<Error error={error.message}/>: user_error ? <Error error={user_error.message}/>:users_error?<Error error={users_error.message}/>:<Error error={me_error.message}/>;
     }
-    console.log(users_data)
     const updateCacheWith = project => {
         const includedIn = (set, object) =>
         set.map(b => b.id).includes(object.id)
-        const dataInStore = client.readQuery({ query: PROJECTS });
-        if (!includedIn(dataInStore.allProjectManagers, project)) {
+        const dataInStore = client.readQuery({ query: ALL_PROJECTS });
+        if (!includedIn(dataInStore.allProjects, project)) {
           client.writeQuery({
-            query: PROJECTS,
-            data: { allProjectManagers: dataInStore.allProjectManagers.concat(project) }
+            query: ALL_PROJECTS,
+            data: { allProjects: dataInStore.allProjects.concat(project) }
           });
         }
       }
-    const id=data_me?.me?.id;
-    const username=data_me?.me?.username;
-    const profilePic = data_me?.me?.profile;
-    console.log(profilePic)
-    const projects = user_data.userProjects?.map(project=>project);
     return(
         <Container>
         {username && <Header picture={profilePic} logOut={logOut} username={username}/>}
@@ -74,7 +74,7 @@ const Homepage = () => {
                 <AssignedToMe projectList={projects}/>
             </Route>
             <Route path="/manage">
-              {(users_data && projects) &&  <ManageUsers user_projects={projects} users={users_data.allUsers}/>}
+              {(users_data && projects) && <ManageUsers user_projects={projects} users={users_data.allUsers}/>}
             </Route>
         </Switch>
         </Container>

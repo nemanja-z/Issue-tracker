@@ -41,7 +41,6 @@ const AssignUser = ({projects}) => {
         return error?<Error error={error.message}/>:<Error error={issue_error.message}/>
     }
     const addAssignment=handleSubmit(({project, user, issue})=>{
-        console.log(user, 'user')
         assignUser({variables:{project, user, issue}});
         reset();
     });
@@ -61,7 +60,7 @@ const AssignUser = ({projects}) => {
             <Form.Label>Project</Form.Label>
             <Form.Control placeholder="project" name="project" type='text' ref={register} id='project' as="select" custom>
             {projects.map(project=>
-                <option key={shortid.generate()} value={project.project}>{project.project}</option>)}
+                <option key={shortid.generate()} value={project.name}>{project.name}</option>)}
             </Form.Control>
             <Form.Text>{errors.project?.message}</Form.Text>
             </Form.Group>

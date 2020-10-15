@@ -5,6 +5,7 @@ import Spinner from 'react-bootstrap/Spinner';
 import Error from "../Error";
 import ListGroup from "react-bootstrap/ListGroup";
 import {useQuery} from "@apollo/client";
+import Card from "react-bootstrap/esm/Card";
 const shortid = require('shortid');
 
 const Comments = ({issueId}) => {
@@ -20,7 +21,12 @@ const Comments = ({issueId}) => {
     return(
     <ListGroup>
         {data.issueComment?.map(c=>
-        <ListGroup.Item key={shortid.generate()}>{c.comment}</ListGroup.Item>)}
+        <Card key={shortid.generate()}>
+            <Card.Body>
+                <Card.Text>{c.comment}</Card.Text>
+                <Card.Footer>{c.commenter.username}</Card.Footer>
+            </Card.Body>
+        </Card>)}
     </ListGroup>)
 }
 

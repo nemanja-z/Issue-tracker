@@ -17,7 +17,7 @@ export default `
   }
   type Query{
     allProjects:[Project]
-    userProjects:[ProjectManager]
+    userProjects:[Project]
     allProjectManagers:[ProjectManager]
     findProject(projectId: String!):Project
   }

@@ -69,7 +69,6 @@ const Login = () =>{
             setTimeout(()=>{setError(null)}, 5000);
         }
     },[error]);
-    console.log(profile)
     return(
         <Form style={{width: "40%",
         margin: "0 auto"}} 

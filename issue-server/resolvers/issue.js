@@ -24,7 +24,8 @@ export default {
                 where:{username:user.username}}]});
         },
         issueComment:async(_, args, {models})=>{
-            const comments=await models.Comment.findAll({where:{issueId:args.issueId}});
+            const comments=await models.Comment.findAll({where:{issueId:args.issueId},
+            include:'commenter'});
             return comments;
         },
         issuesAll:async(_, args, {models,user})=>{
@@ -34,8 +35,8 @@ export default {
             const userIssues =await models.sequelize.transaction(async t=>{
                 let allIssues=[];
                 for(let i=0; i<role.length;i++){
-                    const issue = await models.Issue.findOne({where:{project:role[i].ProjectId},include:{model:models.Project}});
-                    allIssues=[...allIssues, issue]
+                    const issue = await models.Issue.findOne({where:{project:role[i].ProjectId},include:[{model:models.Project}, {model:models.User, as:'reporter'}]});
+                    allIssues=[...allIssues, issue];
                 }
                 return allIssues.filter(issue=>issue!==null)
             })

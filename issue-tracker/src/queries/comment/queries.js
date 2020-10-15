@@ -8,4 +8,10 @@ export const COMMENTS=gql`
 query Comment($issueId:String){
         issueComment(issueId:$issueId){
                 comment
+                commenter{
+                        id
+                        username
+                        email
+                        profile
+                }
 }}`;

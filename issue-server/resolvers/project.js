@@ -19,13 +19,15 @@ export default {
                     let project;
                     let project_leads=[];
                     for(let i=0; i<managers.length; i++){
-                        project_lead=await models.User.findOne({where:{id:managers[i].user}},{ transaction: t });
-                        project=await models.Project.findOne({where:{id:managers[i].project}},{ transaction: t });
-                        project_leads=[...project_leads, {leaderId:project_lead.id, project_lead:project_lead.username,project:project.name, url:project.url, projectId:project.id}];
+                        //project_lead=await models.User.findOne({where:{id:managers[i].user}},{ transaction: t });
+                        project=await models.Project.findOne({where:{id:managers[i].project}, include:'projectLead'},{ transaction: t });
+                        //project_leads=[...project_leads, {leaderId:project_lead.id, project_lead:project_lead.username,project:project.name, url:project.url, projectId:project.id}];
+                        project_leads=project_leads.concat(project);
                     }
+                    
                     return project_leads;
                  });
-                return targetQuery.filter(t=>t.project_lead===user.username);
+                return targetQuery.filter(t=>t.projectLead.username===user.username);
                 
             }catch(e){
                 console.log(e);
