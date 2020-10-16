@@ -20,9 +20,9 @@ const schema = yup.object().shape({
     status:yup.string()
   });
 
-const IssueForm = ({ setShow, show, id}) => {
+const IssueForm = ({ setShow, show, id, client}) => {
+    
     const [reportIssue] = useMutation(REPORT, {
-        refetchQueries:[{query:ISSUES}],
         onCompleted:()=>setShow(!show)
     });
     const { register, handleSubmit, reset, errors } = useForm({

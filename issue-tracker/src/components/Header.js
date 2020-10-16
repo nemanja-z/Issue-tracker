@@ -3,15 +3,17 @@ import React from "react";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import PropTypes from 'prop-types';
+import Dropdown from 'react-bootstrap/Dropdown';
+import DropdownButton from 'react-bootstrap/DropdownButton';
 import {Link} from "react-router-dom";
 import SideNav, { NavItem} from '@trendmicro/react-sidenav';
 import '@trendmicro/react-sidenav/dist/react-sidenav.css';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-
+import  "./navbar.css";
 
 const Header = ({picture, logOut, username}) => {
-    return(<Container style={{border:"solid"}}>
-            <SideNav style={{backgroundColor:"transparent"}}>
+            return(
+            <SideNav className="sidebar" style={{backgroundColor:"transparent"}}>
             <SideNav.Nav>
                 <NavItem>
                     <Link to="/home" className="nav-link">Home</Link>
@@ -22,15 +24,14 @@ const Header = ({picture, logOut, username}) => {
                 <NavItem>
                     <Link to="/manage" className="nav-link">Manage</Link>
                 </NavItem>
-                <NavDropdown title={
+                <NavDropdown menuRole='menu' title={
                     <div>
-                <img style={{width:"20px", height:"20px"}} src={picture}/>{username}
+                <img style={{width:"20px", height:"20px"}} src={picture} alt="profile picture"/>{username}
                 </div>}>
-                    <Button className="nav-dropdown-item" size="sm" onClick={logOut}>Log Out</Button>
+                    <Button size="sm" className="nav-dropdown-item" onClick={logOut}>Log Out</Button>
                 </NavDropdown>
             </SideNav.Nav>
             </SideNav>
-            </Container>
     )
 }
 Header.propTypes={

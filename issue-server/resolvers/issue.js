@@ -4,7 +4,6 @@ export default {
         allIssues: async(_, args, {models}) =>{
             const issues=await models.Issue.findAll({where:{project:args.projectId},
             include:[{model:models.Project}, {model:models.User, as:'reporter'}]});
-            console.log(issues)
             return issues;
             
         },
@@ -13,7 +12,6 @@ export default {
                 include:[{model:models.Project}, {model:models.User, as:'reporter'}, {model:models.User, through:{
                     model:models.Assignee
                 }}]});
-                console.log(issue)
             return issue;
         },
         assignedToMe:async(_,args,{models, user})=>{
@@ -63,11 +61,6 @@ export default {
                     reporterId: user.id,
                     project:targetProject.id
                 });
-                console.log(await models.Issue.create({
-                    ...input,
-                    reporterId: user.id,
-                    project:targetProject.id
-                }))
                 return true;
             } catch (err) {
                 console.log(err);

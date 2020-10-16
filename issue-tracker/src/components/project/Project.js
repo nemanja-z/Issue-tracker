@@ -14,7 +14,7 @@ import Card from 'react-bootstrap/Card';
 import './index.css';
 
 
-const Project = ({projects}) => {
+const Project = ({projects, client}) => {
     const {id} = useParams();
     const [issueId, setIssueId] = useState(null);
     const { loading, error, data } = useQuery(ISSUES, {
@@ -30,7 +30,7 @@ const Project = ({projects}) => {
     return( 
       <>
         <Tab.Container id="list-group-tabs-example">
-        {data && <ModalIssue id={id.slice(1)}/>}
+        {data && <ModalIssue client={client} id={id.slice(1)}/>}
         <Row>
           <Col sm={4}>
               <ListGroup>

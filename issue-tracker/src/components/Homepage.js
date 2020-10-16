@@ -51,7 +51,7 @@ const Homepage = () => {
     }
     const updateCacheWith = project => {
         const includedIn = (set, object) =>
-        set.map(b => b.id).includes(object.id)
+        set.map(b => b.id).includes(object.id);
         const dataInStore = client.readQuery({ query: ALL_PROJECTS });
         if (!includedIn(dataInStore.allProjects, project)) {
           client.writeQuery({
@@ -65,7 +65,7 @@ const Homepage = () => {
         {username && <Header picture={profilePic} logOut={logOut} username={username}/>}
         <Switch>
             <Route path="/projects/:id">
-                <Project projects={projects}/>
+                <Project projects={projects} client={client}/>
             </Route>
             <Route path="/home">
             {(data && users_data && id) && <MyView users={users_data.allUsers} username={id} updateCacheWith={updateCacheWith} history={history} projects={data.allProjects}/>}

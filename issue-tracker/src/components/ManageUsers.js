@@ -48,7 +48,7 @@ const ManageUsers = ({users, user_projects}) => {
         </Card>
                     <ListGroup style={{overflowY: 'auto', maxHeight: 'calc(100vh - 150px)'}}>
                     {user_projects.map(project=>
-                        <ListGroup.Item key={project.projectId} onClick={()=>setProject(project.project)}>{project.project}</ListGroup.Item>)}
+                        <ListGroup.Item key={project.id} onClick={()=>setProject(project.name)}>{project.name}</ListGroup.Item>)}
                     </ListGroup>
                 </Col>
         <Col>

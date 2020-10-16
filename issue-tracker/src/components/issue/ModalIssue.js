@@ -5,7 +5,7 @@ import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 
 
-const ModalIssue = ({id}) => {
+const ModalIssue = ({id, client}) => {
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
@@ -21,7 +21,7 @@ const ModalIssue = ({id}) => {
           <Modal.Title>Report an issue</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-        <IssueForm show={show} setShow={setShow} id={id}/>
+        <IssueForm show={show} client={client} setShow={setShow} id={id}/>
         </Modal.Body>
         <Modal.Footer onClick={handleClose}>
             <Modal.Footer>Close</Modal.Footer>
