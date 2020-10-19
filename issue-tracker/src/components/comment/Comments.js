@@ -23,8 +23,8 @@ const Comments = ({issueId}) => {
         {data.issueComment?.map(c=>
         <Card key={shortid.generate()}>
             <Card.Body>
+                <Card.Header>{c.commenter.username} commented:</Card.Header>
                 <Card.Text>{c.comment}</Card.Text>
-                <Card.Footer>{c.commenter.username}</Card.Footer>
             </Card.Body>
         </Card>)}
     </ListGroup>)

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useMemo} from "react";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { useForm } from "react-hook-form";
@@ -20,20 +20,24 @@ const schema = yup.object().shape({
     status:yup.string()
   });
 
-const IssueForm = ({ setShow, show, id, client}) => {
+const IssueForm = ({ projectId, setShow, show}) => {
     
     const [reportIssue] = useMutation(REPORT, {
-        onCompleted:()=>setShow(!show)
+        onCompleted:()=>setShow(!show),
+        refetchQueries:[{query:ISSUES,
+        variables:{projectId}}, {query:PROJECT,
+            variables:{projectId}}]
     });
+    const {data} = useQuery(PROJECT,{
+        variables:{projectId}});
+    const projectName = useMemo(()=>data?.findProject?.name, [data]);
     const { register, handleSubmit, reset, errors } = useForm({
         resolver: yupResolver(schema)
       });
     const createIssue=handleSubmit(({summary, description, priority, resolution, status, issue_type})=>{
-        reportIssue({variables:{input:{summary, description, priority, resolution, status, issue_type, project:data.findProject.name}}});
+        reportIssue({variables:{input:{summary, description, priority, resolution, status, issue_type, project:projectName}}});
         reset();
-    }); 
-    const {data} = useQuery(PROJECT,{
-        variables:{projectId: id}});
+    });
 
     return(
         <Form onSubmit={createIssue}>

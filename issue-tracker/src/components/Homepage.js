@@ -1,4 +1,4 @@
-import React, {useMemo} from "react";
+import React, {useState, useMemo} from "react";
 import { useApolloClient } from '@apollo/client';
 import {useHistory} from "react-router-dom";
 import Header from "./Header";
@@ -18,6 +18,7 @@ import ManageUsers from "./ManageUsers";
 const Homepage = () => {
     const history = useHistory();
     const client = useApolloClient();
+    const [projectId, setProjectId] = useState(null);
     const logOut = () => {
         localStorage.clear();
         history.push("/login");
@@ -41,7 +42,6 @@ const Homepage = () => {
     const username=useMemo(()=>data_me?.me?.username, [data_me]);
     const profilePic = useMemo(()=>data_me?.me?.profile, [data_me]);
     const projects = useMemo(()=>user_data?.userProjects?.map(project=>project), [user_data]);
-    console.log(projects)
     if (users_loading||me_loading||loading||user_loading){ 
         return (<Spinner animation="border" role="status">
                     <span className="sr-only">Loading...</span>
@@ -65,7 +65,7 @@ const Homepage = () => {
         {username && <Header picture={profilePic} logOut={logOut} username={username}/>}
         <Switch>
             <Route path="/projects/:id">
-                <Project projects={projects} client={client}/>
+                <Project projects={projects} client={client} projectId={projectId} setProjectId={setProjectId} />
             </Route>
             <Route path="/home">
             {(data && users_data && id) && <MyView users={users_data.allUsers} username={id} updateCacheWith={updateCacheWith} history={history} projects={data.allProjects}/>}

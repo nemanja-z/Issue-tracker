@@ -30,8 +30,27 @@ query project($projectId:String!){
 }}`;
 export const CREATE = gql`
 mutation createProject($name:String!, $url:String){
-	createProject(name:$name, url:$url)
-}`;
+	createProject(name:$name, url:$url){
+        project{id
+        name
+        url
+        projectLead{
+            username
+            email
+            id
+        }
+        }
+    refetch{
+        allProjects{
+            id
+            name
+            url
+            projectLead{
+                username
+                email
+                id
+            }}
+}}}`;
 export const USER_PROJECTS = gql`
 query {userProjects{
 	id

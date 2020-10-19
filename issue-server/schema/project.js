@@ -15,6 +15,10 @@ export default `
     url:String
     projectId:String
   }
+  type AddProjectPayload{
+    project:Project!
+    refetch: Query!
+  }
   type Query{
     allProjects:[Project]
     userProjects:[Project]
@@ -22,7 +26,7 @@ export default `
     findProject(projectId: String!):Project
   }
   type Mutation{
-      createProject(name:String!, url:String):Boolean!
+      createProject(name:String!, url:String):AddProjectPayload!
       addRole(username:String!, project:String!, role:String!):Boolean!
   }
 `;

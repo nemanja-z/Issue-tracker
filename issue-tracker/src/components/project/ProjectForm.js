@@ -19,19 +19,18 @@ const ProjectForm = ({history, updateCacheWith, show, setShow}) => {
         resolver: yupResolver(schema)
       });
     const [createProject] = useMutation(CREATE,{
-        refetchQueries:[{query:ALL_PROJECTS}],
         onCompleted:()=>{
             history.push("/home")
-            setShow(!show)},
-        onUpdate: (store, response) => {
-            updateCacheWith(response.data.createProject);
-          }});
+            setShow(!show)}});
     const handleNewProject=handleSubmit(({name,url})=>{
         createProject({variables:{name,url}});
         reset();
     }); 
 
-
+/*,
+        onUpdate: (store, response) => {
+            updateCacheWith(response.data.createProject);
+          }*/
 
     return( 
             <Form inline='true' onSubmit={handleNewProject}>

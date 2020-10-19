@@ -58,6 +58,9 @@ export default {
                 console.log(e);
             }
         }},
+        AddProjectPayload: {
+            refetch: () => ({})
+          },
     Mutation: {
         createProject: async (_, args, { models, user }) => {
             if(!user){
@@ -69,13 +72,11 @@ export default {
                     url:args.url,
                     projectLeadId:user.id
             });
-                console.log(project)
                 //await project.addUser(user,{through:{role:'Admin'}});
                 await project.addUser(user,{through:{role:'Manager'}});
-                return true;
+                return {project};
             } catch (err) {
-                console.log(err);
-                return false;
+                throw new Error(err);
             }
         },
         addRole:async(_,{username,project,role},{models,user})=>{

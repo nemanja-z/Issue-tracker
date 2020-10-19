@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import {ApolloClient, InMemoryCache, HttpLink, ApolloProvider} from '@apollo/client';
+import {ApolloClient, defaultDataIdFromObject, InMemoryCache, HttpLink, ApolloProvider} from '@apollo/client';
 import { setContext } from "@apollo/client/link/context";
 import { onError } from "@apollo/client/link/error";
 import { createUploadLink } from 'apollo-upload-client';
@@ -32,7 +32,13 @@ const authFlowLink = withToken.concat(resetToken);
 const httpLink=createUploadLink({uri:'http://localhost:4000/graphql'});
 const client=new ApolloClient({
   link:authFlowLink.concat(httpLink),
-  cache:new InMemoryCache()
+  cache:new InMemoryCache({dataIdFromObject: object => {
+    switch (object.__typename) {
+      case 'Query': return 'ROOT_QUERY'
+      default: return defaultDataIdFromObject(object)
+    }
+  }
+})
 });
 
 ReactDOM.render(

@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {ISSUES} from "../../queries/issue/queries";
 import {useParams} from "react-router-dom";
 import {useQuery} from "@apollo/client";
@@ -14,12 +14,17 @@ import Card from 'react-bootstrap/Card';
 import './index.css';
 
 
-const Project = ({projects, client}) => {
+const Project = ({projectId, setProjectId, projects, client}) => {
     const {id} = useParams();
     const [issueId, setIssueId] = useState(null);
     const { loading, error, data } = useQuery(ISSUES, {
-        variables: { projectId:id.slice(1) },
+        variables: { projectId },
       });
+    useEffect(()=>{
+        if(id){
+          setProjectId(id.slice(1));
+        }
+      }, [id]);
     if (loading){ 
         return (
         <Spinner animation="border" role="status">
@@ -27,10 +32,11 @@ const Project = ({projects, client}) => {
         </Spinner>);
             }
     if (error) return <Error error={error.message}/>;
+    
     return( 
       <>
         <Tab.Container id="list-group-tabs-example">
-        {data && <ModalIssue client={client} id={id.slice(1)}/>}
+        {data && <ModalIssue projectId={projectId} client={client}/>}
         <Row>
           <Col sm={4}>
               <ListGroup>
