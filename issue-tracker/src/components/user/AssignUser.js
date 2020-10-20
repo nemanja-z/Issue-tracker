@@ -20,8 +20,9 @@ const schema = yup.object().shape({
   });
 
 
-const AssignUser = ({projects}) => {
-    const [assignUser] = useMutation(ASSIGN);
+const AssignUser = ({projects, show, setShow}) => {
+    const [assignUser] = useMutation(ASSIGN,{
+        onCompleted:()=>setShow(!show)});
     const { loading:issue_loading, error:issue_error, data:issue_data } = useQuery(ISSUE_LIST,{
         onError: (error) =>  console.log(error.graphQLErrors[0].message)
     });

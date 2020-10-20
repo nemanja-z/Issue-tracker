@@ -88,7 +88,7 @@ export default {
                 throw new Error("You cannot assign issue");
             }
             try{
-                targetIssue.addUser(assignee,{through:"Assignee"});
+                await targetIssue.addUser(assignee,{through:"Assignee"});
                 return true;
             }catch(err){
                 console.log(err);

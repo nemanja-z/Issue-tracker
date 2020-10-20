@@ -20,7 +20,7 @@ const ModalAssign = ({projects}) => {
           <Modal.Title>Assign User</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-        <AssignUser projects={projects}/>
+        <AssignUser show={show} setShow={setShow} projects={projects}/>
         </Modal.Body>
         <Modal.Footer onClick={handleClose}>
             <Modal.Footer>Close</Modal.Footer>

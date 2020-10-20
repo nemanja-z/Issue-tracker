@@ -19,15 +19,12 @@ const Homepage = () => {
     const history = useHistory();
     const client = useApolloClient();
     const [projectId, setProjectId] = useState(null);
-    const logOut = async () => {
-        try{
-            localStorage.clear();
-            history.push("/login");
-        }catch(err){
-            console.log(err);
-        }
-
-    };
+    const logOut = () => {
+        localStorage.clear();
+        client.clearStore();
+        history.push("/login");
+    }
+    
     
     const { loading:me_loading, error:me_error, data:data_me } = useQuery(AUTH, {
         onError: (error) =>  console.log(error.graphQLErrors[0].message)
