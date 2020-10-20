@@ -13,19 +13,23 @@ import Spinner from 'react-bootstrap/Spinner';
 import MyView from './MyView';
 import AssignedToMe from "./issue/AssignedToMe";
 import ManageUsers from "./ManageUsers";
-
+import PrivateRoute from "./PrivateRoute";
 
 const Homepage = () => {
     const history = useHistory();
     const client = useApolloClient();
     const [projectId, setProjectId] = useState(null);
-    const logOut = () => {
-        localStorage.clear();
-        history.push("/login");
+    const logOut = async () => {
+        try{
+            localStorage.clear();
+            history.push("/login");
+        }catch(err){
+            console.log(err);
+        }
+
     };
     
     const { loading:me_loading, error:me_error, data:data_me } = useQuery(AUTH, {
-        pollInterval:1000,
         onError: (error) =>  console.log(error.graphQLErrors[0].message)
     });
     const { loading:user_loading, error:user_error, data:user_data } = useQuery(USER_PROJECTS, {
@@ -38,8 +42,8 @@ const Homepage = () => {
         variables:{me:false},
         onError: (error) =>  console.log(error.graphQLErrors[0].message)
     });
-    const id=useMemo(()=>data_me?.me?.id, [data_me]);
     const username=useMemo(()=>data_me?.me?.username, [data_me]);
+    const id=useMemo(()=>data_me?.me?.id, [data_me]);
     const profilePic = useMemo(()=>data_me?.me?.profile, [data_me]);
     const projects = useMemo(()=>user_data?.userProjects?.map(project=>project), [user_data]);
     if (users_loading||me_loading||loading||user_loading){ 
@@ -60,22 +64,25 @@ const Homepage = () => {
           });
         }
       }
+      /*<Route path="/home">
+            {(data && users_data && id) && <MyView users={users_data.allUsers} username={id} history={history} projects={data.allProjects}/>}
+            </Route>*/
     return(
         <Container>
-        {username && <Header picture={profilePic} logOut={logOut} username={username}/>}
+        {data_me.me && <Header picture={profilePic} logOut={logOut} username={username}/>}
         <Switch>
-            <Route path="/projects/:id">
+            <PrivateRoute path="/projects/:id">
                 <Project projects={projects} client={client} projectId={projectId} setProjectId={setProjectId} />
-            </Route>
-            <Route path="/home">
-            {(data && users_data && id) && <MyView users={users_data.allUsers} username={id} updateCacheWith={updateCacheWith} history={history} projects={data.allProjects}/>}
-            </Route>
-            <Route path="/my_tasks">
+            </PrivateRoute>
+            <PrivateRoute path="/home">
+            {(data && users_data && id) && <MyView users={users_data.allUsers} username={id} history={history} projects={data.allProjects}/>}
+            </PrivateRoute>
+            <PrivateRoute path="/my_tasks">
                 <AssignedToMe projectList={projects}/>
-            </Route>
-            <Route path="/manage">
+            </PrivateRoute>
+            <PrivateRoute path="/manage">
               {(users_data && projects) && <ManageUsers user_projects={projects} users={users_data.allUsers}/>}
-            </Route>
+            </PrivateRoute>
         </Switch>
         </Container>
     )

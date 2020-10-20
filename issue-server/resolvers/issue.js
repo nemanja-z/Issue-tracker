@@ -41,6 +41,9 @@ export default {
             return userIssues;
         }
     },
+    AddIssuePayload: {
+        refetch: () => ({})
+      },
     Mutation: {
         createIssue: async (_, {input}, { models, user }) => {
             if(!user){
@@ -56,15 +59,15 @@ export default {
             } */
             
              try {
-                await models.Issue.create({
+                 const issue = await models.Issue.create({
                     ...input,
-                    reporterId: user.id,
+                    reporterId:user.id,
                     project:targetProject.id
-                });
-                return true;
+                }, {include:[{model:models.User, as:'reporter'}, {model:models.Project}]});
+                await issue.reload();
+                return {issue};
             } catch (err) {
-                console.log(err);
-                return false;
+                throw new Error(err);
             } 
         },
         assignUser: async(_,args,{models,user})=>{

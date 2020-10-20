@@ -18,7 +18,8 @@ export const ADD_ROLE = gql`
     }`;
 
 export const AUTH = gql`
-    query {me{ 
+    query {
+        me{ 
         username
         email
         profile

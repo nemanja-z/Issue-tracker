@@ -76,7 +76,55 @@ query Issue($issueId:String){
 }`;
 export const REPORT=gql`
 mutation createIssue($input:Fields){
-        createIssue(input:$input)}`;
+        createIssue(input:$input){
+        issue{
+                id
+                summary
+                issue_type
+                description
+                priority
+                resolution
+                reporter{
+                        username
+                        email
+                        profile
+                        id
+                }
+                status
+                createdAt
+                updatedAt
+                Project{
+                        name
+                        url
+                }
+                Users{
+                        username
+                        email
+                }      
+                }
+                refetch{
+                issuesAll{
+                        id
+                        summary
+                        issue_type
+                        description
+                        priority
+                        resolution
+                        reporter{
+                                username
+                                email
+                                profile
+                                id
+                        }
+                        status
+                        createdAt
+                        updatedAt
+                        Project{
+                                name
+                                url
+                        }    
+                }
+}}}`;
 
 export const ASSIGN=gql`
 mutation assigne($user:String!, $issue:String!, $project:String!){

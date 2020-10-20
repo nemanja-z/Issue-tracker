@@ -27,6 +27,10 @@ export default `
     resolution: String
     project:String!
   }
+  type AddIssuePayload{
+    issue:Issue!
+    refetch: Query!
+  }
   type Query{
     issuesAll:[Issue]
     assignedToMe: [Issue]
@@ -35,7 +39,7 @@ export default `
     issueComment(issueId:String): [Comment]
   }
   type Mutation{
-    createIssue(input:Fields):Boolean!
+    createIssue(input:Fields):AddIssuePayload!
     assignUser(user:String!, issue:String!, project:String!):Boolean!
     postComment(comment:String!, issueId:String!):Boolean!
   }

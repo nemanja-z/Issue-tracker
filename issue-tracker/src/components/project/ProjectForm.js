@@ -14,7 +14,7 @@ const schema = yup.object().shape({
   });
 
 
-const ProjectForm = ({history, updateCacheWith, show, setShow}) => {
+const ProjectForm = ({history, show, setShow}) => {
     const { register, handleSubmit, reset, errors } = useForm({
         resolver: yupResolver(schema)
       });
