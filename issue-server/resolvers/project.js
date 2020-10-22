@@ -66,11 +66,12 @@ export default {
             if(!user){
                 throw new Error('You are not authorized to create project!');
             }
+            const projectLead = await models.User.findOne({where:{username:args.projectLead}});
             try {
                 const project=await models.Project.create({
                     name:args.name,
                     url:args.url,
-                    projectLeadId:user.id
+                    projectLeadId:projectLead.id
             });
                 //await project.addUser(user,{through:{role:'Admin'}});
                 await project.addUser(user,{through:{role:'Manager'}});

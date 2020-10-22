@@ -29,8 +29,8 @@ query project($projectId:String!){
     updatedAt
 }}`;
 export const CREATE = gql`
-mutation createProject($name:String!, $url:String){
-	createProject(name:$name, url:$url){
+mutation createProject($name:String!, $url:String, $projectLead:String){
+	createProject(name:$name, url:$urlm, projectLead:$projectLead){
         project{id
         name
         url

@@ -33,3 +33,10 @@ export const ALL_USERS = gql`
         profile
         id
     }}`;
+export const UNASSIGNED_USERS = gql`
+   query{ allUnassignedUsers{
+    username
+    email
+    profile
+    id
+    }}`;

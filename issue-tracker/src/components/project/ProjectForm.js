@@ -7,6 +7,8 @@ import {useMutation} from "@apollo/client";
 import PropTypes from 'prop-types';
 import { yupResolver } from '@hookform/resolvers';
 import * as yup from "yup";
+import shortid from 'shortid';
+import Error from "../Error";
 
 const schema = yup.object().shape({
     name: yup.string().min(5).required(),
@@ -14,7 +16,7 @@ const schema = yup.object().shape({
   });
 
 
-const ProjectForm = ({history, show, setShow}) => {
+const ProjectForm = ({history, show, setShow, leader}) => {
     const { register, handleSubmit, reset, errors } = useForm({
         resolver: yupResolver(schema)
       });
@@ -22,15 +24,13 @@ const ProjectForm = ({history, show, setShow}) => {
         onCompleted:()=>{
             history.push("/home")
             setShow(!show)}});
-    const handleNewProject=handleSubmit(({name,url})=>{
-        createProject({variables:{name,url}});
+    const handleNewProject=handleSubmit(({name, url, projectLead})=>{
+        createProject({variables:{name, url, projectLead}});
         reset();
     }); 
-
-/*,
-        onUpdate: (store, response) => {
-            updateCacheWith(response.data.createProject);
-          }*/
+    if(leader.length===0){
+        return <Error error={"There are not available users for this project!"}/>;
+    }
 
     return( 
             <Form inline='true' onSubmit={handleNewProject}>
@@ -44,6 +44,14 @@ const ProjectForm = ({history, show, setShow}) => {
                 <Form.Control name="url" type='text' ref={register} id='url'/>
                 <Form.Text>{errors.url?.message}</Form.Text>
             </Form.Group>
+            <Form.Group>
+            <Form.Label>Project leader</Form.Label>
+            <Form.Control placeholder="projectLead" name="projectLead" type='text' ref={register} id='projectLead' as="select" custom>
+            {leader && leader.map(user=>
+                <option key={shortid.generate()} value={user.username}>{user.username}</option>)}
+            </Form.Control>
+            <Form.Text>{errors.projectLead?.message}</Form.Text>
+        </Form.Group>
             <Button variant="primary" type="submit">
                     Submit
             </Button>

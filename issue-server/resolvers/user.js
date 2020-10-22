@@ -3,15 +3,31 @@ const bcrypt = require('bcrypt');
 const { Op } = require("sequelize");
 const {UserInputError, AuthenticationError} = require('apollo-server');
 import {cloudinary} from "../models";
-
+/*/* : await models.User.findAll({where:{
+                username:{
+                    [Op.not]:user.username
+                },
+                id:{
+                    [Op.notIn]:[...users]
+                }
+            }}); */
 export default {
     Query:{
-        allUsers:async(_,args,{models,user})=>{
+        allUsers:async(_,args,{models, user})=>{
             return await args.me ? await models.User.findAll({}) : await models.User.findAll({where:{
                 username:{
                     [Op.not]:user.username
                 }
             }});
+        },
+        allUnassignedUsers:async(_,args,{models,user})=>{
+            const assignedUsers = await models.Role.findAll({attributes:['UserId']});
+            const users = new Set(assignedUsers.map(user=>user.UserId));
+            return await models.User.findAll({where:{
+                id:{
+                    [Op.notIn]:[...users]
+                }
+            }})
         },
         me:async(_,args,{models, user})=>{
              const currentUser = await models.User.findOne({where:{id:user.id}});
