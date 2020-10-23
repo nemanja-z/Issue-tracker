@@ -8,6 +8,7 @@ export default `
   type Query{
     allUsers(me:Boolean): [User]
     allUnassignedUsers: [User]
+    projectUsers(name:String):[User]
     me: User
   }
   type Mutation{

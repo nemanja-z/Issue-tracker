@@ -53,7 +53,7 @@ const Project = ({projectId, setProjectId, projects, client}) => {
           </Col>
           <Col sm={8}>
           <Tab.Content>
-            {issueId && <Issue projects={projects} issueId={issueId}/>}
+            {issueId && <Issue issueId={issueId}/>}
           </Tab.Content>
           </Col>
         </Row>

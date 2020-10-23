@@ -68,6 +68,7 @@ query Issue($issueId:String){
                 Project{
                         name
                         url
+                        id
                 }
                 Users{
                         username

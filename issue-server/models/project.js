@@ -11,6 +11,9 @@ module.exports =(sequelize, DataTypes) => {
     },
     url:{
       type:DataTypes.STRING
+    }, 
+    isActive:{
+      type: DataTypes.BOOLEAN
     }
   });
    Project.associate = models => {

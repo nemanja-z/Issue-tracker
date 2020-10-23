@@ -4,7 +4,7 @@ import Button from "react-bootstrap/Button";
 import AssignUser from './AssignUser';
 
 
-const ModalAssign = ({projects}) => {
+const ModalAssign = ({project, issue}) => {
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
@@ -20,7 +20,7 @@ const ModalAssign = ({projects}) => {
           <Modal.Title>Assign User</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-        <AssignUser show={show} setShow={setShow} projects={projects}/>
+        <AssignUser show={show} setShow={setShow} project={project} issue={issue}/>
         </Modal.Body>
         <Modal.Footer onClick={handleClose}>
             <Modal.Footer>Close</Modal.Footer>

@@ -20,6 +20,9 @@ module.exports = {
       },
       url:{
         type:Sequelize.STRING
+      },
+      isActive:{
+        type:Sequelize.BOOLEAN
       }
     }),
   down: async (queryInterface, Sequelize) => await queryInterface.dropTable("Project")

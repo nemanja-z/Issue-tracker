@@ -71,10 +71,11 @@ export default {
                 const project=await models.Project.create({
                     name:args.name,
                     url:args.url,
+                    isActive:true,
                     projectLeadId:projectLead.id
             });
-                //await project.addUser(user,{through:{role:'Admin'}});
                 await project.addUser(user,{through:{role:'Manager'}});
+                await project.addUser(projectLead,{through:{role:'ProjectLeader'}});
                 return {project};
             } catch (err) {
                 throw new Error(err);

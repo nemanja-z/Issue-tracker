@@ -43,7 +43,7 @@ const Login = () =>{
     const [signUp] = useMutation(SIGN_UP, {
         onError: (error) =>  setError(error.graphQLErrors[0].message),
         onCompleted:()=>setLoginStatus(!loginStatus)});
-    const [login, {data}] = useMutation(LOGIN, {
+    const [login] = useMutation(LOGIN, {
         onError: (error) =>  setError(error.graphQLErrors[0].message),
         onCompleted:(data)=>{
             localStorage.setItem('auth', data.loginUser);

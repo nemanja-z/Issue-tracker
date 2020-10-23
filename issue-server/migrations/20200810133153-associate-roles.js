@@ -22,7 +22,7 @@ module.exports = {
           primaryKey: true
         },
         role:{
-          type:Sequelize.DataTypes.ENUM('Admin', 'Manager', 'Developer', 'Contractor', 'Support')
+          type:Sequelize.DataTypes.ENUM('Admin', 'Manager', 'ProjectLeader', 'Developer', 'Contractor', 'Support')
         }
       }
     );

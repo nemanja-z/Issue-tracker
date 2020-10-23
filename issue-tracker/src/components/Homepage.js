@@ -77,7 +77,7 @@ const Homepage = () => {
                 <Project projects={projects} client={client} projectId={projectId} setProjectId={setProjectId} />
             </PrivateRoute>
             <PrivateRoute path="/home">
-            {(data && users_data && id && unnasigned_users) && <MyView leader={unnasigned_users.allUnassignedUsers}users={users_data.allUsers} username={id} history={history} projects={data.allProjects}/>}
+            {(data && users_data && id && unnasigned_users) && <MyView leader={unnasigned_users.allUnassignedUsers} users={users_data.allUsers} username={id} history={history} projects={data.allProjects}/>}
             </PrivateRoute>
             <PrivateRoute path="/my_tasks">
                 <AssignedToMe projectList={projects}/>

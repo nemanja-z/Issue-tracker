@@ -14,39 +14,23 @@ import {ADD_ROLE} from "../../queries/user/queries";
 import {useMutation} from "@apollo/client";
 
 const schema = yup.object().shape({
-    project: yup.string().required(),
     username: yup.string().required(),
     role:yup.string().required()
   });
 
 
-const AddRole = ({project, users}) => {
-    const [addRole] = useMutation(ADD_ROLE);
+const AddRole = ({project, users, show, setShow}) => {
+    const [addRole] = useMutation(ADD_ROLE,{
+        onCompleted:()=>setShow(!show)});
     const { register, handleSubmit, reset, errors } = useForm({
         resolver: yupResolver(schema)
       });
-    
-    /* if(loading)  {
-        return (<Spinner animation="border" role="status">
-                    <span className="sr-only">Loading...</span>
-                  </Spinner>);
-                  }
-    if(error) return <Error error={error.message}/> */
-    const assignRole=handleSubmit(({project, username, role})=>{
-        addRole({project, username, role});
+    const assignRole=handleSubmit(({username, role})=>{
+        addRole({variables:{project, username, role}});
+        console.log({project, username, role})
         reset();
     }); 
-
-
     return(<Form inline='true' onSubmit={assignRole}>
-            <Form.Group>
-            <Form.Label>Project</Form.Label>
-            
-            <Form.Control placeholder="project" name="project" type='text' ref={register} id='project' as="select" custom>
-                <option value={project}>{project}</option>
-            </Form.Control>
-            <Form.Text>{errors.project?.message}</Form.Text>
-        </Form.Group>
         <Form.Group>
             <Form.Label>Username</Form.Label>
             <Form.Control placeholder="username" name="username" type='text' ref={register} id='username' as="select" custom>
@@ -70,6 +54,6 @@ const AddRole = ({project, users}) => {
     </Form>)
 }
 AddRole.propTypes={
-    projects:PropTypes.array
+    project:PropTypes.string.isRequired
 }
 export default AddRole;

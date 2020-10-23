@@ -13,7 +13,7 @@ import CommentForm from "../comment/CommentForm";
 import Comments from "../comment/Comments";
 
 
-const Issue = ({issueId, projects}) => {
+const Issue = ({issueId}) => {
   const { loading, error, data } = useQuery(ISSUE, {
     variables: { issueId },
   });
@@ -22,10 +22,11 @@ const Issue = ({issueId, projects}) => {
                 <span className="sr-only">Loading...</span>
           </Spinner>);}
   if (error) return <Error error={error.message}/>;
+  console.log(data.targetIssue)
   return(
     <>
     <div className="container">
-  <ModalAssign projects={projects}/>
+  <ModalAssign project={data.targetIssue.Project.name} issue={data.targetIssue.id}/>
   <Row>
     <Col>Type: {data.targetIssue.issue_type}</Col>
     <Col>Priority: {data.targetIssue.priority}</Col>

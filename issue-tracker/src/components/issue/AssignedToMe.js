@@ -11,7 +11,7 @@ import Card from 'react-bootstrap/Card';
 import {useQuery} from "@apollo/client";
 import Issue from "./Issue";
 
-const AssignedToMe = ({projectList}) => {
+const AssignedToMe = () => {
     const [issueId, setIssueId] = useState(null);
     const { loading, error, data } = useQuery(ASSIGNED);
     if (loading){ 
@@ -54,7 +54,7 @@ const AssignedToMe = ({projectList}) => {
       </Col>
       <Col sm={8}>
       <Tab.Content>
-        {issueId && <Issue projects={projectList} issueId={issueId}/>}
+        {issueId && <Issue  issueId={issueId}/>}
       </Tab.Content>
     </Col>
       </Row>
