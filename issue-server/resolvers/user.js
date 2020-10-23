@@ -2,7 +2,6 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const { Op } = require("sequelize");
 const {UserInputError, AuthenticationError} = require('apollo-server');
-import {cloudinary} from "../models";
 /*/* : await models.User.findAll({where:{
                 username:{
                     [Op.not]:user.username
@@ -35,26 +34,27 @@ export default {
         }
     },
     Mutation: {
-        createUser: async (_, args, { models }) => {
+        createUser: async (_, args, { models, cloudinary }) => {
             if(!args.username||!args.password||!args.email){
                 throw new UserInputError('All fields are required');
             }
             const saltRounds = 10;
             let profile="";
             try {
-                const {createReadStream} = await args.profile;
-                await new Promise((resolve, reject) => {
-                    const streamLoad = cloudinary.uploader.upload_stream(function (error, result) {
-                        if (result) {
-                            profile = result.secure_url;
-                            resolve(profile)
-                        } else {
-                            reject(error);
-                        }
-                    });
-    
-                    createReadStream().pipe(streamLoad);
-                })
+                if(args.profile){
+                    const {createReadStream} = args.profile;
+                    await new Promise((resolve, reject) => {
+                        const streamLoad = cloudinary.uploader.upload_stream(function (error, result) {
+                            if (result) {
+                                profile = result.secure_url;
+                                resolve(profile)
+                            } else {
+                                reject(error);
+                            }
+                        });
+        
+                        createReadStream().pipe(streamLoad);
+                })}
                 const user = await models.User.create({
                     username: args.username,
                     email: args.email,

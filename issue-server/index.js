@@ -1,5 +1,6 @@
 const { ApolloServer } = require('apollo-server');
 import {db as models} from './models';
+import {cloudinary} from "./models";
 const { mergeTypeDefs } = require('@graphql-tools/merge');
 const { mergeResolvers } = require('@graphql-tools/merge');
 const { loadFilesSync } = require('@graphql-tools/load-files');
@@ -23,7 +24,8 @@ const server = new ApolloServer({
         }
         return {
         models,
-        user};
+        user,
+        cloudinary};
 }});
 server.listen().then(({ url }) => {
   console.log(`🚀  Server ready at ${url}`);

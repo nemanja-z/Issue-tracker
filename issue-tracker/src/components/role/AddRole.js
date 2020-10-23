@@ -58,7 +58,6 @@ const AddRole = ({project, users}) => {
         <Form.Group>
             <Form.Label>Role</Form.Label>
             <Form.Control placeholder="role" name="role" type='text' ref={register} id='role' as="select" custom>
-                <option value="Manager">Manager</option>
                 <option value="Developer">Developer</option>
                 <option value="Contractor">Contractor</option>
                 <option value="Support">Support</option>

@@ -22,6 +22,9 @@ const schema = yup.object().shape({
         then:yup.string().min(8).max(16).matches( /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
         "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character").required()
     }),
+    passwordConfirmation: yup.string().when('loginStatus',{
+        is:false,
+        then:yup.string().oneOf([yup.ref('password'), null], 'Passwords must match')}),
     email:yup.string().email().when('loginStatus',{
         is:false,
         then:yup.string().email().required()
@@ -38,7 +41,8 @@ const Login = () =>{
     const [profile, setProfile] = useState(null);
     
     const [signUp] = useMutation(SIGN_UP, {
-        onError: (error) =>  setError(error.graphQLErrors[0].message) });
+        onError: (error) =>  setError(error.graphQLErrors[0].message),
+        onCompleted:()=>setLoginStatus(!loginStatus)});
     const [login, {data}] = useMutation(LOGIN, {
         onError: (error) =>  setError(error.graphQLErrors[0].message),
         onCompleted:(data)=>{
@@ -61,7 +65,6 @@ const Login = () =>{
     const handleSignUp=handleSubmit(({username, password, email})=>{
         signUp({variables:{username, password, email, profile}});
         reset();
-        setLoginStatus(!loginStatus);
     });
 
     useEffect(()=>{
@@ -91,6 +94,15 @@ const Login = () =>{
             </Form.Group>
             {!loginStatus&&(
                 <>
+            <Form.Group>
+                <InputGroup>
+                    <Form.Control placeholder="passwordConfirmation" name="passwordConfirmation" type={passwordShown ? "text" : "password"} ref={register} id='passwordConfirmation'/>
+                    <InputGroup.Prepend>
+                        <InputGroup.Text onClick={toggleVisibility}>{eye}</InputGroup.Text>
+                    </InputGroup.Prepend>
+                    <Form.Text>{errors.passwordConfirmation?.message}</Form.Text>
+                </InputGroup>
+            </Form.Group>
             <Form.Group>
                 <Form.Control placeholder="email" name="email" type='text' ref={register} id='email'/>
                 <Form.Text>{errors.email?.message}</Form.Text>
