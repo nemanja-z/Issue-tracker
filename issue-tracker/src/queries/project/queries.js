@@ -14,6 +14,7 @@ query {allProjects{
     id
     name
     url
+    isActive
     projectLead{
         username
         email
@@ -25,15 +26,17 @@ query project($projectId:String!){
     findProject(projectId:$projectId){
     name
     url
+    isActive
     createdAt
     updatedAt
 }}`;
 export const CREATE = gql`
 mutation createProject($name:String!, $url:String, $projectLead:String){
-	createProject(name:$name, url:$urlm, projectLead:$projectLead){
+	createProject(name:$name, url:$url, projectLead:$projectLead){
         project{id
         name
         url
+        isActive
         projectLead{
             username
             email
@@ -45,6 +48,7 @@ mutation createProject($name:String!, $url:String, $projectLead:String){
             id
             name
             url
+            isActive
             projectLead{
                 username
                 email
@@ -56,6 +60,7 @@ query {userProjects{
 	id
     name
     url
+    isActive
     projectLead{
         username
         email

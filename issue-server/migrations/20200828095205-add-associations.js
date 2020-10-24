@@ -73,7 +73,8 @@ module.exports = {
             onDelete: 'SET NULL',
           },
         )
-      })},
+      })
+    },
   down: (queryInterface, Sequelize) => {
         return queryInterface.removeColumn(
           'Issue', 
@@ -98,4 +99,5 @@ module.exports = {
             'Comment', 
             'commenterId' 
           )
-        })}}
+        })
+      }}

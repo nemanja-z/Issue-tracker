@@ -32,7 +32,10 @@ const schema = yup.object().shape({
   });
 
 const Login = () =>{
+
     let history = useHistory();
+    const CLOUDINARY = "https://res.cloudinary.com/de2kz7yfl/image/upload/v1603532952/i3ekit0th28di6puvgyb.png";
+
     const [loginStatus, setLoginStatus] = useState(true);
     const [error, setError] = useState('');
     const { register, handleSubmit, reset, errors } = useForm({
@@ -72,6 +75,7 @@ const Login = () =>{
             setTimeout(()=>{setError(null)}, 5000);
         }
     },[error]);
+    console.log(profile)
     return(
         <Form style={{width: "40%",
         margin: "0 auto"}} 
@@ -96,7 +100,7 @@ const Login = () =>{
                 <>
             <Form.Group>
                 <InputGroup>
-                    <Form.Control placeholder="passwordConfirmation" name="passwordConfirmation" type={passwordShown ? "text" : "password"} ref={register} id='passwordConfirmation'/>
+                    <Form.Control placeholder="confirm password" name="passwordConfirmation" type={passwordShown ? "text" : "password"} ref={register} id='passwordConfirmation'/>
                     <InputGroup.Prepend>
                         <InputGroup.Text onClick={toggleVisibility}>{eye}</InputGroup.Text>
                     </InputGroup.Prepend>
@@ -108,7 +112,8 @@ const Login = () =>{
                 <Form.Text>{errors.email?.message}</Form.Text>
             </Form.Group>
             <div className="form-group files">
-                <label>Upload Your File </label>
+                <label>Change user picture </label>
+                <img src={CLOUDINARY} alt="default-picture" width="90px" height="90px"/>
                 <input type="file" name="profile"  onChange={({ target: { validity, files: [file] } })=>
                 validity.valid && setProfile(file)}/>
               </div>

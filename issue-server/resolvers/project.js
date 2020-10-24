@@ -75,7 +75,7 @@ export default {
                     projectLeadId:projectLead.id
             });
                 await project.addUser(user,{through:{role:'Manager'}});
-                await project.addUser(projectLead,{through:{role:'ProjectLeader'}});
+                await project.addUser(projectLead,{through:{role:'Leader'}});
                 return {project};
             } catch (err) {
                 throw new Error(err);

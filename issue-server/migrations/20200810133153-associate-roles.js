@@ -22,13 +22,18 @@ module.exports = {
           primaryKey: true
         },
         role:{
-          type:Sequelize.DataTypes.ENUM('Admin', 'Manager', 'ProjectLeader', 'Developer', 'Contractor', 'Support')
+          type: Sequelize.DataTypes.ENUM('Admin', 'Manager', 'Leader', 'Developer', 'Contractor', 'Support')
         }
       }
     );
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Role');
-  },
-};
+    return queryInterface.sequelize.transaction(t => {
+        return Promise.all([
+            queryInterface.dropTable('Role'),
+            queryInterface.sequelize.query('DROP TYPE IF EXISTS "enum_Role_role";'),
+        ]);
+    });
+}
+}

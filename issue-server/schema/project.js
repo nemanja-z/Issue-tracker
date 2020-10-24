@@ -4,6 +4,7 @@ export default `
       id:ID!
       name:String!
       url:String
+      isActive:Boolean
       projectLead:User
       createdAt:Date
       updatedAt:Date

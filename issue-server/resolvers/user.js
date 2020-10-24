@@ -47,7 +47,7 @@ export default {
             let profile="";
             try {
                 if(args.profile){
-                    const {createReadStream} = args.profile;
+                    const {createReadStream} = await args.profile;
                     await new Promise((resolve, reject) => {
                         const streamLoad = cloudinary.uploader.upload_stream(function (error, result) {
                             if (result) {
@@ -59,11 +59,12 @@ export default {
                         });
         
                         createReadStream().pipe(streamLoad);
-                })}
+                });
+            }
                 const user = await models.User.create({
                     username: args.username,
                     email: args.email,
-                    profile,
+                    profile:profile || process.env.CLOUDINARY,
                     passwordHash: await bcrypt.hash(args.password, saltRounds)
                 });
                 return user;
