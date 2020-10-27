@@ -22,10 +22,19 @@ export default `
     summary:String!
     status:String!
     issue_type:String!
-    description: String,
+    description: String
     priority: String
     resolution: String
     project:String!
+  }
+  input Edit{
+    summary:String
+    status:String
+    issue_type:String
+    description: String
+    priority: String
+    resolution: String
+    project:String
   }
   type AddIssuePayload{
     issue:Issue!
@@ -40,6 +49,7 @@ export default `
   }
   type Mutation{
     createIssue(input:Fields):AddIssuePayload!
+    editIssue(issueId: String, input:Edit): Boolean!
     assignUser(user:String!, issue:String!, project:String!):Boolean!
     postComment(comment:String!, issueId:String!):Boolean!
   }

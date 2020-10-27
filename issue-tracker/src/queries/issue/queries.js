@@ -154,3 +154,7 @@ query {issuesAll{
                 url
         }
 }}`;
+export const EDIT=gql`
+mutation editIssue($issueId:String, $input:Fields){
+        editIssue(issueId:$issueId, input:$input)
+}`;

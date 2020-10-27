@@ -114,6 +114,18 @@ export default {
                 console.log(e);
                 return false;
             }
+        },
+        editIssue: async(_, args, {models, user})=>{
+            if(!user){
+                throw new Error('You are not authorized to report issue!');
+            }
+            try{
+                const data = {...args.input}
+                await models.Issue.update(data, {where:{id:args.issueId}});
+                return true;
+            }catch(e){
+                throw new Error(e);
+            }
         }
 
     }
