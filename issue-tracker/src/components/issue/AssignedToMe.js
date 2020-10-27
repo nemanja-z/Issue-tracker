@@ -40,10 +40,10 @@ const AssignedToMe = () => {
     </Card>
     <Tab.Container id="list-group-tabs-example">
     <Row>
-      <Col sm={2}>
+      <Col sm={2} className="list-group-items">
           <ListGroup fixed="left">
                 {data.assignedToMe.map(issue=>
-                  <ListGroup.Item key={issue.id} onClick={()=>setIssueId(issue.id)}>
+                  <ListGroup.Item style={{border:"none"}} key={issue.id} onClick={()=>setIssueId(issue.id)}>
                   <Card>
                   <Card.Title>{issue.Project.name}</Card.Title>
                   <Card.Text>

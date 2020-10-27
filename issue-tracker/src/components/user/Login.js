@@ -55,8 +55,6 @@ const Login = () =>{
     const [passwordShown, setPasswordShown] = useState(false);
     const eye = <FontAwesomeIcon icon={faEye} />;
 
-    
-
     const toggleVisibility=()=>{
         setPasswordShown(passwordShown ? false : true);
     }
@@ -73,9 +71,10 @@ const Login = () =>{
     useEffect(()=>{
         if(error){
             setTimeout(()=>{setError(null)}, 5000);
+            return <Error error={error}/>;
         }
     },[error]);
-    console.log(profile)
+    
     return(
         <Form style={{width: "40%",
         margin: "0 auto"}} 

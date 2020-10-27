@@ -38,10 +38,10 @@ const Project = ({projectId, setProjectId, projects, client}) => {
         <Tab.Container id="list-group-tabs-example">
         {data && <ModalIssue projectId={projectId} client={client}/>}
         <Row>
-          <Col sm={4}>
+          <Col sm={4} className="list-group-items">
               <ListGroup>
                     {data.allIssues.map(issue=>
-                      <ListGroup.Item key={issue.id} onClick={()=>setIssueId(issue.id)}>
+                      <ListGroup.Item style={{border:"none"}} key={issue.id} onClick={()=>setIssueId(issue.id)}>
                       <Card>
                         <Card.Body>
                           <Card.Title>{issue.Project.name}</Card.Title>
