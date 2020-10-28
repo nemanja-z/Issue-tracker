@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useContext} from "react";
 import Form from 'react-bootstrap/Form';
 import { useForm } from "react-hook-form";
 import Button from 'react-bootstrap/Button';
@@ -12,6 +12,8 @@ import * as yup from "yup";
 import Error from '../Error';
 import {ADD_ROLE} from "../../queries/user/queries";
 import {useMutation} from "@apollo/client";
+import {MessageContext} from "../../App";
+
 
 const schema = yup.object().shape({
     username: yup.string().required(),
@@ -20,8 +22,10 @@ const schema = yup.object().shape({
 
 
 const AddRole = ({project, users, show, setShow}) => {
-    const [addRole] = useMutation(ADD_ROLE,{
-        onCompleted:()=>setShow(!show)});
+    const {dispatch} = useContext(MessageContext);
+    const [addRole, {error}] = useMutation(ADD_ROLE,{
+        onCompleted:()=>setShow(!show),
+        onError:(e)=>dispatch({type:'set', payload:e})});
     const { register, handleSubmit, reset, errors } = useForm({
         resolver: yupResolver(schema)
       });
@@ -29,7 +33,10 @@ const AddRole = ({project, users, show, setShow}) => {
         addRole({variables:{project, username, role}});
         console.log({project, username, role})
         reset();
-    }); 
+    });/* 
+    if(error){
+        return <Error error={error.message}/>;
+    } */
     return(<Form inline='true' onSubmit={assignRole}>
         <Form.Group>
             <Form.Label>Username</Form.Label>

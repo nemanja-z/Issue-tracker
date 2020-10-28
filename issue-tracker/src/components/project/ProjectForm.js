@@ -20,7 +20,7 @@ const ProjectForm = ({history, show, setShow, leader}) => {
     const { register, handleSubmit, reset, errors } = useForm({
         resolver: yupResolver(schema)
       });
-    const [createProject] = useMutation(CREATE,{
+    const [createProject, {error}] = useMutation(CREATE,{
         onCompleted:()=>{
             history.push("/home")
             setShow(!show)}});
@@ -30,6 +30,9 @@ const ProjectForm = ({history, show, setShow, leader}) => {
     }); 
     if(leader.length===0){
         return <Error error={"There are not available users for this project!"}/>;
+    }
+    if(error){
+        return <Error error={error}/>;
     }
 
     return( 
