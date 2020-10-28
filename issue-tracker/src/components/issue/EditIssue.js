@@ -1,13 +1,14 @@
-import React from "react";
+import React, {useContext} from "react";
 import { useForm } from "react-hook-form";
 import {EDIT} from "../../queries/issue/queries";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import {useMutation} from "@apollo/client";
+import {ErrorContext} from "../../App";
 
 
 const EditIssue = ({issue, show, setShow}) => {
-
+    const {dispatch} = useContext(ErrorContext);
     const { register, handleSubmit, reset, errors } = useForm({
         defaultValues: {
             summary: issue.summary,
@@ -19,7 +20,8 @@ const EditIssue = ({issue, show, setShow}) => {
           }
       });
     const [modifyIssue] = useMutation(EDIT, {
-        onCompleted:()=>setShow(!show)
+        onCompleted:()=>setShow(!show),
+        onError:(e)=>dispatch({type:'set', payload:e})
     });
     const editIssue=handleSubmit(({summary, description, priority, resolution, status, issue_type})=>{
         modifyIssue({variables:{issueId:issue.id, input:{summary, description, priority, resolution, status, issue_type}}});

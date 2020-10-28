@@ -1,4 +1,4 @@
-import React, {useMemo} from "react";
+import React, {useMemo, useContext} from "react";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { useForm } from "react-hook-form";
@@ -9,6 +9,7 @@ import {useMutation} from "@apollo/client";
 import { yupResolver } from '@hookform/resolvers';
 import * as yup from "yup";
 import {useQuery} from "@apollo/client";
+import {ErrorContext} from "../../App";
 
 
 const schema = yup.object().shape({
@@ -21,14 +22,16 @@ const schema = yup.object().shape({
   });
 
 const IssueForm = ({ projectId, setShow, show}) => {
-    
+    const {dispatch} = useContext(ErrorContext);
     const [reportIssue] = useMutation(REPORT, {
         onCompleted:()=>setShow(!show),
+        onError:(e)=>dispatch({type:'set', payload:e}),
         refetchQueries:[{query:ISSUES,
         variables:{projectId}}, {query:PROJECT,
             variables:{projectId}}]
     });
     const {data} = useQuery(PROJECT,{
+        onError:(e)=>dispatch({type:'set', payload:e}),
         variables:{projectId}});
     const projectName = useMemo(()=>data?.findProject?.name, [data]);
     const { register, handleSubmit, reset, errors } = useForm({

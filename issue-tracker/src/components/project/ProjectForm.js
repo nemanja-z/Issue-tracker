@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useContext} from "react";
 import { useForm } from "react-hook-form";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
@@ -9,6 +9,8 @@ import { yupResolver } from '@hookform/resolvers';
 import * as yup from "yup";
 import shortid from 'shortid';
 import Error from "../Error";
+import {ErrorContext} from "../../App";
+
 
 const schema = yup.object().shape({
     name: yup.string().min(5).required(),
@@ -17,10 +19,12 @@ const schema = yup.object().shape({
 
 
 const ProjectForm = ({history, show, setShow, leader}) => {
+    const {dispatch} = useContext(ErrorContext);
     const { register, handleSubmit, reset, errors } = useForm({
         resolver: yupResolver(schema)
       });
     const [createProject, {error}] = useMutation(CREATE,{
+        onError:(e)=>dispatch({type:'set', payload:e}),
         onCompleted:()=>{
             history.push("/home")
             setShow(!show)}});
@@ -30,9 +34,6 @@ const ProjectForm = ({history, show, setShow, leader}) => {
     }); 
     if(leader.length===0){
         return <Error error={"There are not available users for this project!"}/>;
-    }
-    if(error){
-        return <Error error={error}/>;
     }
 
     return( 

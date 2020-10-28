@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, useContext} from "react";
 import {ISSUES} from "../../queries/issue/queries";
 import {useParams} from "react-router-dom";
 import {useQuery} from "@apollo/client";
@@ -12,12 +12,15 @@ import Issue from "../issue/Issue";
 import Spinner from 'react-bootstrap/Spinner';
 import Card from 'react-bootstrap/Card';
 import './index.css';
+import {ErrorContext} from "../../App";
 
 
 const Project = ({projectId, setProjectId, projects, client}) => {
     const {id} = useParams();
+    const {dispatch} = useContext(ErrorContext);
     const [issueId, setIssueId] = useState(null);
-    const { loading, error, data } = useQuery(ISSUES, {
+    const { loading, data } = useQuery(ISSUES, {
+      onError:(e)=>dispatch({type:'set', payload:e}),
         variables: { projectId },
       });
     useEffect(()=>{
@@ -26,12 +29,10 @@ const Project = ({projectId, setProjectId, projects, client}) => {
         }
       }, [id]);
     if (loading){ 
-        return (
-        <Spinner animation="border" role="status">
+        return (<Spinner animation="border" role="status">
                   <span className="sr-only">Loading...</span>
-        </Spinner>);
+                </Spinner>);
             }
-    if (error) return <Error error={error.message}/>;
     
     return( 
       <>

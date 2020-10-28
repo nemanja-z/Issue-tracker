@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useContext} from 'react';
 import {LOGIN, SIGN_UP} from "../../queries/user/queries";
 import {useMutation} from "@apollo/client";
 import Form from 'react-bootstrap/Form';
@@ -9,9 +9,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { yupResolver } from '@hookform/resolvers';
 import * as yup from "yup";
-import Error from '../Error';
 import {useHistory} from "react-router-dom";
-  
+import {ErrorContext} from "../../App";
+
+
 const schema = yup.object().shape({
     username: yup.string().when('loginStatus',{
         is:false,
@@ -32,7 +33,7 @@ const schema = yup.object().shape({
   });
 
 const Login = () =>{
-
+    const {dispatch} = useContext(ErrorContext);
     let history = useHistory();
     const CLOUDINARY = "https://res.cloudinary.com/de2kz7yfl/image/upload/v1603532952/i3ekit0th28di6puvgyb.png";
 
@@ -44,10 +45,10 @@ const Login = () =>{
     const [profile, setProfile] = useState(null);
     
     const [signUp] = useMutation(SIGN_UP, {
-        onError: (error) =>  setError(error.graphQLErrors[0].message),
+        onError:(e)=>dispatch({type:'set', payload:e}),
         onCompleted:()=>setLoginStatus(!loginStatus)});
     const [login] = useMutation(LOGIN, {
-        onError: (error) =>  setError(error.graphQLErrors[0].message),
+        onError:(e)=>dispatch({type:'set', payload:e}),
         onCompleted:(data)=>{
             localStorage.setItem('auth', data.loginUser);
             history.push("/home");
@@ -67,13 +68,6 @@ const Login = () =>{
         signUp({variables:{username, password, email, profile}});
         reset();
     });
-
-    useEffect(()=>{
-        if(error){
-            setTimeout(()=>{setError(null)}, 5000);
-            return <Error error={error}/>;
-        }
-    },[error]);
     
     return(
         <Form style={{width: "40%",
@@ -129,7 +123,6 @@ const Login = () =>{
                 reset();}}>{loginStatus  ? 'need to create an account?' : 'already have an account?'}
             </Button>
             </Form.Group>
-            <Error error={error}/>
             
         </Form>
     )

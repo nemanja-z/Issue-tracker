@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useContext} from "react";
 import Form from 'react-bootstrap/Form';
 import { useForm } from "react-hook-form";
 import Button from 'react-bootstrap/Button';
@@ -12,6 +12,8 @@ import * as yup from "yup";
 import Error from '../Error';
 import {ISSUE_LIST, ASSIGN} from "../../queries/issue/queries";
 import {useMutation} from "@apollo/client";
+import {ErrorContext} from "../../App";
+
 
 const schema = yup.object().shape({
     user: yup.string().required()
@@ -19,26 +21,25 @@ const schema = yup.object().shape({
 
 
 const AssignUser = ({project, issue, show, setShow}) => {
+    const {dispatch} = useContext(ErrorContext);
     const [assignUser] = useMutation(ASSIGN,{
+        onError:(e)=>dispatch({type:'set', payload:e}),
         onCompleted:()=>setShow(!show)});
     const { loading:issue_loading, error:issue_error, data:issue_data } = useQuery(ISSUE_LIST,{
-        onError: (error) =>  console.log(error.graphQLErrors[0].message)
+        onError:(e)=>dispatch({type:'set', payload:e})
     });
     const { register, handleSubmit, reset, errors } = useForm({
         resolver: yupResolver(schema)
       });
     const { loading, error, data } = useQuery(PROJECT_USERS,{
         variables:{name:project},
-        onError: (error) =>  console.log(error.graphQLErrors[0].message)
+        onError:(e)=>dispatch({type:'set', payload:e})
     });
     if(loading||issue_loading) { 
         return (<Spinner animation="border" role="status">
                     <span className="sr-only">Loading...</span>
                   </Spinner>);}
 
-    if(error||issue_error) {
-        return error?<Error error={error.message}/>:<Error error={issue_error.message}/>
-    }
     const addAssignment=handleSubmit(({user})=>{
         assignUser({variables:{project, user, issue}});
         reset();

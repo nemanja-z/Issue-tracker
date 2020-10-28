@@ -34,7 +34,6 @@ export default `
     description: String
     priority: String
     resolution: String
-    project:String
   }
   type AddIssuePayload{
     issue:Issue!

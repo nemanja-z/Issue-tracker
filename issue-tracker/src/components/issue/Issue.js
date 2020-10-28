@@ -1,8 +1,7 @@
-import React from "react";
+import React, {useContext} from "react";
 import PropTypes from 'prop-types';
 import {ISSUE} from "../../queries/issue/queries";
 import {useQuery} from "@apollo/client";
-import Error from "../Error";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Spinner from 'react-bootstrap/Spinner';
@@ -11,18 +10,19 @@ import ModalAssign from "../user/ModalAssign";
 import ModalEdit from "../issue/ModalEdit";
 import CommentForm from "../comment/CommentForm";
 import Comments from "../comment/Comments";
+import {ErrorContext} from "../../App";
 
 
 const Issue = ({issueId}) => {
+  const {dispatch} = useContext(ErrorContext);
   const { loading, error, data } = useQuery(ISSUE, {
     variables: { issueId },
+    onError:(e)=>dispatch({type:'set', payload:e})
   });
   if (loading) {
     return (<Spinner animation="border" role="status">
                 <span className="sr-only">Loading...</span>
           </Spinner>);}
-  if (error) return <Error error={error.message}/>;
-  console.log(data.targetIssue)
   return(
     <>
     <div className="container">

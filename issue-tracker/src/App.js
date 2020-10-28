@@ -22,7 +22,7 @@ const reducer = (state, action) =>{
       return state;
     }
 }
-export const MessageContext = createContext();
+export const ErrorContext = createContext();
 
 const App = () => {
   const [error, dispatch] = useReducer(reducer, initialError);
@@ -38,7 +38,7 @@ const App = () => {
 
   return (
     <Router>
-  <MessageContext.Provider value={{error, dispatch}}>
+  <ErrorContext.Provider value={{error, dispatch}}>
       <Switch>
           <Route path="/login">
              <Login/>
@@ -47,7 +47,7 @@ const App = () => {
               <Homepage/>
           </PrivateRoute>
       </Switch>
-      </MessageContext.Provider>
+      </ErrorContext.Provider>
     </Router>
   );
 }

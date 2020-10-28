@@ -1,26 +1,27 @@
-import React, {useState} from "react";
+import React, {useState, useContext} from "react";
 import {ASSIGNED} from "../../queries/issue/queries";
-import Error from "../Error";
 import ListGroup from "react-bootstrap/ListGroup";
 import Col from "react-bootstrap/Col";
 import Tab from "react-bootstrap/Tab";
 import Row from "react-bootstrap/Row";
-import Container from "react-bootstrap/Container";
 import Spinner from 'react-bootstrap/Spinner';
 import Card from 'react-bootstrap/Card';
 import {useQuery} from "@apollo/client";
 import Issue from "./Issue";
+import {ErrorContext} from "../../App";
+
 
 const AssignedToMe = () => {
     const [issueId, setIssueId] = useState(null);
-    const { loading, error, data } = useQuery(ASSIGNED);
+    const {dispatch} = useContext(ErrorContext);
+    const { loading, error, data } = useQuery(ASSIGNED, {
+      onError:(e)=>dispatch({type:'set', payload:e})});
     if (loading){ 
         return (
         <Spinner animation="border" role="status">
                   <span className="sr-only">Loading...</span>
         </Spinner>);
             }
-    if (error) return <Error error={error.message}/>;
     if (data.assignedToMe.length===0) {
       return(
         <>

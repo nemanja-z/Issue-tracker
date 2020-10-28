@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useContext} from "react";
 import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
 import ListGroup from 'react-bootstrap/ListGroup';
@@ -10,29 +10,26 @@ import Button from 'react-bootstrap/Button';
 import shortid from 'shortid';
 import Error from './Error';
 import Spinner from 'react-bootstrap/Spinner';
+import {ErrorContext} from "../App";
 
 
 const ManageUsers = ({users, user_projects}) => {
+    const {dispatch} = useContext(ErrorContext);
     const [username, setUsername] = useState('');
     const [role, setRole] = useState('');
     const [project, setProject] = useState('');
-    const [error, setError] = useState(null);
     const [addRole, {loading}] = useMutation(ADD_ROLE, {
-        onError:(error)=>setError(error.graphQLErrors[0].message)
+        onError:(e)=>dispatch({type:'set', payload:e})
     });
     const handleAssign = () => addRole({variables:{username, project, role}});
-    useEffect(()=>{
-        if(error){
-            setTimeout(()=>{setError(null)}, 5000);
-        }
-    },[error])
+    
     
     if(loading)  {
         return (<Spinner animation="border" role="status">
                     <span className="sr-only">Loading...</span>
                   </Spinner>);
-                  }
-    if(error) return <Error error={error}/>
+    }
+
     return(
         <>
         

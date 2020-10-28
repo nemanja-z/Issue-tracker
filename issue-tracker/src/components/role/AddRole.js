@@ -12,7 +12,7 @@ import * as yup from "yup";
 import Error from '../Error';
 import {ADD_ROLE} from "../../queries/user/queries";
 import {useMutation} from "@apollo/client";
-import {MessageContext} from "../../App";
+import {ErrorContext} from "../../App";
 
 
 const schema = yup.object().shape({
@@ -22,7 +22,7 @@ const schema = yup.object().shape({
 
 
 const AddRole = ({project, users, show, setShow}) => {
-    const {dispatch} = useContext(MessageContext);
+    const {dispatch} = useContext(ErrorContext);
     const [addRole, {error}] = useMutation(ADD_ROLE,{
         onCompleted:()=>setShow(!show),
         onError:(e)=>dispatch({type:'set', payload:e})});
