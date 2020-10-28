@@ -5,10 +5,10 @@ import {useQuery} from "@apollo/client";
 import Error from "../Error";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Container from "react-bootstrap/Container";
 import Spinner from 'react-bootstrap/Spinner';
 import './index.css';
 import ModalAssign from "../user/ModalAssign";
+import ModalEdit from "../issue/ModalEdit";
 import CommentForm from "../comment/CommentForm";
 import Comments from "../comment/Comments";
 
@@ -27,6 +27,7 @@ const Issue = ({issueId}) => {
     <>
     <div className="container">
     <ModalAssign project={data.targetIssue.Project.name} issue={data.targetIssue.id}/>
+    <ModalEdit issue={data.targetIssue} />
     <Row>
       <Col>Type: {data.targetIssue.issue_type}</Col>
       <Col>Priority: {data.targetIssue.priority}</Col>

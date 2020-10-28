@@ -155,6 +155,6 @@ query {issuesAll{
         }
 }}`;
 export const EDIT=gql`
-mutation editIssue($issueId:String, $input:Fields){
+mutation editIssue($issueId:String, $input:Edit){
         editIssue(issueId:$issueId, input:$input)
 }`;
