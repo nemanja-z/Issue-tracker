@@ -1,4 +1,5 @@
-import React, {useMemo, useContext} from "react";
+import React, {useMemo, useContext, useCallback} from "react";
+import {useDropzone} from 'react-dropzone'
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { useForm } from "react-hook-form";
@@ -23,6 +24,10 @@ const schema = yup.object().shape({
 
 const IssueForm = ({ projectId, setShow, show}) => {
     const {dispatch} = useContext(ErrorContext);
+    const onDrop = useCallback(acceptedFiles => {
+        console.log(acceptedFiles)
+    }, [])
+      const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop});
     const [reportIssue] = useMutation(REPORT, {
         onCompleted:()=>setShow(!show),
         onError:(e)=>dispatch({type:'set', payload:e}),
@@ -100,6 +105,14 @@ const IssueForm = ({ projectId, setShow, show}) => {
             </Form.Control>
             <Form.Text>{errors.status?.message}</Form.Text>
         </Form.Group>
+        <div {...getRootProps()}>
+            <input {...getInputProps()} />
+            {
+                isDragActive ?
+                <p>Drop the files here ...</p> :
+                <p>Drag 'n' drop some files here, or click to select files</p>
+            }
+        </div>
         </Form.Row>
         <Button variant="primary" type="submit">
           Submit

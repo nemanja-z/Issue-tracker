@@ -15,7 +15,12 @@ query {allProjects{
     name
     url
     isActive
-    projectLead{
+    manager{
+        username
+        email
+        id
+    }
+    member{
         username
         email
         id
@@ -37,7 +42,12 @@ mutation createProject($name:String!, $url:String, $projectLead:String){
         name
         url
         isActive
-        projectLead{
+        manager{
+            username
+            email
+            id
+        }
+        member{
             username
             email
             id
@@ -49,7 +59,12 @@ mutation createProject($name:String!, $url:String, $projectLead:String){
             name
             url
             isActive
-            projectLead{
+            manager{
+                username
+                email
+                id
+            }
+            member{
                 username
                 email
                 id
@@ -61,7 +76,12 @@ query {userProjects{
     name
     url
     isActive
-    projectLead{
+    manager{
+        username
+        email
+        id
+    }
+    member{
         username
         email
         id

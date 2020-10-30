@@ -3,22 +3,18 @@ export default {
     Query:{
         allIssues: async(_, args, {models}) =>{
             const issues=await models.Issue.findAll({where:{project:args.projectId},
-            include:[{model:models.Project}, {model:models.User, as:'reporter'}]});
+            include:[{model:models.Project}, {model:models.User, as:'reporter'}, {model:models.User, as:'assignees'}]});
             return issues;
             
         },
         targetIssue:async(_, args, {models})=>{
             const issue=await models.Issue.findOne({where:{id:args.issueId},
-                include:[{model:models.Project}, {model:models.User, as:'reporter'}, {model:models.User, through:{
-                    model:models.Assignee
-                }}]});
+                include:[{model:models.Project}, {model:models.User, as:'reporter'}, {model:models.User, as:'assignees'}]});
             return issue;
         },
         assignedToMe:async(_,args,{models, user})=>{
             return await models.Issue.findAll({
-                include:[{model:models.Project}, {model:models.User, as:'reporter'}, {model:models.User, through:{
-                    model:models.Assignee
-                },
+                include:[{model:models.Project}, {model:models.User, as:'reporter'}, {model:models.User, as:'assignees',
                 where:{username:user.username}}]});
         },
         issueComment:async(_, args, {models})=>{
@@ -45,7 +41,7 @@ export default {
         refetch: () => ({})
       },
     Mutation: {
-        createIssue: async (_, {input}, { models, user }) => {
+        createIssue: async (_, {input}, { models, user, cloudinary }) => {
             if(!user){
                 throw new Error('You are not authorized to report issue!');
             }
@@ -57,13 +53,29 @@ export default {
             if(!user_role){
                 throw new Error('You are not authorized to report issue');
             } */
-            
+            let attachment = [];
+            if(input.attachment){
+                const {createReadStream} = await input.attachment;
+                await new Promise((resolve, reject) => {
+                    const streamLoad = cloudinary.uploader.upload_stream(function (error, result) {
+                        if (result) {
+                            attachment.concat(result.secure_url);
+                            resolve(attachment)
+                        } else {
+                            reject(error);
+                        }
+                    });
+    
+                    createReadStream().pipe(streamLoad);
+                });
+            }
              try {
                  const issue = await models.Issue.create({
                     ...input,
+                    attachment,
                     reporterId:user.id,
                     project:targetProject.id
-                }, {include:[{model:models.User, as:'reporter'}, {model:models.Project}]});
+                }, {include:[{model:models.User, as:"reporter"}, {model:models.Project}, {model:models.User, as:"assignees"}]});
                 await issue.reload();
                 return {issue};
             } catch (err) {
@@ -88,7 +100,7 @@ export default {
                 throw new Error("You cannot assign issue");
             }
             try{
-                await targetIssue.addUser(assignee,{through:"Assignee"});
+                await targetIssue.addAssignees(assignee,{through:"Assignee"});
                 return true;
             }catch(err){
                 console.log(err);

@@ -26,11 +26,12 @@ module.exports =(sequelize, DataTypes) => {
   });
   User.associate = (models) => {
     User.belongsToMany(models.Project, {
+      as:"member",
       through: "Role"
     });
     User.hasMany(models.Project, {
-      as:"projectLead",
-      foreignKey:"projectLeadId"
+      as:"manager",
+      foreignKey:"managerId"
     });
     User.hasMany(models.Issue, {
       as:"reporter",
@@ -41,6 +42,7 @@ module.exports =(sequelize, DataTypes) => {
       foreignKey:"commenterId"
     });
     User.belongsToMany(models.Issue, {
+      as:"assignees",
       through: "Assignee"
     });
 }

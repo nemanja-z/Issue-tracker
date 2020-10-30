@@ -10,6 +10,12 @@ query Issue($projectId:String){
                 description
                 priority
                 resolution
+                assignees{
+                        id
+                        username
+                        email
+                        profile
+                }
                 reporter{
                         username
                         email
@@ -33,6 +39,12 @@ query {assignedToMe{
                 description
                 priority
                 resolution
+                assignees{
+                        id
+                        username
+                        email
+                        profile
+                }
                 reporter{
                         username
                         email
@@ -63,6 +75,12 @@ query Issue($issueId:String){
                         id
                 }
                 status
+                assignees{
+                        id
+                        username
+                        email
+                        profile
+                }
                 createdAt
                 updatedAt
                 Project{
@@ -91,6 +109,12 @@ mutation createIssue($input:Fields){
                         profile
                         id
                 }
+                assignees{
+                        id
+                        username
+                        email
+                        profile
+                }
                 status
                 createdAt
                 updatedAt
@@ -111,6 +135,12 @@ mutation createIssue($input:Fields){
                         description
                         priority
                         resolution
+                        assignees{
+                                id
+                                username
+                                email
+                                profile
+                        }
                         reporter{
                                 username
                                 email
@@ -140,6 +170,12 @@ query {issuesAll{
         description
         priority
         resolution
+        assignees{
+                id
+                username
+                email
+                profile
+        }
         reporter{
                 username
                 email

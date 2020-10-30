@@ -29,6 +29,9 @@ module.exports = {
         type: Sequelize.DataTypes.ENUM("Fixed", "Won't do", "Duplicate", "Unresolved"),
         defaultValue: "Unresolved"
       },
+      attachment:{
+        type: Sequelize.DataTypes.ARRAY(Sequelize.DataTypes.STRING)
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

@@ -92,13 +92,8 @@ const Login = () =>{
             {!loginStatus&&(
                 <>
             <Form.Group>
-                <InputGroup>
                     <Form.Control placeholder="confirm password" name="passwordConfirmation" type={passwordShown ? "text" : "password"} ref={register} id='passwordConfirmation'/>
-                    <InputGroup.Prepend>
-                        <InputGroup.Text onClick={toggleVisibility}>{eye}</InputGroup.Text>
-                    </InputGroup.Prepend>
                     <Form.Text>{errors.passwordConfirmation?.message}</Form.Text>
-                </InputGroup>
             </Form.Group>
             <Form.Group>
                 <Form.Control placeholder="email" name="email" type='text' ref={register} id='email'/>

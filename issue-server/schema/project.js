@@ -5,7 +5,8 @@ export default `
       name:String!
       url:String
       isActive:Boolean
-      projectLead:User
+      manager:User
+      member:[User]
       createdAt:Date
       updatedAt:Date
   }

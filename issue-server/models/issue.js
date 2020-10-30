@@ -27,6 +27,9 @@ module.exports =(sequelize, DataTypes) => {
     status:{
       type: DataTypes.ENUM("Reopened","Resolved","Closed","Active","Open"),
       defaultValue:"Open"
+    },
+    attachment:{
+      type: DataTypes.ARRAY(DataTypes.STRING)
     }
   });
    Issue.associate = models => {
@@ -38,6 +41,7 @@ module.exports =(sequelize, DataTypes) => {
       foreignKey: "reporterId"
     });
     Issue.belongsToMany(models.User, {
+      as:"assignees",
       through: "Assignee"
     });
     Issue.hasMany(models.Comment, {

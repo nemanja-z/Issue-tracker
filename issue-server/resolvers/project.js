@@ -1,11 +1,11 @@
 export default {
     Query:{
         allProjects:async(_,args,{models})=>{
-            const projects=await models.Project.findAll({include:'projectLead'});
+            const projects=await models.Project.findAll({include:[{model:models.User,as:'manager'},{model:models.User, as:"member"}]});
             return projects; 
         },
         findProject:async(_, args, {models})=>{
-            const projects=await models.Project.findOne({where:{id:args.projectId}, include:[{model:models.User}]});
+            const projects=await models.Project.findOne({where:{id:args.projectId}, include:[{model:models.User, as:"member"}]});
             return projects; 
         },
         userProjects:async(_, args, {models, user})=>{
@@ -32,31 +32,6 @@ export default {
             }catch(e){
                 console.log(e);
             }
-        },
-        allProjectManagers:async(_, args, {models})=>{
-            try{
-                const projectManager=await models.Role.findAll({where:{role:"Manager"} });
-                const managers = projectManager.map(p=>{
-                    return {
-                        user:p.UserId,
-                        project:p.ProjectId
-                    }});
-                console.log(managers, 'managers')
-                const targetQuery =await models.sequelize.transaction(async t=>{
-                    let project_lead;
-                    let project;
-                    let project_leads=[];
-                    for(let i=0; i<managers.length; i++){
-                        project_lead=await models.User.findOne({where:{id:managers[i].user}},{ transaction: t });
-                        project=await models.Project.findOne({where:{id:managers[i].project}},{ transaction: t });
-                        project_leads=[...project_leads,{leaderId:project_lead.id, project_lead:project_lead.username,project:project.name, url:project.url, projectId:project.id}];
-                    }
-                    return project_leads;
-                 });
-                 return targetQuery;
-            }catch(e){
-                console.log(e);
-            }
         }},
         AddProjectPayload: {
             refetch: () => ({})
@@ -72,10 +47,10 @@ export default {
                     name:args.name,
                     url:args.url,
                     isActive:true,
-                    projectLeadId:projectLead.id
-            });
-                await project.addUser(user,{through:{role:'Manager'}});
-                await project.addUser(projectLead,{through:{role:'Leader'}});
+                    managerId:user.id
+            }, {include:[{model:models.User, as:"manager"}, {model:models.User, as:"member"}]});
+                await project.addMember(projectLead,{through:{role:'Leader'}});
+                await project.reload();
                 return {project};
             } catch (err) {
                 throw new Error(err);

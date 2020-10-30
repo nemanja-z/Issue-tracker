@@ -14,9 +14,11 @@ export default `
     Project:Project
     summary:String!
     reporter:User!
+    assignees:[User]
     createdAt:Date
     updatedAt:Date
     Users:[User]
+    attachment:[String]
   }
   input Fields{
     summary:String!
@@ -26,6 +28,7 @@ export default `
     priority: String
     resolution: String
     project:String!
+    attachment:Upload
   }
   input Edit{
     summary:String

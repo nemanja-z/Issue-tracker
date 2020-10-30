@@ -21,10 +21,11 @@ module.exports =(sequelize, DataTypes) => {
       foreignKey: "project"
     });
     Project.belongsTo(models.User,{
-      as:"projectLead",
-      foreignKey:"projectLeadId"
+      as:"manager",
+      foreignKey:"managerId"
     });
     Project.belongsToMany(models.User,{
+      as:"member",
       through:"Role"
     });
   }; 

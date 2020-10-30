@@ -18,8 +18,8 @@ const AllProjects = ({projects, username, users}) => {
             {projects.map(p=>
             <tr key={p.name}>
                 <td><Link to={`/projects/:${p.id}`}>{p.name}</Link></td>
-                <td><Link to={`/projects/:${p.projectLead.id}`}>{p.projectLead.username}</Link></td>
-                {username===p.projectLead.id ? <td><ModalRole users={users} project={p.name}/></td> : <td></td>}
+                <td><Link to={`/projects/:${p.member[0].id}`}>{p.member[0].username}</Link></td>
+                {username===p.manager.id ? <td><ModalRole users={users} project={p.name}/></td> : <td></td>}
             </tr>
             )}
         </tbody>

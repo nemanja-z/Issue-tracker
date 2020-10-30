@@ -29,16 +29,16 @@ const Homepage = () => {
     }
     
     
-    const { loading:me_loading, error:me_error, data:data_me } = useQuery(AUTH, {
+    const { loading:me_loading, data:data_me } = useQuery(AUTH, {
         onError:(e)=>dispatch({type:'set', payload:e})
     });
-    const { loading:user_loading, error:user_error, data:user_data } = useQuery(USER_PROJECTS, {
+    const { loading:user_loading,  data:user_data } = useQuery(USER_PROJECTS, {
         onError:(e)=>dispatch({type:'set', payload:e})
     });
-    const { loading, error, data } = useQuery(ALL_PROJECTS, {
+    const { loading, data } = useQuery(ALL_PROJECTS, {
         onError:(e)=>dispatch({type:'set', payload:e})
     });
-    const { loading:users_loading, error:users_error, data:users_data } = useQuery(ALL_USERS, {
+    const { loading:users_loading,  data:users_data } = useQuery(ALL_USERS, {
         variables:{me:false},
         onError:(e)=>dispatch({type:'set', payload:e})
     });
@@ -53,7 +53,7 @@ const Homepage = () => {
         return (<Spinner animation="border" role="status">
                     <span className="sr-only">Loading...</span>
               </Spinner>);}
-    
+    console.log(data.allProjects)
     return(
         <Container>
         {data_me.me && <Header picture={profilePic} logOut={logOut} username={username}/>}
