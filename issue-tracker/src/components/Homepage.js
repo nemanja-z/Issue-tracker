@@ -42,7 +42,7 @@ const Homepage = () => {
         variables:{me:false},
         onError:(e)=>dispatch({type:'set', payload:e})
     });
-    const { loading:unassigned_users_loading, error:unassigned_users_error, data:unnasigned_users } = useQuery(UNASSIGNED_USERS, {
+    const { loading:unassigned_users_loading, data:unnasigned_users } = useQuery(UNASSIGNED_USERS, {
         onError:(e)=>dispatch({type:'set', payload:e})
     });
     const username=useMemo(()=>data_me?.me?.username, [data_me]);
@@ -53,13 +53,12 @@ const Homepage = () => {
         return (<Spinner animation="border" role="status">
                     <span className="sr-only">Loading...</span>
               </Spinner>);}
-    console.log(data.allProjects)
     return(
         <Container>
         {data_me.me && <Header picture={profilePic} logOut={logOut} username={username}/>}
         <Switch>
             <PrivateRoute path="/projects/:id">
-                <Project projects={projects} client={client} projectId={projectId} setProjectId={setProjectId} />
+               <Project projects={projects} client={client} projectId={projectId} setProjectId={setProjectId} />
             </PrivateRoute>
             <PrivateRoute path="/home">
             {(data && users_data && id && unnasigned_users) && <MyView leader={unnasigned_users.allUnassignedUsers} users={users_data.allUsers} username={id} history={history} projects={data.allProjects}/>}

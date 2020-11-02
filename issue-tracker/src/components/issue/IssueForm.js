@@ -1,4 +1,4 @@
-import React, {useMemo, useContext, useCallback} from "react";
+import React, {useState, useMemo, useContext, useCallback} from "react";
 import {useDropzone} from 'react-dropzone'
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
@@ -24,10 +24,7 @@ const schema = yup.object().shape({
 
 const IssueForm = ({ projectId, setShow, show}) => {
     const {dispatch} = useContext(ErrorContext);
-    const onDrop = useCallback(acceptedFiles => {
-        console.log(acceptedFiles)
-    }, [])
-      const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop});
+    const [attachment, setAttachment] = useState(null);
     const [reportIssue] = useMutation(REPORT, {
         onCompleted:()=>setShow(!show),
         onError:(e)=>dispatch({type:'set', payload:e}),
@@ -43,7 +40,7 @@ const IssueForm = ({ projectId, setShow, show}) => {
         resolver: yupResolver(schema)
       });
     const createIssue=handleSubmit(({summary, description, priority, resolution, status, issue_type})=>{
-        reportIssue({variables:{input:{summary, description, priority, resolution, status, issue_type, project:projectName}}});
+        reportIssue({variables:{input:{summary, description, priority, resolution, status, attachment, issue_type, project:projectName}}});
         reset();
     });
 
@@ -105,14 +102,11 @@ const IssueForm = ({ projectId, setShow, show}) => {
             </Form.Control>
             <Form.Text>{errors.status?.message}</Form.Text>
         </Form.Group>
-        <div {...getRootProps()}>
-            <input {...getInputProps()} />
-            {
-                isDragActive ?
-                <p>Drop the files here ...</p> :
-                <p>Drag 'n' drop some files here, or click to select files</p>
-            }
-        </div>
+            <div className="form-group-files">
+                <label>Attachment</label>
+                <input type="file" name="attachment"  onChange={({ target: { validity, files: [file] } })=>
+                validity.valid && setAttachment(file)}/>
+            </div>
         </Form.Row>
         <Button variant="primary" type="submit">
           Submit

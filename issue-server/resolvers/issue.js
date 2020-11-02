@@ -53,24 +53,24 @@ export default {
             if(!user_role){
                 throw new Error('You are not authorized to report issue');
             } */
-            let attachment = [];
-            if(input.attachment){
-                const {createReadStream} = await input.attachment;
-                await new Promise((resolve, reject) => {
-                    const streamLoad = cloudinary.uploader.upload_stream(function (error, result) {
-                        if (result) {
-                            attachment.concat(result.secure_url);
-                            resolve(attachment)
-                        } else {
-                            reject(error);
-                        }
+            let attachment=[];
+            try {
+                if(input.attachment){
+                    const {createReadStream} = await input.attachment;
+                    await new Promise((resolve, reject) => {
+                        const streamLoad = cloudinary.uploader.upload_stream(function (error, result) {
+                            if (result) {
+                                attachment = attachment.concat(result.secure_url);
+                                resolve(attachment)
+                            } else {
+                                reject(error);
+                            }
+                        });
+        
+                        createReadStream().pipe(streamLoad);
                     });
-    
-                    createReadStream().pipe(streamLoad);
-                });
-            }
-             try {
-                 const issue = await models.Issue.create({
+                }
+                const issue = await models.Issue.create({
                     ...input,
                     attachment,
                     reporterId:user.id,

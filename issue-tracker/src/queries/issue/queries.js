@@ -23,6 +23,7 @@ query Issue($projectId:String){
                         id
                 }
                 status
+                attachment
                 createdAt
                 updatedAt
                 Project{
@@ -39,6 +40,7 @@ query {assignedToMe{
                 description
                 priority
                 resolution
+                attachment
                 assignees{
                         id
                         username
@@ -68,6 +70,7 @@ query Issue($issueId:String){
                 description
                 priority
                 resolution
+                attachment
                 reporter{
                         username
                         email
@@ -103,6 +106,7 @@ mutation createIssue($input:Fields){
                 description
                 priority
                 resolution
+                attachment
                 reporter{
                         username
                         email
@@ -135,6 +139,7 @@ mutation createIssue($input:Fields){
                         description
                         priority
                         resolution
+                        attachment
                         assignees{
                                 id
                                 username
@@ -170,6 +175,7 @@ query {issuesAll{
         description
         priority
         resolution
+        attachment
         assignees{
                 id
                 username

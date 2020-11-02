@@ -20,14 +20,14 @@ export default {
                     let project_leads=[];
                     for(let i=0; i<managers.length; i++){
                         //project_lead=await models.User.findOne({where:{id:managers[i].user}},{ transaction: t });
-                        project=await models.Project.findOne({where:{id:managers[i].project}, include:'projectLead'},{ transaction: t });
+                        project=await models.Project.findOne({where:{id:managers[i].project}, include:'manager'},{ transaction: t });
                         //project_leads=[...project_leads, {leaderId:project_lead.id, project_lead:project_lead.username,project:project.name, url:project.url, projectId:project.id}];
                         project_leads=project_leads.concat(project);
                     }
                     
                     return project_leads;
                  });
-                return targetQuery.filter(t=>t.projectLead.username===user.username);
+                return targetQuery.filter(t=>t.manager.username===user.username);
                 
             }catch(e){
                 console.log(e);
@@ -49,6 +49,7 @@ export default {
                     isActive:true,
                     managerId:user.id
             }, {include:[{model:models.User, as:"manager"}, {model:models.User, as:"member"}]});
+                await project.addMember(user,{through:{role:'Manager'}});
                 await project.addMember(projectLead,{through:{role:'Leader'}});
                 await project.reload();
                 return {project};
@@ -94,7 +95,7 @@ export default {
                 throw new Error('You are not authorized to add members');
             }
             try{
-                await targetProject.addUser(addUserRole,{through:{role}});
+                await targetProject.addMember(addUserRole,{through:{role}});
                 return true;
                 //return true;
             }catch(e){
