@@ -15,12 +15,12 @@ query {allProjects{
     name
     url
     isActive
-    manager{
+    member{
         username
         email
         id
     }
-    member{
+    manager{
         username
         email
         id

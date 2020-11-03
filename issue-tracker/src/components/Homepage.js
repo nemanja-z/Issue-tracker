@@ -49,6 +49,7 @@ const Homepage = () => {
     const id=useMemo(()=>data_me?.me?.id, [data_me]);
     const profilePic = useMemo(()=>data_me?.me?.profile, [data_me]);
     const projects = useMemo(()=>user_data?.userProjects?.map(project=>project), [user_data]);
+
     if (users_loading||me_loading||loading||user_loading||unassigned_users_loading){ 
         return (<Spinner animation="border" role="status">
                     <span className="sr-only">Loading...</span>
