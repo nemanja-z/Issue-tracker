@@ -55,7 +55,7 @@ const Homepage = () => {
                     <span className="sr-only">Loading...</span>
               </Spinner>);}
     return(
-        <Container>
+        <>
         {data_me.me && <Header picture={profilePic} logOut={logOut} username={username}/>}
         <Switch>
             <PrivateRoute path="/projects/:id">
@@ -71,7 +71,7 @@ const Homepage = () => {
               {(users_data && projects) && <ManageUsers user_projects={projects} users={users_data.allUsers}/>}
             </PrivateRoute>
         </Switch>
-        </Container>
+        </>
     )
 }
 

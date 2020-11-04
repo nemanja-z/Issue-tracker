@@ -45,7 +45,7 @@ const Issue = ({issueId}) => {
     </Row>
     <Row >
       <Col>Reporter: {data.targetIssue.reporter.username}</Col>
-      <Col>Assigned to: {data.targetIssue.Users?.map(user=>
+      <Col>Assigned to: {data.targetIssue.assignees?.map(user=>
       <p key={user.username}>{user.username}</p>)}</Col>
     </Row>
     <Row>

@@ -43,8 +43,9 @@ export const UNASSIGNED_USERS = gql`
 export const PROJECT_USERS = gql`
     query users($name:String!){
         projectUsers(name:$name){
-        username
-        email
-        profile
-        id
+            username
+            email
+            profile
+            id
+        
     }}`;

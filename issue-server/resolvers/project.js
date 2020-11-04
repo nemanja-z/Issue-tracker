@@ -1,7 +1,8 @@
 export default {
     Query:{
         allProjects:async(_,args,{models})=>{
-            const projects=await models.Project.findAll({include:[{model:models.User,as:'manager'},{model:models.User, as:"member"}]});
+            const projects=await models.Project.findAll({include:["manager","member"]});
+            console.log(projects)
             return projects; 
         },
         findProject:async(_, args, {models})=>{
@@ -20,7 +21,7 @@ export default {
                     let project_leads=[];
                     for(let i=0; i<managers.length; i++){
                         //project_lead=await models.User.findOne({where:{id:managers[i].user}},{ transaction: t });
-                        project=await models.Project.findOne({where:{id:managers[i].project}, include:'manager'},{ transaction: t });
+                        project=await models.Project.findOne({where:{id:managers[i].project}, include:['manager','member']},{ transaction: t });
                         //project_leads=[...project_leads, {leaderId:project_lead.id, project_lead:project_lead.username,project:project.name, url:project.url, projectId:project.id}];
                         project_leads=project_leads.concat(project);
                     }
@@ -49,9 +50,10 @@ export default {
                     isActive:true,
                     managerId:user.id
             }, {include:[{model:models.User, as:"manager"}, {model:models.User, as:"member"}]});
-                await project.addMember(user,{through:{role:'Manager'}});
-                await project.addMember(projectLead,{through:{role:'Leader'}});
-                await project.reload();
+                await Promise.all([
+                    project.addMember(user,{through:{role:'Manager'}}),
+                    project.addMember(projectLead,{through:{role:'Leader'}}),
+                    project.reload()]);
                 return {project};
             } catch (err) {
                 throw new Error(err);

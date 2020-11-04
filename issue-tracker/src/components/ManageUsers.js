@@ -31,8 +31,6 @@ const ManageUsers = ({users, user_projects}) => {
     }
 
     return(
-        <>
-        
         <Container>
         <Card>
             <Card.Header as="h2">Assign users to your project(s)</Card.Header>
@@ -52,8 +50,7 @@ const ManageUsers = ({users, user_projects}) => {
             <Card>
                 <Card.Header as="h4">Roles</Card.Header>
             </Card>
-            <ListGroup horizontal>
-                <ListGroup.Item onClick={()=>setRole("Manager")} key="Manager">Manager</ListGroup.Item>
+            <ListGroup>
                 <ListGroup.Item onClick={()=>setRole("Developer")} key="Developer">Developer</ListGroup.Item>
                 <ListGroup.Item onClick={()=>setRole("Contractor")} key="Contractor">Contractor</ListGroup.Item>
                 <ListGroup.Item onClick={()=>setRole("Support")} key="Support">Support</ListGroup.Item>
@@ -69,9 +66,9 @@ const ManageUsers = ({users, user_projects}) => {
             </ListGroup>
         </Col>
         </Row>
-        </Container>
         <Button type="submit" onClick={handleAssign}>Add Role</Button>
-        </>
+        </Container>
+        
     )
 }
 

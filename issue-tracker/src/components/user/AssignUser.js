@@ -47,6 +47,7 @@ const AssignUser = ({project, issue, show, setShow}) => {
     if(issue_data.issuesAll.length===0){
         return <Error error={'You cannot assign because you aren\'t member of any project!'}/>
     }
+    console.log(data)
     return(
     <Form inline='true' onSubmit={addAssignment}>
         <Form.Group>
