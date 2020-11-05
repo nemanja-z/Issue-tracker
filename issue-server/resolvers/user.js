@@ -19,9 +19,9 @@ export default {
                 }
             }});
         },
-        allUnassignedUsers:async(_,args,{models,user})=>{
-            const assignedUsers = await models.Role.findAll({attributes:['UserId']});
-            const users = new Set(assignedUsers.map(user=>user.UserId));
+        allUnassignedUsers:async(_,args,{models})=>{
+            const assigned = await models.Project.findAll({where:{isActive:true}, include:[{model:models.User, as:"member"}]});
+            const users = new Set(assigned.map(project=>project.member.map(member=>member.id)).flat());
             return await models.User.findAll({where:{
                 id:{
                     [Op.notIn]:[...users]
@@ -73,19 +73,23 @@ export default {
             }
         },
         loginUser: async (_, args, { models }) => {
-            const user = await models.User.findOne({ where: { username: args.username } });
-            const passwordCorrect = user === null
-                ? false
-                : await bcrypt.compare(args.password, user.passwordHash);
-            if (!(user && passwordCorrect)) {
-                throw new AuthenticationError(`Cannot find user ${args.username}`);
+            try{
+                const user = await models.User.findOne({ where: { username: args.username } });
+                const passwordCorrect = user === null
+                    ? false
+                    : await bcrypt.compare(args.password, user.passwordHash);
+                if (!(user && passwordCorrect)) {
+                    throw new AuthenticationError(`Cannot find user ${args.username}`);
+                }
+                const userForToken = {
+                    username: user.username,
+                    id: user.id
+                };
+                const token = jwt.sign(userForToken, process.env.SECRET);
+                return token;
+            }catch(e){
+                new AuthenticationError(e);
             }
-            const userForToken = {
-                username: user.username,
-                id: user.id
-            };
-            const token = jwt.sign(userForToken, process.env.SECRET);
-            return token;
         }
     }
 }

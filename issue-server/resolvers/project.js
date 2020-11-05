@@ -2,7 +2,6 @@ export default {
     Query:{
         allProjects:async(_,args,{models})=>{
             const projects=await models.Project.findAll({include:["manager","member"]});
-            console.log(projects)
             return projects; 
         },
         findProject:async(_, args, {models})=>{
@@ -16,7 +15,6 @@ export default {
                     return {user:p.UserId,
                     project:p.ProjectId}});
                 const targetQuery =await models.sequelize.transaction(async t=>{
-                    let project_lead;
                     let project;
                     let project_leads=[];
                     for(let i=0; i<managers.length; i++){
@@ -31,7 +29,7 @@ export default {
                 return targetQuery.filter(t=>t.manager.username===user.username);
                 
             }catch(e){
-                console.log(e);
+                throw new Error(e);
             }
         }},
         AddProjectPayload: {

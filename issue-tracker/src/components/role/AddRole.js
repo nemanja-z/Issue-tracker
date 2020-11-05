@@ -31,10 +31,8 @@ const AddRole = ({project, users, show, setShow}) => {
       });
     const assignRole=handleSubmit(({username, role})=>{
         addRole({variables:{project, username, role}});
-        console.log({project, username, role})
         reset();
     });
-    
     return(<Form inline='true' onSubmit={assignRole}>
         <Form.Group>
             <Form.Label>Username</Form.Label>
