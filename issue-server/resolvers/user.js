@@ -30,7 +30,7 @@ export default {
         },
         projectUsers:async(_,args,{models})=>{
             const users = await models.Project.findOne({where:{name:args.name}, include:[{model:models.User, as:"member"}]});
-            return users.member;
+            return users.member.slice(1);
         },
         me:async(_,args,{models, user})=>{
              const currentUser = await models.User.findOne({where:{id:user.id}});

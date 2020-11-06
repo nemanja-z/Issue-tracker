@@ -31,12 +31,14 @@ const ManageUsers = ({users, user_projects}) => {
     }
 
     return(
-        <Container>
+        <Container style={{border:"none"}}>
         <Card>
             <Card.Header as="h2">Assign users to your project(s)</Card.Header>
+            <Card.Body>
+            <Button type="submit" onClick={handleAssign}>Add Role</Button>
+            </Card.Body>
         </Card>
         <Row>
-
         <Col>
         <Card>
             <Card.Header as="h4">Project names</Card.Header>
@@ -66,7 +68,6 @@ const ManageUsers = ({users, user_projects}) => {
             </ListGroup>
         </Col>
         </Row>
-        <Button type="submit" onClick={handleAssign}>Add Role</Button>
         </Container>
         
     )

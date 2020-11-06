@@ -92,6 +92,10 @@ export default {
             if(!user){
                 throw new Error('You are not authorized to report issue!');
             }
+            const isAssigned = await models.Issue.findOne({include:[{model:models.User, as:"assignees", where:{username:args.user}}]});
+            if(isAssigned){
+                throw new Error('User is assigned!');
+            }
             const targetProject=await models.Project.findOne({where:{name:args.project}});
             const targetIssue=await models.Issue.findOne({where:{id:args.issue}, include:[{model:models.User, as:"reporter"}, {model:models.Project}, {model:models.User, as:"assignees"}]});
             const user_role=await models.Role.findOne({where:{

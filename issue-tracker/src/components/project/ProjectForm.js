@@ -33,7 +33,7 @@ const ProjectForm = ({history, show, setShow, leader}) => {
         reset();
     }); 
     if(leader.length===0){
-        return <Error error={"There are not available users for this project!"}/>;
+        return <Error error={"No available users for this project!"}/>;
     }
 
     return( 
