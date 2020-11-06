@@ -68,7 +68,8 @@ mutation createProject($name:String!, $url:String, $projectLead:String){
                 username
                 email
                 id
-            }}
+            }
+            }
 }}}`;
 export const USER_PROJECTS = gql`
 query {userProjects{

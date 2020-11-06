@@ -29,6 +29,6 @@ export default `
   }
   type Mutation{
       createProject(name:String!, url:String, projectLead:String):AddProjectPayload!
-      addRole(username:String!, project:String!, role:String!):Boolean!
+      addRole(username:String!, project:String!, role:String!):AddProjectPayload!
   }
 `;

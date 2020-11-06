@@ -12,6 +12,9 @@ export default {
                 include:[{model:models.Project}, {model:models.User, as:'reporter'}, {model:models.User, as:'assignees'}]});
             return issue;
         },
+        allComments:async(_,args,{models,user})=>{
+            return await models.Comment.findAll({include:"commenter"});
+        },
         assignedToMe:async(_,args,{models, user})=>{
             return await models.Issue.findAll({
                 include:[{model:models.Project}, {model:models.User, as:'reporter'}, {model:models.User, as:'assignees',
@@ -37,6 +40,9 @@ export default {
             return userIssues;
         }
     },
+    AddCommentPayload: {
+        refetch: () => ({})
+      },
     AddIssuePayload: {
         refetch: () => ({})
       },
@@ -87,7 +93,7 @@ export default {
                 throw new Error('You are not authorized to report issue!');
             }
             const targetProject=await models.Project.findOne({where:{name:args.project}});
-            const targetIssue=await models.Issue.findOne({where:{id:args.issue}});
+            const targetIssue=await models.Issue.findOne({where:{id:args.issue}, include:[{model:models.User, as:"reporter"}, {model:models.Project}, {model:models.User, as:"assignees"}]});
             const user_role=await models.Role.findOne({where:{
                 UserId:user.id,
                 ProjectId:targetProject.id
@@ -101,10 +107,9 @@ export default {
             }
             try{
                 await targetIssue.addAssignees(assignee,{through:"Assignee"});
-                return true;
+                return {issue:targetIssue};
             }catch(err){
-                console.log(err);
-                return false;
+                throw new Error(err);
             }
             
         },
@@ -113,28 +118,30 @@ export default {
                 throw new Error('You are not authorized to report issue!');
             }
             const issue = await models.Issue.findOne({where:{id:args.issueId}});
+            
             if(!issue){
                 throw new Error('Issue doesn\'t exist');
             }
             try{
-                await models.Comment.create({
+                const comment = await models.Comment.create({
                     comment:args.comment, 
                     commenterId:user.id, 
-                    issueId:args.issueId});
-                return true;
+                    issueId:args.issueId}, {include:"commenter"});
+                comment.reload();
+                return {comment};
             }catch(e){
-                console.log(e);
-                return false;
+                throw new Error(e);
             }
         },
-        editIssue: async(_, args, {models, user})=>{
+        editIssue: async(_, args, {models})=>{
             if(!user){
                 throw new Error('You are not authorized to report issue!');
             }
             try{
                 const data = {...args.input}
                 await models.Issue.update(data, {where:{id:args.issueId}});
-                return true;
+                const issue = await models.Issue.findOne({where:{id:args.issueId},include:[{model:models.User, as:"reporter"}, {model:models.Project}, {model:models.User, as:"assignees"}]});
+                return {issue};
             }catch(e){
                 throw new Error(e);
             }

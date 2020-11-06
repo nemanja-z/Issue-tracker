@@ -1,3 +1,4 @@
+const { Op } = require("sequelize");
 export default {
     Query:{
         allProjects:async(_,args,{models})=>{
@@ -37,6 +38,15 @@ export default {
           },
     Mutation: {
         createProject: async (_, args, { models, user }) => {
+            const activeMember = await models.Project.findAll({where:{
+                isActive:true},
+                include:[{model:models.User, as:"manager"}, {model:models.User, as:"member", 
+                    where:{
+                        username:user.username
+                }}]});
+            if(activeMember){
+                throw new Error('You cannot add new project because you are a member of active project!');
+            }
             if(!user){
                 throw new Error('You are not authorized to create project!');
             }
@@ -64,7 +74,7 @@ export default {
             let targetProject;
             let addUserRole;
             try{
-                 targetProject=await models.Project.findOne({where:{name:project}});
+                 targetProject=await models.Project.findOne({where:{name:project}, include:['member', 'manager']});
             }catch(e){
                 throw new Error('Project doesn\'t exist');
             }
@@ -82,12 +92,6 @@ export default {
                 UserId:addUserRole.id,
                 ProjectId:targetProject.id
             }});
-            /* if(!targetProject){
-                throw new Error('Project doesn\'t exist');
-            } 
-            if(!addUserRole){
-                throw new Error('User doesn\'t exist');
-            }*/
             if(roleCheck){
                 throw new Error('User cannot have more than one role');
             }
@@ -96,8 +100,7 @@ export default {
             }
             try{
                 await targetProject.addMember(addUserRole,{through:{role}});
-                return true;
-                //return true;
+                return {project:targetProject};
             }catch(e){
                 throw new Error(e);
             }

@@ -165,6 +165,69 @@ mutation createIssue($input:Fields){
 export const ASSIGN=gql`
 mutation assigne($user:String!, $issue:String!, $project:String!){
         assignUser(user:$user, issue:$issue, project:$project)
+        {
+                issue{
+                        id
+                        summary
+                        issue_type
+                        description
+                        priority
+                        resolution
+                        attachment
+                        reporter{
+                                username
+                                email
+                                profile
+                                id
+                        }
+                        assignees{
+                                id
+                                username
+                                email
+                                profile
+                        }
+                        status
+                        createdAt
+                        updatedAt
+                        Project{
+                                name
+                                url
+                        }
+                        Users{
+                                username
+                                email
+                        }      
+                        }
+                        refetch{
+                        issuesAll{
+                                id
+                                summary
+                                issue_type
+                                description
+                                priority
+                                resolution
+                                attachment
+                                assignees{
+                                        id
+                                        username
+                                        email
+                                        profile
+                                }
+                                reporter{
+                                        username
+                                        email
+                                        profile
+                                        id
+                                }
+                                status
+                                createdAt
+                                updatedAt
+                                Project{
+                                        name
+                                        url
+                                }    
+                        }
+        }}
 }`;
 
 export const ISSUE_LIST=gql`
@@ -198,5 +261,67 @@ query {issuesAll{
 }}`;
 export const EDIT=gql`
 mutation editIssue($issueId:String, $input:Edit){
-        editIssue(issueId:$issueId, input:$input)
+        editIssue(issueId:$issueId, input:$input){
+                issue{
+                        id
+                        summary
+                        issue_type
+                        description
+                        priority
+                        resolution
+                        attachment
+                        reporter{
+                                username
+                                email
+                                profile
+                                id
+                        }
+                        assignees{
+                                id
+                                username
+                                email
+                                profile
+                        }
+                        status
+                        createdAt
+                        updatedAt
+                        Project{
+                                name
+                                url
+                        }
+                        Users{
+                                username
+                                email
+                        }      
+                        }
+                        refetch{
+                        issuesAll{
+                                id
+                                summary
+                                issue_type
+                                description
+                                priority
+                                resolution
+                                attachment
+                                assignees{
+                                        id
+                                        username
+                                        email
+                                        profile
+                                }
+                                reporter{
+                                        username
+                                        email
+                                        profile
+                                        id
+                                }
+                                status
+                                createdAt
+                                updatedAt
+                                Project{
+                                        name
+                                        url
+                                }    
+                        }
+        }}
 }`;

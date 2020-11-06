@@ -14,7 +14,31 @@ export const LOGIN = gql`
     }`;
 export const ADD_ROLE = gql`
     mutation addRole($project:String!, $username:String!, $role:String!){
-        addRole(project:$project, username:$username, role:$role)
+        addRole(project:$project, username:$username, role:$role){
+            project{
+                id
+            name
+            url
+            isActive
+            manager{
+                username
+                email
+                id
+            }
+            member{
+                username
+                email
+                id
+            }
+            }
+        refetch{
+            allUnassignedUsers{
+                username
+                email
+                profile
+                id
+                }
+    }}
     }`;
 
 export const AUTH = gql`

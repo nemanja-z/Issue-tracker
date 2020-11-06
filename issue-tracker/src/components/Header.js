@@ -26,7 +26,7 @@ const Header = ({picture, logOut, username}) => {
                 </NavItem>
                 <NavDropdown menuRole='menu' title={
                     <div>
-                <img style={{width:"20px", height:"20px"}} src={picture} alt="profile picture"/>{username}
+                <img style={{width:"20px", height:"20px"}} src={picture}/>{username}
                 </div>}>
                     <Button size="sm" className="nav-dropdown-item" onClick={logOut}>Log Out</Button>
                 </NavDropdown>

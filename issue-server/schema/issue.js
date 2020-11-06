@@ -42,8 +42,13 @@ export default `
     issue:Issue!
     refetch: Query!
   }
+  type AddCommentPayload{
+    comment:Comment!
+    refetch: Query!
+  }
   type Query{
     issuesAll:[Issue]
+    allComments:[Comment]
     assignedToMe: [Issue]
     allIssues(projectId:String): [Issue]
     targetIssue(issueId:String): Issue
@@ -51,8 +56,8 @@ export default `
   }
   type Mutation{
     createIssue(input:Fields):AddIssuePayload!
-    editIssue(issueId: String, input:Edit): Boolean!
-    assignUser(user:String!, issue:String!, project:String!):Boolean!
-    postComment(comment:String!, issueId:String!):Boolean!
+    editIssue(issueId: String, input:Edit): AddIssuePayload!
+    assignUser(user:String!, issue:String!, project:String!):AddIssuePayload!
+    postComment(comment:String!, issueId:String!):AddCommentPayload!
   }
 `;
