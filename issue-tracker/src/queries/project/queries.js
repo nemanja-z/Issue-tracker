@@ -88,3 +88,40 @@ query {userProjects{
         id
     }
 }}`;
+
+export const STATUS = gql`
+mutation changeStatus($isActive:Boolean!, $projectId:String!){
+	changeStatus(isActive:$isActive, projectId:$projectId){
+        project{id
+        name
+        url
+        isActive
+        manager{
+            username
+            email
+            id
+        }
+        member{
+            username
+            email
+            id
+        }
+        }
+    refetch{
+        allProjects{
+            id
+            name
+            url
+            isActive
+            manager{
+                username
+                email
+                id
+            }
+            member{
+                username
+                email
+                id
+            }
+            }
+}}}`;

@@ -13,6 +13,7 @@ import  "./navbar.css";
 
 const Header = ({picture, logOut, username}) => {
             return(
+            <Container>
             <SideNav className="sidebar" style={{backgroundColor:"transparent"}}>
             <SideNav.Nav>
                 <NavItem>
@@ -32,6 +33,7 @@ const Header = ({picture, logOut, username}) => {
                 </NavDropdown>
             </SideNav.Nav>
             </SideNav>
+            </Container>
     )
 }
 Header.propTypes={

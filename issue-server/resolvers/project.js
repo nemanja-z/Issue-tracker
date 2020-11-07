@@ -104,6 +104,17 @@ export default {
             }catch(e){
                 throw new Error(e);
             }
+        },
+        changeStatus:async(_,args,{models})=>{
+            try{
+                await models.Project.update({isActive:args.isActive}, {where:{id:args.projectId}});
+                const project = await models.Project.findOne({where:{id:args.projectId},include:["manager","member"]});
+                project.reload();
+                return {project}
+            }
+            catch(e){
+                throw new Error(e);
+            }
         }
     }
 }
