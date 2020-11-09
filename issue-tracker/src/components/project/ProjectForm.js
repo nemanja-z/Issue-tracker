@@ -31,7 +31,7 @@ const ProjectForm = ({history, show, setShow, leader}) => {
     const handleNewProject=handleSubmit(({name, url, projectLead})=>{
         createProject({variables:{name, url, projectLead}});
         reset();
-    }); 
+    });
     if(leader.length===0){
         return <Error error={"No available users for this project!"}/>;
     }

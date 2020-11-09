@@ -1,4 +1,3 @@
-const { Op } = require("sequelize");
 export default {
     Query:{
         allProjects:async(_,args,{models})=>{

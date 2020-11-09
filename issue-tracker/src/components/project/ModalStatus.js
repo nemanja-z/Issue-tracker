@@ -1,9 +1,9 @@
-import React,{useState} from 'react';
+import React, {useState} from "react";
 import Modal from "react-bootstrap/Modal";
+import ChangeStatus from "./ChangeStatus";
 import Button from "react-bootstrap/Button";
-import AddRole from './AddRole';
 
-const ModalRole = ({project, users}) => {
+const ModalStatus = ({ projectId}) => {
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
@@ -12,14 +12,14 @@ const ModalRole = ({project, users}) => {
     return(
     <>
     <Button onClick={handleShow}>
-      Add member
+      Edit project status
     </Button>
     <Modal show={show} onHide={handleClose} animation={false}>
         <Modal.Header>
-          <Modal.Title>Add user to project</Modal.Title>
+          <Modal.Title>Edit project status</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-        <AddRole show={show} setShow={setShow} project={project} users={users}/>
+        <ChangeStatus show={show} setShow={setShow} projectId={projectId}/>
         </Modal.Body>
         <Modal.Footer onClick={handleClose}>
             <Modal.Footer>Close</Modal.Footer>
@@ -29,4 +29,4 @@ const ModalRole = ({project, users}) => {
     )
 }
 
-export default ModalRole;
+export default ModalStatus;
