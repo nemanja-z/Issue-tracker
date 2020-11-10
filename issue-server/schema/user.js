@@ -12,7 +12,8 @@ export default `
     me: User
   }
   type Mutation{
-      createUser(username:String!, email:String!, password:String!, profile:Upload):User
-      loginUser(username:String!, password:String!):String!
+    createUser(username:String!, email:String!, password:String!, profile:Upload):User
+    loginUser(username:String!, password:String!):String!
+    forgetPassword(email:String!, newPassword:String!):Boolean!
   }
   `;

@@ -73,3 +73,8 @@ export const PROJECT_USERS = gql`
             id
         
     }}`;
+
+export const FORGET = gql`
+    mutation forgetPassword($email:String!, $newPassword:String!){
+        forgetPassword(email:$email, newPassword:$newPassword)
+    }`;

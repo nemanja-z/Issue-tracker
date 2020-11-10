@@ -9,9 +9,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { yupResolver } from '@hookform/resolvers';
 import * as yup from "yup";
-import {useHistory} from "react-router-dom";
 import {ErrorContext} from "../../App";
-
+import {useHistory} from "react-router-dom";
 
 const schema = yup.object().shape({
     username: yup.string().when('loginStatus',{
@@ -34,11 +33,9 @@ const schema = yup.object().shape({
 
 const Login = () =>{
     const {dispatch} = useContext(ErrorContext);
-    let history = useHistory();
     const CLOUDINARY = "https://res.cloudinary.com/de2kz7yfl/image/upload/v1603532952/i3ekit0th28di6puvgyb.png";
-
+    const history = useHistory();
     const [loginStatus, setLoginStatus] = useState(true);
-    const [error, setError] = useState('');
     const { register, handleSubmit, reset, errors } = useForm({
         resolver: yupResolver(schema)
       });
@@ -92,7 +89,7 @@ const Login = () =>{
             {!loginStatus&&(
                 <>
             <Form.Group>
-                    <Form.Control placeholder="confirm password" name="passwordConfirmation" type={passwordShown ? "text" : "password"} ref={register} id='passwordConfirmation'/>
+                    <Form.Control placeholder="confirm password" name="passwordConfirmation" type="password" ref={register} id='passwordConfirmation'/>
                     <Form.Text>{errors.passwordConfirmation?.message}</Form.Text>
             </Form.Group>
             <Form.Group>
@@ -117,8 +114,10 @@ const Login = () =>{
                 setLoginStatus(loginStatus ? false : true);
                 reset();}}>{loginStatus  ? 'need to create an account?' : 'already have an account?'}
             </Button>
+            <Button size="sm"
+            variant="primary"
+            onClick={()=>history.push("/reset")}>Forgot password?</Button>
             </Form.Group>
-            
         </Form>
     )
 }

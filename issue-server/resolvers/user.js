@@ -90,6 +90,14 @@ export default {
             }catch(e){
                 new AuthenticationError(e);
             }
+        },
+        forgetPassword: async(_,args, {models}) => {
+            try{
+                await models.User.update({passwordHash:await bcrypt.hash(args.newPassword, 10)}, {where:{email:args.email}});
+                return true;
+            }catch(e){
+                throw new Error(e);
+            }
         }
     }
 }

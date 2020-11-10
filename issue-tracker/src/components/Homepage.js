@@ -1,8 +1,7 @@
 import React, {useState, useMemo, useContext} from "react";
 import { useApolloClient } from '@apollo/client';
-import {useHistory} from "react-router-dom";
 import Header from "./Header";
-import {Switch, Route} from "react-router-dom";
+import {Switch, useHistory} from "react-router-dom";
 import Project from "./project/Project";
 import {useQuery} from "@apollo/client";
 import {PROJECTS,ALL_PROJECTS, USER_PROJECTS} from "../queries/project/queries";
@@ -19,8 +18,8 @@ import {ErrorContext} from "../App";
 
 const Homepage = () => {
     const {dispatch} = useContext(ErrorContext);
-    const history = useHistory();
     const client = useApolloClient();
+    let history = useHistory();
     const [projectId, setProjectId] = useState(null);
     const logOut = () => {
         localStorage.clear();
@@ -54,7 +53,6 @@ const Homepage = () => {
         return (<Spinner animation="border" role="status">
                     <span className="sr-only">Loading...</span>
               </Spinner>);}
-        console.log(unnasigned_users.allUnassignedUsers)
     return(
         <Container>
         {data_me.me && <Header picture={profilePic} logOut={logOut} username={username}/>}
