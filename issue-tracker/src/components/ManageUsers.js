@@ -31,7 +31,7 @@ const ManageUsers = ({users, user_projects}) => {
     }
 
     return(
-        <Container style={{border:"none"}}>
+        <Container fluid style={{border:"none"}}>
         <Card>
             <Card.Header as="h2">Assign users to your project(s)</Card.Header>
             <Card.Body>

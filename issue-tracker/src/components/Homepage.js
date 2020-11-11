@@ -1,6 +1,6 @@
 import React, {useState, useMemo, useContext} from "react";
 import { useApolloClient } from '@apollo/client';
-import Header from "./Header";
+import Sidebar from "./Sidebar";
 import {Switch, useHistory} from "react-router-dom";
 import Project from "./project/Project";
 import {useQuery} from "@apollo/client";
@@ -14,6 +14,9 @@ import AssignedToMe from "./issue/AssignedToMe";
 import ManageUsers from "./ManageUsers";
 import PrivateRoute from "./PrivateRoute";
 import {ErrorContext} from "../App";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import "./navbar.css";
 
 
 const Homepage = () => {
@@ -54,9 +57,13 @@ const Homepage = () => {
                     <span className="sr-only">Loading...</span>
               </Spinner>);}
     return(
-        <Container>
-        {data_me.me && <Header picture={profilePic} logOut={logOut} username={username}/>}
-        <Switch>
+        <Container fluid>
+        <Row>
+            <Col xs={1} id="sidebar-wrapper" >
+            {data_me.me && <Sidebar picture={profilePic} logOut={logOut} username={username}/>}
+            </Col>
+            <Col xs={10} id="page-content-wrapper">
+            <Switch>
             <PrivateRoute path="/projects/:id">
                <Project projects={projects} client={client} projectId={projectId} setProjectId={setProjectId} />
             </PrivateRoute>
@@ -70,6 +77,8 @@ const Homepage = () => {
               {(users_data && projects) && <ManageUsers user_projects={projects} users={users_data.allUsers}/>}
             </PrivateRoute>
         </Switch>
+        </Col>
+        </Row>
         </Container>
     )
 }

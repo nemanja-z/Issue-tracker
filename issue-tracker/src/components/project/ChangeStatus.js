@@ -15,7 +15,7 @@ const ChangeStatus = ({show, setShow, projectId}) => {
         onError:(e)=>dispatch({type:'set', payload:e}),
         onCompleted:()=>setShow(!show)});
     const handleStatus=handleSubmit(({status})=>{
-        editStatus({variables:{projectId, isActive:status=='true'}});
+        editStatus({variables:{projectId, isActive:status==='true'}});
         reset();
     }); 
 

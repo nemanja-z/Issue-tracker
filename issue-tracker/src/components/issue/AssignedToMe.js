@@ -41,7 +41,7 @@ const AssignedToMe = () => {
     </Card>
     <Tab.Container id="list-group-tabs-example">
     <Row>
-      <Col sm={2} className="list-group-items">
+      <Col xs={6} className="list-group-items">
           <ListGroup fixed="left">
                 {data.assignedToMe.map(issue=>
                   <ListGroup.Item style={{border:"none"}} key={issue.id} onClick={()=>setIssueId(issue.id)}>
@@ -53,14 +53,14 @@ const AssignedToMe = () => {
                   </Card></ListGroup.Item>)}
           </ListGroup>
       </Col>
-      <Col sm={8}>
+      <Col xs={9}>
       <Tab.Content>
         {issueId && <Issue  issueId={issueId}/>}
       </Tab.Content>
-    </Col>
-      </Row>
-      </Tab.Container>
-      </>
+      </Col>
+    </Row>
+    </Tab.Container>
+    </>
     )
 }
 

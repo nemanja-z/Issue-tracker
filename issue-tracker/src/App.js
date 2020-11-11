@@ -37,7 +37,7 @@ const App = () => {
 
   return (
     <Router>
-  <ErrorContext.Provider value={{error, dispatch}}>
+      <ErrorContext.Provider value={{error, dispatch}}>
       <Switch>
           <Route path="/login">
              <Login/>
