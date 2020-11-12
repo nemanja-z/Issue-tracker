@@ -3,7 +3,6 @@ import {ISSUES} from "../../queries/issue/queries";
 import {useParams} from "react-router-dom";
 import {useQuery} from "@apollo/client";
 import ModalIssue from "../issue/ModalIssue";
-import Error from "../Error";
 import ListGroup from "react-bootstrap/ListGroup";
 import Col from "react-bootstrap/Col";
 import Tab from "react-bootstrap/Tab";
@@ -27,7 +26,7 @@ const Project = ({projectId, setProjectId, projects, client}) => {
         if(id){
           setProjectId(id.slice(1));
         }
-      }, [id]);
+      }, [id, setProjectId]);
     if (loading){ 
         return (<Spinner animation="border" role="status">
                   <span className="sr-only">Loading...</span>

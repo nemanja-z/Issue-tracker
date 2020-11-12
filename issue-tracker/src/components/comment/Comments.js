@@ -3,7 +3,6 @@ import {ErrorContext} from "../../App";
 import PropTypes from "prop-types";
 import {COMMENTS} from "../../queries/comment/queries";
 import Spinner from 'react-bootstrap/Spinner';
-import Error from "../Error";
 import ListGroup from "react-bootstrap/ListGroup";
 import {useQuery} from "@apollo/client";
 import Card from "react-bootstrap/esm/Card";

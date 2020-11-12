@@ -12,21 +12,21 @@ export default {
             try{
                 const projectManager=await models.Role.findAll({where:{role:"Manager"} });
                 const managers = projectManager.map(p=>{
-                    return {user:p.UserId,
-                    project:p.ProjectId}});
+                    return {
+                        user:p.UserId,
+                        project:p.ProjectId
+                    }});
                 const targetQuery =await models.sequelize.transaction(async t=>{
                     let project;
                     let project_leads=[];
                     for(let i=0; i<managers.length; i++){
-                        //project_lead=await models.User.findOne({where:{id:managers[i].user}},{ transaction: t });
                         project=await models.Project.findOne({where:{id:managers[i].project}, include:['manager','member']},{ transaction: t });
-                        //project_leads=[...project_leads, {leaderId:project_lead.id, project_lead:project_lead.username,project:project.name, url:project.url, projectId:project.id}];
                         project_leads=project_leads.concat(project);
                     }
                     
                     return project_leads;
                  });
-                return targetQuery.filter(t=>t.manager.username===user.username);
+                return targetQuery.filter(t=>t.manager.username===user.username && t.isActive === true);
                 
             }catch(e){
                 throw new Error(e);

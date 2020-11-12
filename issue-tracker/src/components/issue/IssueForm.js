@@ -1,5 +1,4 @@
-import React, {useState, useMemo, useContext, useCallback} from "react";
-import {useDropzone} from 'react-dropzone'
+import React, {useState, useMemo, useContext} from "react";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { useForm } from "react-hook-form";

@@ -4,9 +4,8 @@ import Sidebar from "./Sidebar";
 import {Switch, useHistory} from "react-router-dom";
 import Project from "./project/Project";
 import {useQuery} from "@apollo/client";
-import {PROJECTS,ALL_PROJECTS, USER_PROJECTS} from "../queries/project/queries";
+import {ALL_PROJECTS, USER_PROJECTS} from "../queries/project/queries";
 import {AUTH, ALL_USERS, UNASSIGNED_USERS} from "../queries/user/queries";
-import Error from "./Error";
 import Container from "react-bootstrap/Container";
 import Spinner from 'react-bootstrap/Spinner';
 import MyView from './MyView';
@@ -74,7 +73,7 @@ const Homepage = () => {
                 <AssignedToMe projectList={projects}/>
             </PrivateRoute>
             <PrivateRoute path="/manage">
-              {(users_data && projects) && <ManageUsers user_projects={projects} users={users_data.allUsers}/>}
+              {(users_data && projects) && <ManageUsers user_projects={projects} users={unnasigned_users.allUnassignedUsers}/>}
             </PrivateRoute>
         </Switch>
         </Col>

@@ -3,13 +3,9 @@ import Form from 'react-bootstrap/Form';
 import { useForm } from "react-hook-form";
 import Button from 'react-bootstrap/Button';
 import PropTypes from 'prop-types';
-import {ALL_USERS} from "../../queries/user/queries";
-import {useQuery} from "@apollo/client";
-import Spinner from 'react-bootstrap/Spinner';
 import shortid from 'shortid';
 import { yupResolver } from '@hookform/resolvers';
 import * as yup from "yup";
-import Error from '../Error';
 import {ADD_ROLE} from "../../queries/user/queries";
 import {useMutation} from "@apollo/client";
 import {ErrorContext} from "../../App";
@@ -23,7 +19,7 @@ const schema = yup.object().shape({
 
 const AddRole = ({project, users, show, setShow}) => {
     const {dispatch} = useContext(ErrorContext);
-    const [addRole, {error}] = useMutation(ADD_ROLE,{
+    const [addRole] = useMutation(ADD_ROLE,{
         onCompleted:()=>setShow(!show),
         onError:(e)=>dispatch({type:'set', payload:e})});
     const { register, handleSubmit, reset, errors } = useForm({

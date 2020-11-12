@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useContext} from "react";
+import React, {useState, useContext} from "react";
 import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
 import ListGroup from 'react-bootstrap/ListGroup';
@@ -8,10 +8,9 @@ import {ADD_ROLE} from "../queries/user/queries";
 import {useMutation} from "@apollo/client";
 import Button from 'react-bootstrap/Button';
 import shortid from 'shortid';
-import Error from './Error';
 import Spinner from 'react-bootstrap/Spinner';
 import {ErrorContext} from "../App";
-
+import "./lists.css";
 
 const ManageUsers = ({users, user_projects}) => {
     const {dispatch} = useContext(ErrorContext);
@@ -32,6 +31,7 @@ const ManageUsers = ({users, user_projects}) => {
 
     return(
         <Container fluid style={{border:"none"}}>
+        
         <Card>
             <Card.Header as="h2">Assign users to your project(s)</Card.Header>
             <Card.Body>

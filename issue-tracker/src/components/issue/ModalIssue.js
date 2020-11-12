@@ -2,7 +2,6 @@ import React, {useState} from "react";
 import Modal from "react-bootstrap/Modal";
 import IssueForm from "./IssueForm";
 import Button from "react-bootstrap/Button";
-import Container from "react-bootstrap/Container";
 
 
 const ModalIssue = ({projectId, id, client}) => {

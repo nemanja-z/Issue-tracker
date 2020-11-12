@@ -1,5 +1,4 @@
-import React, {useState} from "react";
-import Container from "react-bootstrap/Container";
+import React from "react";
 import AllProjects from './project/AllProjects';
 import ModalProject from './project/ModalProject';
 import Card from 'react-bootstrap/Card';

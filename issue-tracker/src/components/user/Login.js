@@ -98,7 +98,7 @@ const Login = () =>{
             </Form.Group>
             <div className="form-group files">
                 <label>Change user picture </label>
-                <img src={CLOUDINARY} alt="default-picture" width="90px" height="90px"/>
+                <img src={CLOUDINARY} alt="" width="90px" height="90px"/>
                 <input type="file" name="profile"  onChange={({ target: { validity, files: [file] } })=>
                 validity.valid && setProfile(file)}/>
               </div>

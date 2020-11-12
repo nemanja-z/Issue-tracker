@@ -25,7 +25,7 @@ const AssignUser = ({project, issue, show, setShow}) => {
     const [assignUser] = useMutation(ASSIGN,{
         onError:(e)=>dispatch({type:'set', payload:e}),
         onCompleted:()=>setShow(!show)});
-    const { loading:issue_loading, error:issue_error, data:issue_data } = useQuery(ISSUE_LIST,{
+    const { loading:issue_loading, data:issue_data } = useQuery(ISSUE_LIST,{
         onError:(e)=>dispatch({type:'set', payload:e})
     });
     const { register, handleSubmit, reset, errors } = useForm({

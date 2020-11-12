@@ -2,7 +2,7 @@ import React, {useContext} from "react";
 import { useForm } from "react-hook-form";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import {CREATE, ALL_PROJECTS} from "../../queries/project/queries";
+import {CREATE} from "../../queries/project/queries";
 import {useMutation} from "@apollo/client";
 import PropTypes from 'prop-types';
 import { yupResolver } from '@hookform/resolvers';
@@ -23,7 +23,7 @@ const ProjectForm = ({history, show, setShow, leader}) => {
     const { register, handleSubmit, reset, errors } = useForm({
         resolver: yupResolver(schema)
       });
-    const [createProject, {error}] = useMutation(CREATE,{
+    const [createProject] = useMutation(CREATE,{
         onError:(e)=>dispatch({type:'set', payload:e}),
         onCompleted:()=>{
             history.push("/home")

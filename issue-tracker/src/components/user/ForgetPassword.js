@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react';
+import React, {useContext} from 'react';
 import {FORGET} from "../../queries/user/queries";
 import {useMutation} from "@apollo/client";
 import Form from 'react-bootstrap/Form';

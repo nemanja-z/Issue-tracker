@@ -14,7 +14,7 @@ import {ErrorContext} from "../../App";
 const AssignedToMe = () => {
     const [issueId, setIssueId] = useState(null);
     const {dispatch} = useContext(ErrorContext);
-    const { loading, error, data } = useQuery(ASSIGNED, {
+    const { loading, data } = useQuery(ASSIGNED, {
       onError:(e)=>dispatch({type:'set', payload:e})});
     if (loading){ 
         return (
@@ -41,7 +41,7 @@ const AssignedToMe = () => {
     </Card>
     <Tab.Container id="list-group-tabs-example">
     <Row>
-      <Col xs={6} className="list-group-items">
+      <Col className="list-group-items">
           <ListGroup fixed="left">
                 {data.assignedToMe.map(issue=>
                   <ListGroup.Item style={{border:"none"}} key={issue.id} onClick={()=>setIssueId(issue.id)}>
@@ -53,7 +53,7 @@ const AssignedToMe = () => {
                   </Card></ListGroup.Item>)}
           </ListGroup>
       </Col>
-      <Col xs={9}>
+      <Col>
       <Tab.Content>
         {issueId && <Issue  issueId={issueId}/>}
       </Tab.Content>

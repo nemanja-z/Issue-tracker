@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import {ApolloClient, defaultDataIdFromObject, InMemoryCache, HttpLink, ApolloProvider} from '@apollo/client';
+import {ApolloClient, defaultDataIdFromObject, InMemoryCache, ApolloProvider} from '@apollo/client';
 import { setContext } from "@apollo/client/link/context";
 import { onError } from "@apollo/client/link/error";
 import { createUploadLink } from 'apollo-upload-client';
