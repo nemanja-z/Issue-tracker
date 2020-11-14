@@ -12,6 +12,7 @@ import MyView from './MyView';
 import AssignedToMe from "./issue/AssignedToMe";
 import ManageUsers from "./ManageUsers";
 import PrivateRoute from "./PrivateRoute";
+import BaseNavbar from "./BaseNavbar";
 import {ErrorContext} from "../App";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -59,7 +60,8 @@ const Homepage = () => {
         <Container fluid>
         <Row>
             <Col xs={1} id="sidebar-wrapper" >
-            {data_me.me && <Sidebar picture={profilePic} logOut={logOut} username={username}/>}
+            {data_me.me && <BaseNavbar  picture={profilePic} logOut={logOut} username={username}/>}
+            <Sidebar/>
             </Col>
             <Col xs={10} id="page-content-wrapper">
             <Switch>

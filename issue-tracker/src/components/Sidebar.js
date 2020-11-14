@@ -7,7 +7,7 @@ import '@trendmicro/react-sidenav/dist/react-sidenav.css';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import  "./navbar.css";
 
-const Sidebar = ({picture, logOut, username}) => {
+const Sidebar = () => {
             return(
             <Nav className="sidebar">
                 <Nav.Item>
@@ -19,16 +19,8 @@ const Sidebar = ({picture, logOut, username}) => {
                 <Nav.Item>
                     <Link to="/manage" className="nav-link">Manage</Link>
                 </Nav.Item>
-                <NavDropdown title={
-                    <div>
-                <img alt="profile" style={{width:"20px", height:"20px"}} src={picture}/>{username}
-                </div>}>
-                    <Button size="sm" className="nav-dropdown-item" onClick={logOut}>Log Out</Button>
-                </NavDropdown>
             </Nav>
     )
 }
-Sidebar.propTypes={
-    logOut:PropTypes.func.isRequired
-}
+
 export default Sidebar;
