@@ -104,7 +104,11 @@ export default {
                 throw new Error(e);
             }
         },
-        changeStatus:async(_,args,{models})=>{
+        changeStatus:async(_,args,{models, user})=>{
+            const project = await models.Project.findOne({where:{id:args.projectId}, include:['manager']});
+            if(project.manager.id!==user.id){
+                throw new Error("Only project manager can change project status!");
+            }
             try{
                 await models.Project.update({isActive:args.isActive}, {where:{id:args.projectId}});
                 const project = await models.Project.findOne({where:{id:args.projectId},include:["manager","member"]});

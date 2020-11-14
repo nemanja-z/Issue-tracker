@@ -65,8 +65,8 @@ const AssignUser = ({project, issue, show, setShow}) => {
 }
 AssignUser.propTypes={
     projects:PropTypes.array,
-    show:PropTypes.object.isRequired,
+    show:PropTypes.bool.isRequired,
     setShow:PropTypes.func.isRequired,
-    issue:PropTypes.object.isRequired
+    issue:PropTypes.string.isRequired
 }
 export default AssignUser;

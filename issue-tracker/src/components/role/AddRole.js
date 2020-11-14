@@ -53,7 +53,7 @@ const AddRole = ({project, users, show, setShow}) => {
     </Form>)
 }
 AddRole.propTypes={
-    show:PropTypes.object.isRequired,
+    show:PropTypes.bool.isRequired,
     setShow:PropTypes.func.isRequired,
     users:PropTypes.array,
     project:PropTypes.string.isRequired

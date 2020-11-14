@@ -31,7 +31,7 @@ const ModalAssign = ({project, issue}) => {
     )
 }
 ModalAssign.propTypes = {
-  project:PropTypes.object.isRequired,
-  issue:PropTypes.object.isRequired
+  project:PropTypes.string.isRequired,
+  issue:PropTypes.string.isRequired
 }
 export default ModalAssign;

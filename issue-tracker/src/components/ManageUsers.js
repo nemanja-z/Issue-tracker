@@ -35,10 +35,10 @@ const ManageUsers = ({users, user_projects}) => {
         <Container fluid style={{border:"none"}}>
         
         <Card>
-            <Card.Header as="h2">Assign users to your project(s)</Card.Header>
-            <Card.Body>
+            <Card.Header as="h2">Assign users to your project</Card.Header>
+            <Card.Link>
             <Button type="submit" onClick={handleAssign}>Add Role</Button>
-            </Card.Body>
+            </Card.Link>
         </Card>
         <Row>
         <Col>

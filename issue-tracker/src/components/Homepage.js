@@ -55,21 +55,15 @@ const Homepage = () => {
     if (users_loading||me_loading||loading||user_loading||unassigned_users_loading){ 
         return (<Spinner animation="border" role="status">
                     <span className="sr-only">Loading...</span>
-              </Spinner>);}
-    /*console.log(typeof data.allProjects, 'projects')
-    console.log(typeof history, 'history')
-    console.log(typeof id, 'username')
-     console.log(typeof unnasigned_users.allUnassignedUsers, 'users')
-    */console.log(typeof projects, 'projectList')
-    console.log(projects)
-    
+              </Spinner>);
+    }
 
     return(
         <Container fluid>
         <Row>
             <Col xs={1} id="sidebar-wrapper" >
-            {data_me.me && <BaseNavbar  picture={profilePic} logOut={logOut} username={username}/>}
-            <Sidebar/>
+            {data_me.me && <BaseNavbar picture={profilePic} logOut={logOut} username={username}/>}
+            <Sidebar />
             </Col>
             <Col xs={10} id="page-content-wrapper">
             <Switch>

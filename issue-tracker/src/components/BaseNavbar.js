@@ -5,11 +5,10 @@ import Nav from 'react-bootstrap/Nav';
 import Button from 'react-bootstrap/Button';
 import PropTypes from 'prop-types';
 
-
 const BaseNavbar = ({picture, username, logOut}) => {
 
     return(
-        <Navbar bg="light" fixed="top" expand="lg">
+        <Navbar bg="light" fixed="top" expand="sm">
         <Navbar.Brand>Issue tracker</Navbar.Brand>
         <Nav>
             <NavDropdown title={

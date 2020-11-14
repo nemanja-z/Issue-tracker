@@ -94,7 +94,7 @@ const EditIssue = ({issue, show, setShow}) => {
     )
 }
 EditIssue.propTypes = {
-    show:PropTypes.object.isRequired,
+    show:PropTypes.bool.isRequired,
     setShow:PropTypes.func.isRequired,
     issue:PropTypes.object.isRequired
 }

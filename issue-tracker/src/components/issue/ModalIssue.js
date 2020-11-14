@@ -32,7 +32,7 @@ const ModalIssue = ({projectId, id, client}) => {
 }
 ModalIssue.propTypes = {
   projectId: PropTypes.string.isRequired, 
-  id: PropTypes.string.isRequired, 
+  id: PropTypes.string, 
   client: PropTypes.object.isRequired
 }
 export default ModalIssue;
