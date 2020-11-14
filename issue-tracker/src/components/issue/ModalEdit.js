@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import EditIssue from "./EditIssue";
+import PropTypes from 'prop-types';
 
 const ModalEdit = ({issue}) => {
     const [show, setShow] = useState(false);
@@ -30,5 +31,7 @@ const ModalEdit = ({issue}) => {
 
 
 }
-
+ModalEdit.propTypes = {
+  issue:PropTypes.object.isRequired
+}
 export default ModalEdit;

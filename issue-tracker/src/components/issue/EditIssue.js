@@ -5,6 +5,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import {useMutation} from "@apollo/client";
 import {ErrorContext} from "../../App";
+import PropTypes from 'prop-types';
 
 
 const EditIssue = ({issue, show, setShow}) => {
@@ -92,5 +93,9 @@ const EditIssue = ({issue, show, setShow}) => {
       </Form>
     )
 }
-
+EditIssue.propTypes = {
+    show:PropTypes.object.isRequired,
+    setShow:PropTypes.func.isRequired,
+    issue:PropTypes.object.isRequired
+}
 export default EditIssue;

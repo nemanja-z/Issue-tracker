@@ -12,9 +12,10 @@ import Spinner from 'react-bootstrap/Spinner';
 import Card from 'react-bootstrap/Card';
 import './index.css';
 import {ErrorContext} from "../../App";
+import PropTypes from 'prop-types';
 
 
-const Project = ({projectId, setProjectId, projects, client}) => {
+const Project = ({projectId, setProjectId, client}) => {
     const {id} = useParams();
     const {dispatch} = useContext(ErrorContext);
     const [issueId, setIssueId] = useState(null);
@@ -60,6 +61,12 @@ const Project = ({projectId, setProjectId, projects, client}) => {
       </Tab.Container>
       </>                   
     )
+}
+
+Project.propTypes = {
+  projectId:PropTypes.string, 
+  setProjectId:PropTypes.func.isRequired, 
+  client:PropTypes.object.isRequired
 }
 
 export default Project;

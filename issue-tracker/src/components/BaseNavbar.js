@@ -3,6 +3,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Nav from 'react-bootstrap/Nav';
 import Button from 'react-bootstrap/Button';
+import PropTypes from 'prop-types';
 
 
 const BaseNavbar = ({picture, username, logOut}) => {
@@ -20,5 +21,9 @@ const BaseNavbar = ({picture, username, logOut}) => {
         </Nav>
     </Navbar>)
 }
-
+BaseNavbar.propTypes={
+    picture:PropTypes.string.isRequired,
+    username:PropTypes.string.isRequired,
+    logOut:PropTypes.func.isRequired
+}
 export default BaseNavbar;

@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import Modal from "react-bootstrap/Modal";
 import IssueForm from "./IssueForm";
 import Button from "react-bootstrap/Button";
+import PropTypes from 'prop-types';
 
 
 const ModalIssue = ({projectId, id, client}) => {
@@ -29,5 +30,9 @@ const ModalIssue = ({projectId, id, client}) => {
     </>
     )
 }
-
+ModalIssue.propTypes = {
+  projectId: PropTypes.string.isRequired, 
+  id: PropTypes.string.isRequired, 
+  client: PropTypes.object.isRequired
+}
 export default ModalIssue;

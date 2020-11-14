@@ -56,6 +56,14 @@ const Homepage = () => {
         return (<Spinner animation="border" role="status">
                     <span className="sr-only">Loading...</span>
               </Spinner>);}
+    /*console.log(typeof data.allProjects, 'projects')
+    console.log(typeof history, 'history')
+    console.log(typeof id, 'username')
+     console.log(typeof unnasigned_users.allUnassignedUsers, 'users')
+    */console.log(typeof projects, 'projectList')
+    console.log(projects)
+    
+
     return(
         <Container fluid>
         <Row>
@@ -66,13 +74,13 @@ const Homepage = () => {
             <Col xs={10} id="page-content-wrapper">
             <Switch>
             <PrivateRoute path="/projects/:id">
-               <Project projects={projects} client={client} projectId={projectId} setProjectId={setProjectId} />
+               <Project client={client} projectId={projectId} setProjectId={setProjectId} />
             </PrivateRoute>
             <PrivateRoute path="/home">
-            {(data && users_data && id && unnasigned_users) && <MyView leader={unnasigned_users.allUnassignedUsers} users={unnasigned_users.allUnassignedUsers} username={id} history={history} projects={data.allProjects}/>}
+            {(data && users_data && id && unnasigned_users) && <MyView  users={unnasigned_users.allUnassignedUsers} username={id} history={history} projects={data.allProjects}/>}
             </PrivateRoute>
             <PrivateRoute path="/my_tasks">
-                <AssignedToMe projectList={projects}/>
+                <AssignedToMe />
             </PrivateRoute>
             <PrivateRoute path="/manage">
               {(users_data && projects) && <ManageUsers user_projects={projects} users={unnasigned_users.allUnassignedUsers}/>}

@@ -11,6 +11,8 @@ import shortid from 'shortid';
 import Spinner from 'react-bootstrap/Spinner';
 import {ErrorContext} from "../App";
 import "./lists.css";
+import PropTypes from 'prop-types';
+
 
 const ManageUsers = ({users, user_projects}) => {
     const {dispatch} = useContext(ErrorContext);
@@ -72,6 +74,9 @@ const ManageUsers = ({users, user_projects}) => {
         
     )
 }
-
+ManageUsers.propTypes = {
+    users: PropTypes.array,
+    user_projects: PropTypes.array
+}
 
 export default ManageUsers;

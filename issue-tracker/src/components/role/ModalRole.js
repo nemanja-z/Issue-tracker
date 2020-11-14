@@ -2,6 +2,7 @@ import React,{useState} from 'react';
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import AddRole from './AddRole';
+import PropTypes from 'prop-types';
 
 const ModalRole = ({project, users}) => {
     const [show, setShow] = useState(false);
@@ -28,5 +29,8 @@ const ModalRole = ({project, users}) => {
     </>
     )
 }
-
+ModalRole.propTypes = {
+  project: PropTypes.string.isRequired,
+  users: PropTypes.array
+}
 export default ModalRole;

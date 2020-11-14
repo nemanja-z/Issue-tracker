@@ -1,6 +1,7 @@
 import React from "react";
 import Alert from 'react-bootstrap/Alert';
 import Card from 'react-bootstrap/Card';
+import PropTypes from 'prop-types';
 
 
 const Error = ({error}) => {
@@ -16,6 +17,8 @@ const Error = ({error}) => {
             </Card>
     )
 }
-
+Error.propTypes = {
+    error: PropTypes.string
+}
 
 export default Error;

@@ -9,6 +9,8 @@ import { yupResolver } from '@hookform/resolvers';
 import * as yup from "yup";
 import {ErrorContext} from "../../App";
 
+
+
 const schema = yup.object().shape({
     comment: yup.string().min(5).required(),
   });

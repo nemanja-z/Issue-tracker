@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import AssignUser from './AssignUser';
+import PropTypes from 'prop-types';
 
 
 const ModalAssign = ({project, issue}) => {
@@ -29,5 +30,8 @@ const ModalAssign = ({project, issue}) => {
     </>
     )
 }
-
+ModalAssign.propTypes = {
+  project:PropTypes.object.isRequired,
+  issue:PropTypes.object.isRequired
+}
 export default ModalAssign;
