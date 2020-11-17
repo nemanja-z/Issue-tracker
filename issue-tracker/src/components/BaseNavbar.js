@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 const BaseNavbar = ({picture, username, logOut}) => {
 
     return(
-        <Navbar bg="light" fixed="top" expand="sm">
+        <Navbar bg="light" fixed="top" expand="sm" style={{"zIndex": "10"}}>
         <Navbar.Brand>Issue tracker</Navbar.Brand>
         <Nav>
             <NavDropdown title={

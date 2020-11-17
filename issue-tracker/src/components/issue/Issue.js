@@ -1,7 +1,7 @@
-import React, {useContext} from "react";
+import React, {useContext, useEffect, useRef} from "react";
 import PropTypes from 'prop-types';
 import {ISSUE} from "../../queries/issue/queries";
-import {useQuery} from "@apollo/client";
+import {useLazyQuery} from "@apollo/client";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Image from "react-bootstrap/Image";
@@ -17,10 +17,18 @@ import shortid from 'shortid';
 
 const Issue = ({issueId}) => {
   const {dispatch} = useContext(ErrorContext);
-  const { loading, data } = useQuery(ISSUE, {
+  const [GET_ISSUE, { loading, data }] = useLazyQuery(ISSUE, {
     variables: { issueId },
     onError:(e)=>dispatch({type:'set', payload:e})
   });
+  let isMounted = useRef(true);
+    useEffect(()=>{
+      if(isMounted.current === true){
+        GET_ISSUE();
+      }
+      return () => isMounted.current = false;
+    }, [GET_ISSUE])
+  
   if (loading) {
     return (<Spinner animation="border" role="status">
                 <span className="sr-only">Loading...</span>
@@ -28,6 +36,7 @@ const Issue = ({issueId}) => {
     }
   return(
     <>
+    {data && <>
     <div className="container">
     <ModalAssign project={data.targetIssue.Project.name} issue={data.targetIssue.id}/>
     <ModalEdit issue={data.targetIssue} />
@@ -46,7 +55,7 @@ const Issue = ({issueId}) => {
     <Row >
       <Col>Reporter: {data.targetIssue.reporter.username}</Col>
       <Col>Assigned to: {data.targetIssue.assignees?.map(user=>
-      <p key={user.username}>{user.username}</p>)}</Col>
+      <p key={shortid.generate()}>{user.username}</p>)}</Col>
     </Row>
     <Row>
         <Col>
@@ -66,8 +75,9 @@ const Issue = ({issueId}) => {
       <CommentForm issueId={issueId}/>
       <Comments issueId={issueId}/>
     </>
-    </> 
-    )
+    </> }
+    </>
+  )
 }
  Issue.propTypes = {
     issueId: PropTypes.string

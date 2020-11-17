@@ -1,7 +1,7 @@
-import React, {useEffect, useState, useContext} from "react";
+import React, {useEffect, useState, useContext, useRef} from "react";
 import {ISSUES} from "../../queries/issue/queries";
 import {useParams} from "react-router-dom";
-import {useQuery} from "@apollo/client";
+import {useLazyQuery} from "@apollo/client";
 import ModalIssue from "../issue/ModalIssue";
 import ListGroup from "react-bootstrap/ListGroup";
 import Col from "react-bootstrap/Col";
@@ -19,15 +19,20 @@ const Project = ({projectId, setProjectId, client}) => {
     const {id} = useParams();
     const {dispatch} = useContext(ErrorContext);
     const [issueId, setIssueId] = useState(null);
-    const { loading, data } = useQuery(ISSUES, {
+    const [GET_PROJECT, { loading, data }] = useLazyQuery(ISSUES, {
       onError:(e)=>dispatch({type:'set', payload:e}),
         variables: { projectId },
       });
-    useEffect(()=>{
+    let isMounted = useRef(true);
+      useEffect(()=>{
         if(id){
           setProjectId(id.slice(1));
         }
-      }, [id, setProjectId]);
+        if(isMounted.current === true){
+          GET_PROJECT();
+        }
+        return () => isMounted.current = false;
+      }, [GET_PROJECT, id, setProjectId])
     if (loading){ 
         return (<Spinner animation="border" role="status">
                   <span className="sr-only">Loading...</span>
@@ -41,7 +46,7 @@ const Project = ({projectId, setProjectId, client}) => {
         <Row>
           <Col sm={4} className="list-group-items">
               <ListGroup>
-                    {data.allIssues.map(issue=>
+                    {data?.allIssues.map(issue=>
                       <ListGroup.Item style={{border:"none"}} key={issue.id} onClick={()=>setIssueId(issue.id)}>
                       <Card>
                         <Card.Body>
