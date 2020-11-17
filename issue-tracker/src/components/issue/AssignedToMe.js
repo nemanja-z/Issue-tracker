@@ -31,7 +31,7 @@ const AssignedToMe = () => {
                   <span className="sr-only">Loading...</span>
         </Spinner>);
             }
-    if (data?.assignedToMe.length===0) {
+    if (data?.assignedToMe?.length===0) {
       return(
         <>
         <Card>
@@ -50,9 +50,9 @@ const AssignedToMe = () => {
     </Card>
     <Tab.Container id="list-group-tabs-example">
     <Row>
-      <Col className="list-group-items">
+      <Col style={{"border":"solid", "height": "calc(80% - 20px)"}} className="list-group-items">
           <ListGroup fixed="left">
-                {data?.assignedToMe.map(issue=>
+                {data?.assignedToMe?.map(issue=>
                   <ListGroup.Item style={{border:"none"}} key={issue.id} onClick={()=>setIssueId(issue.id)}>
                   <Card>
                   <Card.Title>{issue.Project.name}</Card.Title>

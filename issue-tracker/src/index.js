@@ -33,17 +33,6 @@ const httpLink=createUploadLink({uri:'http://localhost:4000/graphql'});
 const client=new ApolloClient({
   link:authFlowLink.concat(httpLink),
   cache:new InMemoryCache({
-    typePolicies: {
-      Issue: {
-        fields: {
-          assignees: {
-            merge(incoming) {
-              return incoming;
-            },
-          },
-        },
-      },
-    },
     dataIdFromObject: object => {
     switch (object.__typename) {
       case 'Query': return 'ROOT_QUERY'

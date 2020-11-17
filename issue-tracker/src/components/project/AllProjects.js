@@ -10,7 +10,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 
 const AllProjects = ({projects, username, users}) => {
     return(
-        <Table responsive="sm" striped bordered hover>
+        <Table responsive="xs" striped bordered hover>
         <thead>
             <tr>
                 <th>Project</th>

@@ -19,20 +19,21 @@ const Project = ({projectId, setProjectId, client}) => {
     const {id} = useParams();
     const {dispatch} = useContext(ErrorContext);
     const [issueId, setIssueId] = useState(null);
-    const [GET_PROJECT, { loading, data }] = useLazyQuery(ISSUES, {
+    const [ALL_ISSUES, { loading, data }] = useLazyQuery(ISSUES, {
+      variables: { projectId },
       onError:(e)=>dispatch({type:'set', payload:e}),
-        variables: { projectId },
       });
     let isMounted = useRef(true);
-      useEffect(()=>{
-        if(id){
-          setProjectId(id.slice(1));
-        }
-        if(isMounted.current === true){
-          GET_PROJECT();
-        }
-        return () => isMounted.current = false;
-      }, [GET_PROJECT, id, setProjectId])
+    useEffect(()=>{
+      if(id){
+        setProjectId(id.slice(1));
+      }
+      if(isMounted.current === true){
+        ALL_ISSUES();
+      }
+      return () => isMounted.current = false;
+    }, [ALL_ISSUES, id, setProjectId])
+    
     if (loading){ 
         return (<Spinner animation="border" role="status">
                   <span className="sr-only">Loading...</span>
@@ -40,13 +41,16 @@ const Project = ({projectId, setProjectId, client}) => {
             }
     
     return( 
-      <>
+        <>
+        <Card>
+        <Card.Header as="h2">All issues</Card.Header>
+        {data && <Card.Link><ModalIssue projectId={projectId} client={client}/></Card.Link>}
+        </Card>
         <Tab.Container id="list-group-tabs-example">
-        {data && <ModalIssue projectId={projectId} client={client}/>}
         <Row>
-          <Col sm={4} className="list-group-items">
+          <Col style={{"border":"solid", "height": "calc(80% - 20px)"}} sm={4} className="list-group-items">
               <ListGroup>
-                    {data?.allIssues.map(issue=>
+                    {data && data.allIssues.map(issue=>
                       <ListGroup.Item style={{border:"none"}} key={issue.id} onClick={()=>setIssueId(issue.id)}>
                       <Card>
                         <Card.Body>
