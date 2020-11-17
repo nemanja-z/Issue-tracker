@@ -4,6 +4,7 @@ import {useMutation} from "@apollo/client";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import InputGroup from 'react-bootstrap/InputGroup';
+import Image from "react-bootstrap/Image";
 import { useForm } from "react-hook-form";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
@@ -96,12 +97,12 @@ const Login = () =>{
                 <Form.Control placeholder="email" name="email" type='text' ref={register} id='email'/>
                 <Form.Text>{errors.email?.message}</Form.Text>
             </Form.Group>
-            <div className="form-group files">
-                <label>Change user picture </label>
-                <img src={CLOUDINARY} alt="" width="90px" height="90px"/>
+            <Form.Group>
+                <Form.Label>Change user picture </Form.Label>
+                <Image src={CLOUDINARY} alt="" width="90px" height="90px"/>
                 <input type="file" name="profile"  onChange={({ target: { validity, files: [file] } })=>
                 validity.valid && setProfile(file)}/>
-              </div>
+              </Form.Group>
             </>)}
             <Form.Group>
             <Button type="submit">{loginStatus ? 'Login' : 'Sign Up'}</Button>
@@ -116,7 +117,7 @@ const Login = () =>{
             </Button>
             <Button size="sm"
             variant="primary"
-            onClick={()=>history.push("/reset")}>Forgot password?</Button>
+            onClick={()=>history.push("/reset")}>forgot password?</Button>
             </Form.Group>
         </Form>
     )

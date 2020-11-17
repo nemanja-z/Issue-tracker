@@ -25,6 +25,9 @@ const ForgetPassword = () => {
     return(
         <Form style={{width: "40%",
         margin: "0 auto"}} onSubmit={handleForget}>
+        <Form.Group>
+                <Form.Label>Reset password</Form.Label>
+            </Form.Group>
             <Form.Group>
                 <Form.Control placeholder="email" name="email" type='text' ref={register} id='email'/>
                 <Form.Text>{errors.email?.message}</Form.Text>
