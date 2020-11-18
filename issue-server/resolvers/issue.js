@@ -27,7 +27,7 @@ export default {
         },
         issuesAll:async(_, args, {models,user})=>{
             const role=await models.Role.findAll({where:
-                {UserId:user.id,
+                    {UserId:user.id,
                     role:{[Op.not]:"Contractor"}}});
             const userIssues =await models.sequelize.transaction(async t=>{
                 let allIssues=[];
@@ -85,7 +85,7 @@ export default {
             if(!user){
                 throw new Error('You are not authorized to report issue!');
             }
-            const isAssigned = await models.Issue.findOne({include:[{model:models.User, as:"assignees", where:{username:args.user}}]});
+            const isAssigned = await models.Issue.findOne({where:{id:args.issue}, include:[{model:models.User, as:"assignees", where:{username:args.user}}]});
             if(isAssigned){
                 throw new Error('User is assigned!');
             }
@@ -133,12 +133,12 @@ export default {
                 throw new Error(e);
             }
         },
-        editIssue: async(_, args, {models})=>{
+        editIssue: async(_, args, {models, user})=>{
             if(!user){
                 throw new Error('You are not authorized to report issue!');
             }
-            const issue = await models.Issue.findOne({where:{id:args.issueId}, include:['assignees']});
-            if(!(user in issue.assignees)){
+            const issue = await models.Issue.findOne({where:{id:args.issueId}, include:[{model:models.User, as:'assignees', where:{username:user.username}}]});
+            if(!issue){
                 throw new Error('You are not assigned to this issue!');
             }
             try{

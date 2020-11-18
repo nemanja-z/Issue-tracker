@@ -5,14 +5,12 @@ import  "./navbar.css";
 import PropTypes from 'prop-types';
 import Button from "react-bootstrap/Button";
 import Image from "react-bootstrap/Image";
+import DropdownButton from "react-bootstrap/DropdownButton";
+
 
 const Sidebar = ({picture, username, logOut}) => {
             return(
-            <Nav className="sidebar">
-                <Nav.Item style={{"marginLeft":"20px"}}>
-                     <Image src={picture} roundedCircle style={{"height":"50px", "width":"50px"}} fluid/>
-                    <Nav.Item>{username}</Nav.Item>
-                </Nav.Item>
+                <Nav className="sidebar">
                 <Nav.Item>
                     <Link to="/home" className="nav-link">Home</Link>
                 
@@ -20,10 +18,16 @@ const Sidebar = ({picture, username, logOut}) => {
                 
                     <Link to="/manage" className="nav-link">Manage</Link>
 
-                    
                 </Nav.Item>
                 <Nav.Item>
-                <Nav.Link><Button size="sm" className="nav-dropdown-item" onClick={logOut}>Log Out</Button></Nav.Link>
+                <DropdownButton drop='down' title={
+                <>
+                    <Image style={{"height":"50px", "width":"50px"}} src={picture}/>
+                    <Nav.Item>{username}</Nav.Item>
+                </>}>
+                    <Button size="sm" className="dropdown-item" onClick={logOut}>Log Out</Button>
+                    
+                </DropdownButton>
                 </Nav.Item>
             </Nav>
     )

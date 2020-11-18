@@ -199,34 +199,38 @@ mutation assigne($user:String!, $issue:String!, $project:String!){
                         }      
                         }
                         refetch{
-                        issuesAll{
-                                id
-                                summary
-                                issue_type
-                                description
-                                priority
-                                resolution
-                                attachment
-                                assignees{
+                                targetIssue(issueId:$issue){
                                         id
-                                        username
-                                        email
-                                        profile
-                                }
-                                reporter{
-                                        username
-                                        email
-                                        profile
-                                        id
-                                }
-                                status
-                                createdAt
-                                updatedAt
-                                Project{
-                                        name
-                                        url
-                                }    
-                        }
+                                        summary
+                                        issue_type
+                                        description
+                                        priority
+                                        resolution
+                                        attachment
+                                        reporter{
+                                                username
+                                                email
+                                                profile
+                                                id
+                                        }
+                                        status
+                                        assignees{
+                                                id
+                                                username
+                                                email
+                                                profile
+                                        }
+                                        createdAt
+                                        updatedAt
+                                        Project{
+                                                name
+                                                url
+                                                id
+                                        }
+                                        Users{
+                                                username
+                                                email
+                                        }}
         }}
 }`;
 
@@ -295,7 +299,7 @@ mutation editIssue($issueId:String, $input:Edit){
                         }      
                         }
                         refetch{
-                        issuesAll{
+                        targetIssue(issueId:$issueId){
                                 id
                                 summary
                                 issue_type
@@ -303,12 +307,6 @@ mutation editIssue($issueId:String, $input:Edit){
                                 priority
                                 resolution
                                 attachment
-                                assignees{
-                                        id
-                                        username
-                                        email
-                                        profile
-                                }
                                 reporter{
                                         username
                                         email
@@ -316,12 +314,23 @@ mutation editIssue($issueId:String, $input:Edit){
                                         id
                                 }
                                 status
+                                assignees{
+                                        id
+                                        username
+                                        email
+                                        profile
+                                }
                                 createdAt
                                 updatedAt
                                 Project{
                                         name
                                         url
-                                }    
-                        }
+                                        id
+                                }
+                                Users{
+                                        username
+                                        email
+                                }  
+                                }
         }}
 }`;
