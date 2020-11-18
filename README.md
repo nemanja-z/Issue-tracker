@@ -6,6 +6,7 @@
    - Database credentials
    - Cloudinary credentials
    - JWT secret
+```
 ```sh
 git clone https://github.com/nemanja-z/Issue-tracker
 cd issue-server -> npm install -> npm run dev
