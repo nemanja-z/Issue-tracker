@@ -11,6 +11,9 @@ import DropdownButton from "react-bootstrap/DropdownButton";
 const Sidebar = ({picture, username, logOut}) => {
             return(
                 <Nav className="sidebar">
+                <Nav.Item style={{"fontFamily":"Verdana","color":"#40a8c4", "fontWeight":"bold", "fontSize":"20px", "marginLeft":"10px"}}>
+                Issue Tracker
+                </Nav.Item>
                 <Nav.Item>
                     <Link to="/home" className="nav-link">Home</Link>
                 
@@ -19,7 +22,7 @@ const Sidebar = ({picture, username, logOut}) => {
                     <Link to="/manage" className="nav-link">Manage</Link>
 
                 </Nav.Item>
-                <Nav.Item>
+                <Nav.Item style={{"marginLeft":"10px"}}>
                 <DropdownButton drop='down' title={
                 <>
                     <Image style={{"height":"50px", "width":"50px"}} src={picture}/>

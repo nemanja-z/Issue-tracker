@@ -3,6 +3,7 @@ export default `
       id:ID!
       username:String!
       email:String!
+      role:String!
       profile:String
   }
   type Query{
@@ -12,7 +13,7 @@ export default `
     me: User
   }
   type Mutation{
-    createUser(username:String!, email:String!, password:String!, profile:Upload):User
+    createUser(username:String!, email:String!, password:String!, role:String!, profile:Upload):User
     loginUser(username:String!, password:String!):String!
     forgetPassword(email:String!, newPassword:String!):Boolean!
   }

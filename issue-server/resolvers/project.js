@@ -10,8 +10,9 @@ export default {
         },
         userProjects:async(_, args, {models, user})=>{
             try{
-                const projectManager=await models.Role.findAll({where:{role:"Manager"} });
-                const managers = projectManager.map(p=>{
+                const projectManager=await models.Project.findAll({where:{managerId:user.id, isActive:true}, include:["manager", "member"]});
+                console.log(projectManager)
+                /* const managers = projectManager.map(p=>{
                     return {
                         user:p.UserId,
                         project:p.ProjectId
@@ -25,8 +26,9 @@ export default {
                     }
                     
                     return project_leads;
-                 });
-                return targetQuery.filter(t=>t.manager.username===user.username && t.isActive === true);
+                 }); */
+                //return targetQuery.filter(t=>t.manager.username===user.username && t.isActive === true);
+                return projectManager;
                 
             }catch(e){
                 throw new Error(e);
@@ -37,19 +39,14 @@ export default {
           },
     Mutation: {
         createProject: async (_, args, { models, user }) => {
-            const activeMember = await models.Project.findAll({where:{
-                isActive:true},
-                include:[{model:models.User, as:"manager"}, {model:models.User, as:"member", 
-                    where:{
-                        username:user.username
-                }}]});
-            if(activeMember){
-                throw new Error('You cannot add new project because you are a member of active project!');
-            }
-            if(!user){
+            console.log(user)
+            if(user.role !== "Manager"){
                 throw new Error('You are not authorized to create project!');
             }
             const projectLead = await models.User.findOne({where:{username:args.projectLead}});
+            if(projectLead.role !== "Leader"){
+                throw new Error("You can only add user with leader role!");
+            }
             try {
                 const project=await models.Project.create({
                     name:args.name,
@@ -58,8 +55,7 @@ export default {
                     managerId:user.id
             }, {include:[{model:models.User, as:"manager"}, {model:models.User, as:"member"}]});
                 await Promise.all([
-                    project.addMember(user,{through:{role:'Manager'}}),
-                    project.addMember(projectLead,{through:{role:'Leader'}}),
+                    project.addMember(projectLead),
                     project.reload()]);
                 return {project};
             } catch (err) {

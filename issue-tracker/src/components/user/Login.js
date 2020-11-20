@@ -30,6 +30,10 @@ const schema = yup.object().shape({
         is:false,
         then:yup.string().email().required()
     }),
+    role:yup.mixed().oneOf(['Manager', 'Leader', 'Developer', 'Contractor', 'Support']).when('loginStatus',{
+        is:false,
+        then:yup.mixed().oneOf(['Manager', 'Leader', 'Developer', 'Contractor', 'Support']).required()
+    })
   });
 
 const Login = () =>{
@@ -62,8 +66,8 @@ const Login = () =>{
         reset();
     }); 
 
-    const handleSignUp=handleSubmit(({username, password, email})=>{
-        signUp({variables:{username, password, email, profile}});
+    const handleSignUp=handleSubmit(({username, password, email, role})=>{
+        signUp({variables:{username, password, email, profile, role}});
         reset();
     });
     
@@ -97,6 +101,17 @@ const Login = () =>{
                 <Form.Control placeholder="email" name="email" type='text' ref={register} id='email'/>
                 <Form.Text>{errors.email?.message}</Form.Text>
             </Form.Group>
+            <Form.Group>
+            <Form.Label>Role</Form.Label>
+            <Form.Control placeholder="role" name="role" type='text' ref={register} id='role' as="select" custom>
+                <option value="Manager">Manager</option>
+                <option value="Developer">Developer</option>
+                <option value="Leader">Leader</option>
+                <option value="Contractor">Contractor</option>
+                <option value="Support">Support</option>
+            </Form.Control>
+            <Form.Text>{errors.role?.message}</Form.Text>
+        </Form.Group>
             <Form.Group>
                 <Form.Label>Change user picture </Form.Label>
                 <Image src={CLOUDINARY} alt="" width="90px" height="90px"/>

@@ -1,4 +1,4 @@
- .sidebar {
+.sidebar {
     margin: 0;
     padding: 48px 0 0;
     background-color: #f1f1f1;
@@ -8,13 +8,13 @@
     display:flex;
   }
   
-   .sidebar a .nav-link{
+.sidebar a .nav-link{
     color: black;
     padding: 5px;
     text-decoration: none;
   } 
 
- .sidebar a:hover:not(.active) {
+.sidebar a:hover:not(.active) {
     background-color: #555;
     color: white;
   } 

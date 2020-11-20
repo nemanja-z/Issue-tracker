@@ -15,6 +15,10 @@ module.exports =(sequelize, DataTypes) => {
       allowNull: false,
       unique: true,
     },
+    role:{
+      type: DataTypes.ENUM('Admin', 'Manager', 'Leader', 'Developer', 'Contractor', 'Support'),
+      allowNull: false,
+    },
     passwordHash: {
       type: DataTypes.STRING(64),
       is: /^[0-9a-f]{64}$/i,
@@ -25,10 +29,6 @@ module.exports =(sequelize, DataTypes) => {
     }
   });
   User.associate = (models) => {
-    User.belongsToMany(models.Project, {
-      as:"member",
-      through: "Role"
-    });
     User.hasMany(models.Project, {
       as:"manager",
       foreignKey:"managerId"
@@ -44,6 +44,10 @@ module.exports =(sequelize, DataTypes) => {
     User.belongsToMany(models.Issue, {
       as:"assignees",
       through: "Assignee"
+    });
+    User.belongsToMany(models.Project, {
+      as:"member",
+      through: "Member"
     });
 }
   return User;

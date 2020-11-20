@@ -2,14 +2,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const { Op } = require("sequelize");
 const {UserInputError, AuthenticationError} = require('apollo-server');
-/*/* : await models.User.findAll({where:{
-                username:{
-                    [Op.not]:user.username
-                },
-                id:{
-                    [Op.notIn]:[...users]
-                }
-            }}); */
+
 export default {
     Query:{
         allUsers:async(_,args,{models, user})=>{
@@ -63,6 +56,7 @@ export default {
                 const user = await models.User.create({
                     username: args.username,
                     email: args.email,
+                    role: args.role,
                     profile:profile || process.env.CLOUDINARY,
                     passwordHash: await bcrypt.hash(args.password, saltRounds)
                 });

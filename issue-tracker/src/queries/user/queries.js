@@ -1,10 +1,11 @@
 import {gql} from '@apollo/client';
 
 export const SIGN_UP = gql`
-    mutation createUser($username:String!, $password:String!, $email:String!, $profile:Upload){
-        createUser(username:$username, password:$password, email:$email, profile:$profile){
+    mutation createUser($username:String!, $password:String!, $email:String!, $role:String!, $profile:Upload){
+        createUser(username:$username, password:$password, email:$email, role:$role, profile:$profile){
             username
             email
+            role
         }
     }`;
 
@@ -46,6 +47,7 @@ export const AUTH = gql`
         me{ 
         username
         email
+        role
         profile
         id
     }}`;
@@ -54,6 +56,7 @@ export const ALL_USERS = gql`
         allUsers(me:$me){
         username
         email
+        role
         profile
         id
     }}`;
@@ -62,6 +65,7 @@ export const UNASSIGNED_USERS = gql`
     username
     email
     profile
+    role
     id
     }}`;
 export const PROJECT_USERS = gql`
@@ -69,6 +73,7 @@ export const PROJECT_USERS = gql`
         projectUsers(name:$name){
             username
             email
+            role
             profile
             id
         

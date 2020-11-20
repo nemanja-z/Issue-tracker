@@ -16,6 +16,10 @@ module.exports = {
         allowNull: false,
         unique: true,
       },
+      role:{
+        type: Sequelize.DataTypes.ENUM('Admin', 'Manager', 'Leader', 'Developer', 'Contractor', 'Support'),
+        allowNull: false
+      },
       passwordHash: {
         type: Sequelize.DataTypes.STRING(64),
         is: /^[0-9a-f]{64}$/i,

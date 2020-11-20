@@ -24,9 +24,9 @@ module.exports =(sequelize, DataTypes) => {
       as:"manager",
       foreignKey:"managerId"
     });
-    Project.belongsToMany(models.User,{
+    Project.belongsToMany(models.User, {
       as:"member",
-      through:"Role"
+      through: "Member"
     });
   }; 
   return Project;
