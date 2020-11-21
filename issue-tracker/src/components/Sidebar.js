@@ -8,7 +8,7 @@ import Image from "react-bootstrap/Image";
 import DropdownButton from "react-bootstrap/DropdownButton";
 
 
-const Sidebar = ({picture, username, logOut}) => {
+const Sidebar = ({auth, picture, username, logOut}) => {
             return(
                 <Nav className="sidebar">
                 <Nav.Item style={{"fontFamily":"Verdana","color":"#40a8c4", "fontWeight":"bold", "fontSize":"20px", "marginLeft":"10px"}}>
@@ -19,7 +19,7 @@ const Sidebar = ({picture, username, logOut}) => {
                 
                     <Link to="/my_tasks" className="nav-link">My Tasks</Link>
                 
-                    <Link to="/manage" className="nav-link">Manage</Link>
+                    {auth.me.role==="Manager" && <Link to="/manage" className="nav-link">Manage</Link>}
 
                 </Nav.Item>
                 <Nav.Item>
@@ -36,6 +36,7 @@ const Sidebar = ({picture, username, logOut}) => {
     )
 }
 Sidebar.propTypes={
+    auth:PropTypes.object.isRequired,
     picture:PropTypes.string.isRequired,
     username:PropTypes.string.isRequired,
     logOut:PropTypes.func.isRequired
