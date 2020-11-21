@@ -18,12 +18,19 @@ export default {
             return await models.User.findAll({where:{
                 id:{
                     [Op.notIn]:[...users]
+                }, 
+                role:{
+                    [Op.notIn]: ["Admin", "Manager"]
                 }
             }})
         },
         projectUsers:async(_,args,{models})=>{
-            const users = await models.Project.findOne({where:{name:args.name}, include:[{model:models.User, as:"member"}]});
-            return users.member.slice(1);
+            const users = await models.Project.findOne({where:{name:args.name}, include:[{model:models.User, as:"member", where:{
+                role:{
+                    [Op.not]:"Contractor"
+                }
+            }}]});
+            return users.member;
         },
         me:async(_,args,{models, user})=>{
              const currentUser = await models.User.findOne({where:{id:user.id}});
@@ -72,7 +79,7 @@ export default {
                 const passwordCorrect = user === null
                     ? false
                     : await bcrypt.compare(args.password, user.passwordHash);
-                if (!(user && passwordCorrect)) {
+                if (!(user || passwordCorrect)) {
                     throw new AuthenticationError(`Cannot find user ${args.username}`);
                 }
                 const userForToken = {

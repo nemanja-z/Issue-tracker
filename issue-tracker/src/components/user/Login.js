@@ -16,12 +16,14 @@ import {useHistory} from "react-router-dom";
 const schema = yup.object().shape({
     username: yup.string().when('loginStatus',{
         is:false,
-        then:yup.string().min(5).required()
+        then:yup.string().min(5).required(),
+        otherwise: yup.string().required()
     }),
     password: yup.string().when('loginStatus',{
         is:false,
         then:yup.string().min(8).max(16).matches( /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
-        "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character").required()
+        "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character").required(),
+        otherwise: yup.string().required()
     }),
     passwordConfirmation: yup.string().when('loginStatus',{
         is:false,

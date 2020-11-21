@@ -14,8 +14,8 @@ export const LOGIN = gql`
         loginUser(username:$username, password:$password)
     }`;
 export const ADD_ROLE = gql`
-    mutation addRole($project:String!, $username:String!, $role:String!){
-        addRole(project:$project, username:$username, role:$role){
+    mutation addMember($project:String!, $username:String!){
+        addMember(project:$project, username:$username){
             project{
                 id
             name

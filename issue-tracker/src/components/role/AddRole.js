@@ -12,8 +12,7 @@ import {ErrorContext} from "../../App";
 
 
 const schema = yup.object().shape({
-    username: yup.string().required(),
-    role:yup.string().required()
+    username: yup.string().required()
   });
 
 
@@ -25,10 +24,11 @@ const AddRole = ({project, users, show, setShow}) => {
     const { register, handleSubmit, reset, errors } = useForm({
         resolver: yupResolver(schema)
       });
-    const assignRole=handleSubmit(({username, role})=>{
-        addRole({variables:{project, username, role}});
+    const assignRole=handleSubmit(({username})=>{
+        addRole({variables:{project, username}});
         reset();
     });
+    console.log(assignRole)
     return(<Form inline='true' onSubmit={assignRole}>
         <Form.Group>
             <Form.Label>Username</Form.Label>
@@ -37,15 +37,6 @@ const AddRole = ({project, users, show, setShow}) => {
                 <option key={shortid.generate()} value={user.username}>{user.username}</option>)}
             </Form.Control>
             <Form.Text>{errors.username?.message}</Form.Text>
-        </Form.Group>
-        <Form.Group>
-            <Form.Label>Role</Form.Label>
-            <Form.Control placeholder="role" name="role" type='text' ref={register} id='role' as="select" custom>
-                <option value="Developer">Developer</option>
-                <option value="Contractor">Contractor</option>
-                <option value="Support">Support</option>
-            </Form.Control>
-            <Form.Text>{errors.role?.message}</Form.Text>
         </Form.Group>
     <Button variant="primary" type="submit">
             Submit

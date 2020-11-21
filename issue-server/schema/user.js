@@ -3,7 +3,7 @@ export default `
       id:ID!
       username:String!
       email:String!
-      role:String!
+      role:String
       profile:String
   }
   type Query{

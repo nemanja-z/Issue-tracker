@@ -26,16 +26,15 @@ export default {
             return comments;
         },
         issuesAll:async(_, args, {models,user})=>{
-            const role=await models.Role.findAll({where:
-                    {UserId:user.id,
-                    role:{[Op.not]:"Contractor"}}});
+            const project=await models.Project.findAll({include:[{model:models.User, as:"member", where:
+                    {id:user.id}}]});
             const userIssues =await models.sequelize.transaction(async t=>{
                 let allIssues=[];
-                for(let i=0; i<role.length;i++){
-                    const issue = await models.Issue.findOne({where:{project:role[i].ProjectId},include:[{model:models.Project}, {model:models.User, as:'reporter'}]});
+                for(let i=0; i<project.length;i++){
+                    const issue = await models.Issue.findOne({where:{project:project[i].id},include:[{model:models.Project}, {model:models.User, as:'reporter'}]});
                     allIssues=[...allIssues, issue];
                 }
-                return allIssues.filter(issue=>issue!==null)
+                return allIssues.filter(issue=>issue!==null) 
             })
             return userIssues;
         }
@@ -51,7 +50,10 @@ export default {
             if(!user){
                 throw new Error('You are not authorized to report issue!');
             }
-            const targetProject=await models.Project.findOne({where:{name:input.project}});
+            const targetProject=await models.Project.findOne({where:{name:input.project}, include:[{model:models.User,as:'member', where:{username:user.username}}]});
+            if(!targetProject.member){
+                throw new Error('You are not a member of this project!');
+            } 
             let attachment=[];
             try {
                 if(input.attachment){
@@ -89,17 +91,13 @@ export default {
             if(isAssigned){
                 throw new Error('User is assigned!');
             }
-            const targetProject=await models.Project.findOne({where:{name:args.project}});
+            const targetProject=await models.Project.findOne({where:{name:args.project}, include:[{model:models.User, as:"member", where:{username:user.username}}]});
             const targetIssue=await models.Issue.findOne({where:{id:args.issue}, include:[{model:models.User, as:"reporter"}, {model:models.Project}, {model:models.User, as:"assignees"}]});
-            const user_role=await models.Role.findOne({where:{
-                UserId:user.id,
-                ProjectId:targetProject.id
-            }});
             const assignee=await models.User.findOne({where:{username:args.user}});
             if(!assignee){
                 throw new Error("User doesn\'t exist");
             }
-            if (!user_role || user_role.role==="Contractor"){
+            if (!targetProject || targetProject.role === "Contractor"){
                 throw new Error("You cannot assign users!");
             }
             try{

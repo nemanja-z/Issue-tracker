@@ -22,10 +22,10 @@ const Sidebar = ({picture, username, logOut}) => {
                     <Link to="/manage" className="nav-link">Manage</Link>
 
                 </Nav.Item>
-                <Nav.Item style={{"marginLeft":"10px"}}>
-                <DropdownButton drop='down' title={
+                <Nav.Item>
+                <DropdownButton size="sm" drop='down' title={
                 <>
-                    <Image style={{"height":"50px", "width":"50px"}} src={picture}/>
+                    <Image style={{"height":"50px", "width":"50px"}} src={picture} fluid/>
                     <Nav.Item>{username}</Nav.Item>
                 </>}>
                     <Button size="sm" className="dropdown-item" onClick={logOut}>Log Out</Button>

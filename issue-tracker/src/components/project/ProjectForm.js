@@ -35,7 +35,6 @@ const ProjectForm = ({history, show, setShow, leader}) => {
     if(leader.length===0){
         return <Error error={"No available users for this project!"}/>;
     }
-
     return( 
             <Form inline='true' onSubmit={handleNewProject}>
             <Form.Group>
