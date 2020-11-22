@@ -83,3 +83,14 @@ export const FORGET = gql`
     mutation forgetPassword($email:String!, $newPassword:String!){
         forgetPassword(email:$email, newPassword:$newPassword)
     }`;
+
+export const EDIT_USER = gql`
+mutation editUser($password:String, $email:String, $role:String, $profile:Upload){
+    editUser(password:$password, email:$email, role:$role, profile:$profile){
+        id
+        username
+        email
+        role
+        profile
+    }
+}`;

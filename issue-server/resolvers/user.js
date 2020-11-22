@@ -99,6 +99,35 @@ export default {
             }catch(e){
                 throw new Error(e);
             }
-        }
+        },
+        editUser: async(_, args, {models, user, cloudinary}) => {
+            if(!user){
+                throw new Error("You are not authorized to edit user profile!");
+            }
+            try{
+                let profile="";
+                if(args.profile){
+                    const {createReadStream} = await args.profile;
+                    await new Promise((resolve, reject) => {
+                        const streamLoad = cloudinary.uploader.upload_stream(function (error, result) {
+                            if (result) {
+                                profile = result.secure_url;
+                                resolve(profile)
+                            } else {
+                                reject(error);
+                            }
+                        });
+        
+                        createReadStream().pipe(streamLoad);
+                });
+                }
+                const data = {...args, profile};
+                await models.User.update(data,{ where:{email:args.email}});
+                return await models.User.findOne({where:{email:args.email}});
+            }
+                catch(e){
+                    throw new Error(e);
+                }
     }
+}
 }

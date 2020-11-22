@@ -16,5 +16,6 @@ export default `
     createUser(username:String!, email:String!, password:String!, role:String!, profile:Upload):User
     loginUser(username:String!, password:String!):String!
     forgetPassword(email:String!, newPassword:String!):Boolean!
+    editUser(email:String, password:String, role:String, profile:Upload):User
   }
   `;

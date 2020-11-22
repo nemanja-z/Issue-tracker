@@ -11,6 +11,7 @@ import Spinner from 'react-bootstrap/Spinner';
 import MyView from './MyView';
 import AssignedToMe from "./issue/AssignedToMe";
 import ManageUsers from "./ManageUsers";
+import EditProfile from "./user/EditProfile";
 import {ErrorContext} from "../App";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -49,18 +50,23 @@ const Homepage = () => {
     const id=useMemo(()=>data_me?.me?.id, [data_me]);
     const profilePic = useMemo(()=>data_me?.me?.profile, [data_me]);
     const projects = useMemo(()=>user_data?.userProjects?.map(project=>project), [user_data]);
-
+    const user = useMemo(()=>{
+                return {
+                    id:data_me?.me?.id,
+                    profile:data_me?.me?.profile,
+                    username:data_me?.me?.username}}, [data_me]);
+                    
     if (users_loading||me_loading||loading||user_loading||unassigned_users_loading){ 
         return (<Spinner animation="border" role="status">
                     <span className="sr-only">Loading...</span>
               </Spinner>);
     }
-    console.log(data_me.me.role==="Manager")
+    
     return(
         <Container fluid>
         <Row>
             <Col xs={1} id="sidebar-wrapper" >
-            {data_me.me && <Sidebar auth={data_me} picture={profilePic} logOut={logOut} username={username}/>}
+            {data_me.me && <Sidebar auth={user} picture={profilePic} logOut={logOut}/>}
             </Col>
             <Col xs={10} id="page-content-wrapper">
             <Switch>
@@ -73,8 +79,11 @@ const Homepage = () => {
             <Route path="/my_tasks">
                 <AssignedToMe />
             </Route>
-            <Route path= "/manage">
+            <Route path="/manage">
               {(users_data && projects) && <ManageUsers user_projects={projects} users={unnasigned_users.allUnassignedUsers}/>}
+            </Route>
+            <Route path="/settings">
+                {data_me && <EditProfile user={data_me.me}/>}
             </Route>
         </Switch>
         </Col>
