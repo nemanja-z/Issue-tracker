@@ -26,7 +26,8 @@ module.exports =(sequelize, DataTypes) => {
     },
     profile:{
       type: DataTypes.STRING
-    }
+    },
+    resetPasswordToken: DataTypes.STRING
   });
   User.associate = (models) => {
     User.hasMany(models.Project, {

@@ -15,7 +15,8 @@ export default `
   type Mutation{
     createUser(username:String!, email:String!, password:String!, role:String!, profile:Upload):User
     loginUser(username:String!, password:String!):String!
-    forgetPassword(email:String!, newPassword:String!):Boolean!
+    forgotPassword(token:String!, newPassword:String!):Boolean!
     editUser(email:String, password:String, role:String, profile:Upload):User
+    sendForgotPasswordEmail(email:String!):String
   }
   `;

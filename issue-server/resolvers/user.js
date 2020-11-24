@@ -2,6 +2,8 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const { Op } = require("sequelize");
 const {UserInputError, AuthenticationError} = require('apollo-server');
+import {sendEmail} from "../utils/sendEmail";
+
 
 export default {
     Query:{
@@ -92,9 +94,50 @@ export default {
                 new AuthenticationError(e);
             }
         },
-        forgetPassword: async(_,args, {models}) => {
+        sendForgotPasswordEmail:async(_, args, {models})=>{
+            const userF = await models.User.findOne({where:{email:args.email}});
+            const userForToken = {
+                username: userF.username,
+                id: userF.id
+            };
+            if(!userF){
+                throw new Error("User doesn't exist");
+            }
+            const token = jwt.sign({exp:Date.now() + 3600000, data:userForToken}, process.env.SECRET);
             try{
-                await models.User.update({passwordHash:await bcrypt.hash(args.newPassword, 10)}, {where:{email:args.email}});
+                await models.User.update({resetPasswordToken:token}, {where:{id:userF.id}});
+                await sendEmail(userF.email, 
+                `<html>
+                <body>
+                <p>'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
+                'Please click on the following<a href="http://localhost:3000/reset/${token}"> link</a>, or paste this into your browser to complete the process:\n\n' +
+                
+                'If you did not request this, please ignore this email and your password will remain unchanged.\n'</p>
+                </body>
+                </html>`    
+                );
+                return token;
+            }catch(err){
+                throw new Error(err);
+            }
+        
+
+        },
+        forgotPassword: async(_,args, {models}) => {
+            const user = await models.User.findOne({where:{resetPasswordToken:args.token}});
+            if(!user){
+                throw new Error("User doesnt exist or token is expired");
+            }
+            try{
+                await models.User.update({resetPasswordToken:undefined, passwordHash:await bcrypt.hash(args.newPassword, 10)}, {where:{email:user.email}});
+                await sendEmail(user.email,
+                    `<html>
+                    <body>
+                    <p>Hello,\n\n' +
+                    'This is a confirmation that the password for your account ' + user.email + ' has just been changed.\n</p>
+                    </body>
+                    </html>`
+                    );
                 return true;
             }catch(e){
                 throw new Error(e);

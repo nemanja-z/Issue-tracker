@@ -79,9 +79,9 @@ export const PROJECT_USERS = gql`
         
     }}`;
 
-export const FORGET = gql`
-    mutation forgetPassword($email:String!, $newPassword:String!){
-        forgetPassword(email:$email, newPassword:$newPassword)
+export const FORGOT = gql`
+    mutation forgotPassword($token:String!, $newPassword:String!){
+        forgotPassword(token:$token, newPassword:$newPassword)
     }`;
 
 export const EDIT_USER = gql`
@@ -93,4 +93,8 @@ mutation editUser($password:String, $email:String, $role:String, $profile:Upload
         role
         profile
     }
+}`;
+export const RESET = gql`
+mutation sendForgotPasswordEmail($email:String!){
+    sendForgotPasswordEmail(email:$email)
 }`;

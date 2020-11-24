@@ -1,7 +1,8 @@
 import React, { useReducer, createContext, useEffect } from 'react';
 import './App.css';
 import Login from "./components/user/Login";
-import ForgetPassword from "./components/user/ForgetPassword";
+import ForgotPassword from "./components/user/ForgotPassword";
+import ResetPassword from "./components/user/ResetPassword";
 import Error from "./components/Error";
 import Homepage from "./components/Homepage";
 import PrivateRoute from "./components/PrivateRoute";
@@ -42,8 +43,11 @@ const App = () => {
           <Route path="/login">
              <Login/>
           </Route>
-          <Route path="/reset">
-             <ForgetPassword/>
+          <Route path="/forgot">
+             <ResetPassword/>
+          </Route>
+          <Route path="/reset/:token">
+            <ForgotPassword/>
           </Route>
           <PrivateRoute path="/">
               <Homepage/>

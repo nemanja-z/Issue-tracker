@@ -134,7 +134,7 @@ const Login = () =>{
             </Button>
             <Button size="sm"
             variant="primary"
-            onClick={()=>history.push("/reset")}>forgot password?</Button>
+            onClick={()=>history.push("/forgot")}>forgot password?</Button>
             </Form.Group>
         </Form>
     )

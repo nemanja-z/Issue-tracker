@@ -5,7 +5,7 @@ import  "./navbar.css";
 import PropTypes from 'prop-types';
 import Button from "react-bootstrap/Button";
 import Image from "react-bootstrap/Image";
-import DropdownButton from "react-bootstrap/DropdownButton";
+import NavDropdown from "react-bootstrap/NavDropdown";
 
 
 const Sidebar = ({auth, picture, logOut}) => {
@@ -23,15 +23,15 @@ const Sidebar = ({auth, picture, logOut}) => {
 
                     <Link to="/settings" className="nav-link">Settings</Link>
                 </Nav.Item>
-                <Nav.Item>
-                <DropdownButton size="sm" drop='down' title={
+                <Nav.Item style={{"justifyContent":"center"}}>
+                <NavDropdown size="sm" drop='down' title={
                 <>
                     <Image style={{"height":"50px", "width":"50px"}} src={picture} fluid/>
                     <Nav.Item>{auth.username}</Nav.Item>
                 </>}>
                     <Button size="sm" className="dropdown-item" onClick={logOut}>Log Out</Button>
                     
-                </DropdownButton>
+                </NavDropdown>
                 </Nav.Item>
             </Nav>
     )

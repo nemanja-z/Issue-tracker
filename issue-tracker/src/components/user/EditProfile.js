@@ -31,7 +31,6 @@ const EditProfile = ({user}) => {
         setPasswordShown(passwordShown ? false : true);
     }
     const handleUserEdit=handleSubmit(({email, password})=>{
-        console.log(profile)
         editUser({variables:{email, profile,  password}});
         reset();
     }); 
@@ -56,8 +55,8 @@ const EditProfile = ({user}) => {
                 <Form.Text>{errors.email?.message}</Form.Text>
             </Form.Group>
             <Form.File>
-                <Form.File.Label>Change user picture </Form.File.Label>
                 <Image src={user.profile} width="90px" height="90px"/>
+                <Form.File.Label>Change user picture </Form.File.Label>
                 <FormFile.Input isValid onChange={({ target: { validity, files: [file] } })=>
                 validity.valid && setProfile(file)}  type="file" name="profile"/>
             </Form.File>

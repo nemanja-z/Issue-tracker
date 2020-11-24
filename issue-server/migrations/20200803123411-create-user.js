@@ -16,6 +16,7 @@ module.exports = {
         allowNull: false,
         unique: true,
       },
+      resetPasswordToken: Sequelize.DataTypes.STRING,
       role:{
         type: Sequelize.DataTypes.ENUM('Admin', 'Manager', 'Leader', 'Developer', 'Contractor', 'Support'),
         allowNull: false
