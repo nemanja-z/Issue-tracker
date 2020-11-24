@@ -24,6 +24,10 @@ module.exports =(sequelize, DataTypes) => {
       is: /^[0-9a-f]{64}$/i,
       allowNull: false,
     },
+    isVerified:{
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    },
     profile:{
       type: DataTypes.STRING
     },

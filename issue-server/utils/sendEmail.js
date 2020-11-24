@@ -13,10 +13,10 @@ export const sendEmail = async (
       host: 'smtp.ethereal.email',
       port: 587,
       auth: {
-          user: 'kitty89@ethereal.email',
-          pass: 'nrGX42C2cj1GSEgcw9'
+          user: 'walton20@ethereal.email',
+          pass: 'hVddjhFq8vQ7F6pSRJ'
       }
-    })
+  });
     const message = {
       from: "Sender Name <sender@example.com>",
       to: `Recipient <${recipient}>`,

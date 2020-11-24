@@ -3,6 +3,7 @@ import './App.css';
 import Login from "./components/user/Login";
 import ForgotPassword from "./components/user/ForgotPassword";
 import ResetPassword from "./components/user/ResetPassword";
+import ConfirmUser from "./components/user/ConfirmUser";
 import Error from "./components/Error";
 import Homepage from "./components/Homepage";
 import PrivateRoute from "./components/PrivateRoute";
@@ -48,6 +49,9 @@ const App = () => {
           </Route>
           <Route path="/reset/:token">
             <ForgotPassword/>
+          </Route>
+          <Route path="/confirm/:token">
+            <ConfirmUser/>
           </Route>
           <PrivateRoute path="/">
               <Homepage/>

@@ -10,7 +10,6 @@ import {useHistory, useParams} from "react-router-dom";
 
 const ForgotPassword = () => {
     const {token} = useParams();
-    console.log(token)
     const history = useHistory();
     const {dispatch} = useContext(ErrorContext);
     const { register, handleSubmit, reset, errors } = useForm({});

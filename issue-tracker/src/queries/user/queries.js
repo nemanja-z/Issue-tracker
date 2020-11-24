@@ -98,3 +98,7 @@ export const RESET = gql`
 mutation sendForgotPasswordEmail($email:String!){
     sendForgotPasswordEmail(email:$email)
 }`;
+export const CONFIRM = gql`
+mutation confirmUser($token:String!){
+    confirmUser(token:$token)
+}`

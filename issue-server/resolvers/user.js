@@ -69,18 +69,45 @@ export default {
                     profile:profile || process.env.CLOUDINARY,
                     passwordHash: await bcrypt.hash(args.password, saltRounds)
                 });
+                const userForToken = {
+                    username: user.username,
+                    id: user.id
+                };
+                const token = jwt.sign(userForToken, process.env.SECRET);
+                user.resetPasswordToken = token;
+                await user.save();
+                await sendEmail(user.email, `<html>
+                <body>
+                <p>Click on the <a href="http://localhost:3000/confirm/${token}"> link</a> to verify your account!</p>
+                </body>
+                </html>` )
                 return user;
 
             } catch (err) {
                 throw new Error(err.message);
             }
         },
+        confirmUser:async(_, args, {models}) =>{
+            const user = await models.User.findOne({where:{resetPasswordToken:args.token}});
+            if(!user){
+                throw new Error("User doesn't exist!");
+            }
+            try{
+                user.isVerified = true;
+                user.resetPasswordToken = undefined;
+                await user.save();
+                return true;
+            }catch(e){
+                throw new Error(e);
+            }
+        },
         loginUser: async (_, args, { models }) => {
             try{
-                const user = await models.User.findOne({ where: { username: args.username } });
+                const user = await models.User.findOne({ where: { username: args.username, isVerified: true } });
                 const passwordCorrect = user === null
                     ? false
                     : await bcrypt.compare(args.password, user.passwordHash);
+                
                 if (!(user || passwordCorrect)) {
                     throw new AuthenticationError(`Cannot find user ${args.username}`);
                 }
@@ -91,7 +118,7 @@ export default {
                 const token = jwt.sign(userForToken, process.env.SECRET);
                 return token;
             }catch(e){
-                new AuthenticationError(e);
+                throw new AuthenticationError(e);
             }
         },
         sendForgotPasswordEmail:async(_, args, {models})=>{

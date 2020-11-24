@@ -18,5 +18,6 @@ export default `
     forgotPassword(token:String!, newPassword:String!):Boolean!
     editUser(email:String, password:String, role:String, profile:Upload):User
     sendForgotPasswordEmail(email:String!):String
+    confirmUser(token:String!):Boolean
   }
   `;
