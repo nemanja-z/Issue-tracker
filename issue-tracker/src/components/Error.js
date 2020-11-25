@@ -4,9 +4,9 @@ import Card from 'react-bootstrap/Card';
 import PropTypes from 'prop-types';
 
 
-const Error = ({error}) => {
+const Error = ({error, variant}) => {
     const show = error ? 
-    <Alert variant={'warning'}>
+    <Alert variant={variant??'warning'}>
         <Alert.Heading>
             {error}
         </Alert.Heading>
@@ -18,7 +18,8 @@ const Error = ({error}) => {
     )
 }
 Error.propTypes = {
-    error: PropTypes.string
+    error: PropTypes.string,
+    variant: PropTypes.string
 }
 
 export default Error;

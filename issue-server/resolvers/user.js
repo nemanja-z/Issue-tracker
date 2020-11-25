@@ -136,10 +136,10 @@ export default {
                 await sendEmail(userF.email, 
                 `<html>
                 <body>
-                <p>'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
-                'Please click on the following<a href="http://localhost:3000/reset/${token}"> link</a>, or paste this into your browser to complete the process:\n\n' +
+                <p>You are receiving this because you (or someone else) have requested the reset of the password for your account. 
+                Please click on the following<a href="http://localhost:3000/reset/${token}"> link</a>, or paste this into your browser to complete the process:
                 
-                'If you did not request this, please ignore this email and your password will remain unchanged.\n'</p>
+                If you did not request this, please ignore this email and your password will remain unchanged.</p>
                 </body>
                 </html>`    
                 );

@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import {EDIT_USER} from "../../queries/user/queries";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import Card from "react-bootstrap/Card";
 import {useMutation} from "@apollo/client";
 import {ErrorContext} from "../../App";
 import PropTypes from 'prop-types';
@@ -35,6 +36,13 @@ const EditProfile = ({user}) => {
         reset();
     }); 
     return(
+        <>
+        <Card className="text-center">
+            <Card.Header>Edit profile</Card.Header>
+            <Card.Body>
+                <Image className="text-center" src={user.profile} width="100px" heigth="100px"/>
+            </Card.Body>
+        </Card>
         <Form style={{width: "40%",
         margin: "0 auto"}} 
         onSubmit={handleUserEdit}>
@@ -55,13 +63,14 @@ const EditProfile = ({user}) => {
                 <Form.Text>{errors.email?.message}</Form.Text>
             </Form.Group>
             <Form.File>
-                <Image src={user.profile} width="90px" height="90px"/>
                 <Form.File.Label>Change user picture </Form.File.Label>
-                <FormFile.Input isValid onChange={({ target: { validity, files: [file] } })=>
+                <FormFile.Input onChange={({ target: { validity, files: [file] } })=>
                 validity.valid && setProfile(file)}  type="file" name="profile"/>
             </Form.File>
+            <hr/>
             <Button type="submit" variant="primary">Save</Button>
         </Form>
+        </>
         )
 }
 EditProfile.propTypes = {

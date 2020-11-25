@@ -6,6 +6,7 @@ import Tab from "react-bootstrap/Tab";
 import Row from "react-bootstrap/Row";
 import Spinner from 'react-bootstrap/Spinner';
 import Card from 'react-bootstrap/Card';
+import Alert from 'react-bootstrap/Alert';
 import { useLazyQuery } from '@apollo/client';
 import Issue from "./Issue";
 import {ErrorContext} from "../../App";
@@ -34,11 +35,9 @@ const AssignedToMe = () => {
     if (data?.assignedToMe?.length===0) {
       return(
         <>
-        <Card>
-            <Card.Text>
-            There are not issues assigned to you
-            </Card.Text>
-        </Card>
+        <Alert variant='info' className="text-center">
+            There are no issues assigned to you!
+        </Alert>
         </>
 
       )

@@ -36,9 +36,6 @@ const ForgotPassword = () => {
             <Button type="submit">
                 Update Password
             </Button>
-            <Button onClick={()=>history.push("/login")}>
-                Go back to the login page
-            </Button>
         </Form>
     )
 }
