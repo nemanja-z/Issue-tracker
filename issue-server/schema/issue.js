@@ -6,6 +6,7 @@ export default `
   }
   type Issue{
     id:ID!
+    issueNumber:Int!
     issue_type:String!
     description: String,
     priority: String

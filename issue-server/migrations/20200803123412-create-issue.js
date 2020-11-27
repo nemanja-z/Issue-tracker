@@ -6,6 +6,10 @@ module.exports = {
         defaultValue: Sequelize.DataTypes.UUIDV4,
         primaryKey: true
       },
+      issueNumber: {
+        type: Sequelize.DataTypes.INTEGER,
+        autoIncrement: true
+      },
       issue_type: {
         type: Sequelize.DataTypes.ENUM("Story", "Epic", "Bug", "Task"),
         allowNull: false

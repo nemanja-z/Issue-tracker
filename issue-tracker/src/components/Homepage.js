@@ -54,7 +54,7 @@ const Homepage = () => {
                     profile:data_me?.me?.profile,
                     role:data_me?.me?.role,
                     username:data_me?.me?.username}), [data_me]);
-                    
+    
     if (users_loading||me_loading||loading||user_loading||unassigned_users_loading){ 
         return (<Spinner animation="border" role="status">
                     <span className="sr-only">Loading...</span>
@@ -70,7 +70,7 @@ const Homepage = () => {
             <Col xs={10} id="page-content-wrapper">
             <Switch>
             <Route path="/projects/:id">
-               <Project client={client} projectId={projectId} setProjectId={setProjectId} />
+               <Project projectId={projectId} setProjectId={setProjectId} />
             </Route>
             <Route path="/home">
             {(data && users_data && id && unnasigned_users) && <MyView  users={unnasigned_users.allUnassignedUsers} username={id} history={history} projects={data.allProjects}/>}

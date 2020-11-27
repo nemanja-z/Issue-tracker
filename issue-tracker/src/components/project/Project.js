@@ -27,6 +27,7 @@ const Project = ({projectId, setProjectId}) => {
       onError:(e)=>dispatch({type:'set', payload:e}),
       });
     let isMounted = useRef(true);
+    const isActive = data?.allIssues?.Project?.isActive || true;
     useEffect(()=>{
       if(id){
         setProjectId(id.slice(1));
@@ -46,7 +47,7 @@ const Project = ({projectId, setProjectId}) => {
         <>
         <Card>
         <Card.Header as="h2">All issues</Card.Header>
-        {data && <Card.Link><ModalIssue projectId={projectId}/></Card.Link>}
+        {isActive&&<Card.Link><ModalIssue projectId={projectId}/></Card.Link>}
         </Card>
         <Tab.Container id="list-group-tabs-example">
         <Row>
@@ -79,7 +80,7 @@ const Project = ({projectId, setProjectId}) => {
                       <ListGroup.Item style={{border:"none"}} key={issue.id} onClick={()=>setIssueId(issue.id)}>
                       <Card>
                         <Card.Body>
-                          <Card.Title>{issue.Project.name}</Card.Title>
+                          <Card.Title>{issue.Project.name} #{issue.issueNumber}</Card.Title>
                           <Card.Text>{issue.summary}</Card.Text>
                         </Card.Body>
                       </Card>
@@ -99,8 +100,7 @@ const Project = ({projectId, setProjectId}) => {
 
 Project.propTypes = {
   projectId:PropTypes.string, 
-  setProjectId:PropTypes.func.isRequired, 
-  client:PropTypes.object.isRequired
+  setProjectId:PropTypes.func.isRequired
 }
 
 export default Project;

@@ -5,6 +5,7 @@ export const ISSUES=gql`
 query Issue($projectId:String){
         allIssues(projectId:$projectId){
                 id
+                issueNumber
                 summary
                 issue_type
                 description
@@ -29,12 +30,14 @@ query Issue($projectId:String){
                 Project{
                         name
                         url
+                        isActive
                 }
         }
 }`;
 export const ASSIGNED=gql`
 query {assignedToMe{
                 id
+                issueNumber
                 summary
                 issue_type
                 description
@@ -59,12 +62,14 @@ query {assignedToMe{
                 Project{
                         name
                         url
+                        isActive
                 }
 }}`;
 export const ISSUE=gql`
 query Issue($issueId:String){
         targetIssue(issueId:$issueId){
                 id
+                issueNumber
                 summary
                 issue_type
                 description
@@ -89,6 +94,7 @@ query Issue($issueId:String){
                 Project{
                         name
                         url
+                        isActive
                         id
                 }
                 Users{
@@ -101,6 +107,7 @@ mutation createIssue($input:Fields){
         createIssue(input:$input){
         issue{
                 id
+                issueNumber
                 summary
                 issue_type
                 description
@@ -134,6 +141,7 @@ mutation createIssue($input:Fields){
                 refetch{
                 issuesAll{
                         id
+                        issueNumber
                         summary
                         issue_type
                         description
@@ -168,6 +176,7 @@ mutation assigne($user:String!, $issue:String!, $project:String!){
         {
                 issue{
                         id
+                        issueNumber
                         summary
                         issue_type
                         description
@@ -201,6 +210,7 @@ mutation assigne($user:String!, $issue:String!, $project:String!){
                         refetch{
                                 targetIssue(issueId:$issue){
                                         id
+                                        issueNumber
                                         summary
                                         issue_type
                                         description
@@ -237,6 +247,7 @@ mutation assigne($user:String!, $issue:String!, $project:String!){
 export const ISSUE_LIST=gql`
 query {issuesAll{
         id
+        issueNumber
         summary
         issue_type
         description
@@ -268,6 +279,7 @@ mutation editIssue($issueId:String, $input:Edit){
         editIssue(issueId:$issueId, input:$input){
                 issue{
                         id
+                        issueNumber
                         summary
                         issue_type
                         description
@@ -301,6 +313,7 @@ mutation editIssue($issueId:String, $input:Edit){
                         refetch{
                         targetIssue(issueId:$issueId){
                                 id
+                                issueNumber
                                 summary
                                 issue_type
                                 description

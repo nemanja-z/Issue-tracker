@@ -3,6 +3,9 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import AddRole from './AddRole';
 import PropTypes from 'prop-types';
+import { faUsers } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 
 const ModalRole = ({project, users}) => {
     const [show, setShow] = useState(false);
@@ -13,7 +16,7 @@ const ModalRole = ({project, users}) => {
     return(
     <>
     <Button onClick={handleShow}>
-      Add member
+    <FontAwesomeIcon icon={faUsers} /> Add member
     </Button>
     <Modal show={show} onHide={handleClose} animation={false}>
         <Modal.Header>

@@ -32,8 +32,7 @@ const CommentForm = ({issueId}) => {
     return( 
             <Form inline='true' onSubmit={handleComment}>
             <Form.Group>
-                <Form.Label>Comment</Form.Label>
-                <Form.Control name="comment" type='text' ref={register} id='comment'/>
+                <Form.Control placeholder="add comment" name="comment" type='text' ref={register} id='comment'/>
                 <Form.Text>{errors.comment?.message}</Form.Text>
             </Form.Group>
             <Button variant="primary" type="submit">

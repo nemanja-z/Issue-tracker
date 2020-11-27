@@ -2,6 +2,9 @@ import React, {useState} from "react";
 import Modal from "react-bootstrap/Modal";
 import ChangeStatus from "./ChangeStatus";
 import Button from "react-bootstrap/Button";
+import { faEdit } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 
 const ModalStatus = ({ projectId}) => {
     const [show, setShow] = useState(false);
@@ -12,7 +15,7 @@ const ModalStatus = ({ projectId}) => {
     return(
     <>
     <Button onClick={handleShow}>
-      Edit project status
+    <FontAwesomeIcon icon={faEdit} /> Change status
     </Button>
     <Modal show={show} onHide={handleClose} animation={false}>
         <Modal.Header>

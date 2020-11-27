@@ -43,6 +43,7 @@ const EditProfile = ({user}) => {
                 <Image className="text-center" src={user.profile} width="100px" heigth="100px"/>
             </Card.Body>
         </Card>
+        <hr/>
         <Form style={{width: "40%",
         margin: "0 auto"}} 
         onSubmit={handleUserEdit}>

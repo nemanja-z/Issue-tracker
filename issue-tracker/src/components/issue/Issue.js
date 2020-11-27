@@ -38,8 +38,8 @@ const Issue = ({issueId}) => {
     <>
     {data && <>
     <div className="container">
-    <ModalAssign project={data.targetIssue.Project.name} issue={data.targetIssue.id}/>
-    <ModalEdit issue={data.targetIssue} />
+    {data.targetIssue.Project.isActive && <ModalAssign project={data.targetIssue.Project.name} issue={data.targetIssue.id}/>}
+    {data.targetIssue.Project.isActive && <ModalEdit issue={data.targetIssue} />}
     <Row>
       <Col>Type: {data.targetIssue.issue_type}</Col>
       <Col>Priority: {data.targetIssue.priority}</Col>
@@ -55,7 +55,10 @@ const Issue = ({issueId}) => {
     <Row >
       <Col>Reporter: {data.targetIssue.reporter.username}</Col>
       <Col>Assigned to: {data.targetIssue.assignees?.map(user=>
-      <p key={shortid.generate()}>{user.username}</p>)}</Col>
+      <ol>
+      <li key={shortid.generate()}>{user.username}</li>
+      </ol>)}
+      </Col>
     </Row>
     <Row>
         <Col>
@@ -71,8 +74,10 @@ const Issue = ({issueId}) => {
       <Col>Updated: {new Date(data.targetIssue.updatedAt).toUTCString()}</Col>
     </Row>
   </div>
+  <hr/>
     <>
-      <CommentForm issueId={issueId}/>
+    {data.targetIssue.Project.isActive && <CommentForm issueId={issueId}/>}
+      <hr/>
       <Comments issueId={issueId}/>
     </>
     </> }

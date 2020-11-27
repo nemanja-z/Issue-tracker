@@ -33,6 +33,6 @@ const ModalIssue = ({projectId}) => {
     )
 }
 ModalIssue.propTypes = {
-  projectId: PropTypes.string.isRequired
+  projectId: PropTypes.string
 }
 export default ModalIssue;

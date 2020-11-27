@@ -12,6 +12,8 @@ import { yupResolver } from '@hookform/resolvers';
 import * as yup from "yup";
 import {ErrorContext} from "../../App";
 import {useHistory} from "react-router-dom";
+import Alert from "react-bootstrap/Alert";
+
 
 const schema = yup.object().shape({
     username: yup.string().when('loginStatus',{
@@ -42,6 +44,7 @@ const Login = () =>{
     const {dispatch} = useContext(ErrorContext);
     const CLOUDINARY = "https://res.cloudinary.com/de2kz7yfl/image/upload/v1603532952/i3ekit0th28di6puvgyb.png";
     const history = useHistory();
+    let [created, setCreated] = useState(false);
     const [loginStatus, setLoginStatus] = useState(true);
     const { register, handleSubmit, reset, errors } = useForm({
         resolver: yupResolver(schema)
@@ -50,7 +53,12 @@ const Login = () =>{
     
     const [signUp] = useMutation(SIGN_UP, {
         onError:(e)=>dispatch({type:'set', payload:e}),
-        onCompleted:()=>setLoginStatus(!loginStatus)});
+        onCompleted:()=>{
+                setCreated(true);
+                setTimeout(()=>{
+                    setCreated(false);
+                   return setLoginStatus(!loginStatus);
+            }, 5000)}});
     const [login] = useMutation(LOGIN, {
         onError:(e)=>dispatch({type:'set', payload:e}),
         onCompleted:(data)=>{
@@ -74,7 +82,8 @@ const Login = () =>{
     });
     
     return(
-        <Form style={{width: "40%",
+        <>
+        {!created && <Form style={{width: "40%",
         margin: "0 auto"}} 
         onSubmit={loginStatus ? handleLogin : handleSignUp}>
         <Form.Group>
@@ -136,7 +145,11 @@ const Login = () =>{
             variant="link"
             onClick={()=>history.push("/forgot")}>Forgot password?</Button>
             </Form.Group>
-        </Form>
+        </Form>}
+        {created && (<Alert variant='info'>
+            An email with the confirmation link has been sent to your personal email address. It may take up to a few minutes before you see it in your inbox. Follow the instructions within that email to confirm your password.
+        </Alert>)}
+        </>
     )
 }
 export default Login;

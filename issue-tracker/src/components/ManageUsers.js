@@ -12,7 +12,8 @@ import Spinner from 'react-bootstrap/Spinner';
 import {ErrorContext} from "../App";
 import "./lists.css";
 import PropTypes from 'prop-types';
-
+import { faUsers } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const ManageUsers = ({users, user_projects}) => {
     const {dispatch} = useContext(ErrorContext);
@@ -37,7 +38,7 @@ const ManageUsers = ({users, user_projects}) => {
         <Card>
             <Card.Header as="h2">Assign users to your project</Card.Header>
             <Card.Link>
-            <Button type="submit" onClick={handleAssign}>Add Role</Button>
+            <Button type="submit" onClick={handleAssign}><FontAwesomeIcon icon={faUsers} /> Add Role</Button>
             </Card.Link>
         </Card>
         <Row>
