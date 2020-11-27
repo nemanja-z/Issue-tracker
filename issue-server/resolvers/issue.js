@@ -112,10 +112,10 @@ export default {
             if(!user){
                 throw new Error('You are not authorized to report issue!');
             }
-            const issue = await models.Issue.findOne({where:{id:args.issueId}, include:[{model:models.User,as:'assignees', where:{username:user.username}}]});
-            
-            if(!issue){
-                throw new Error('Issue doesn\'t exist or you are not assigned to the issue!');
+            const issue = await models.Issue.findOne({where:{id:args.issueId}, include:{model:models.Project}});
+            const assigned = await models.Project.findOne({where:{id:issue.Project.id}, include:[{model:models.User,as:"member", where:{username:user.username}}]});
+            if(!assigned){
+                throw new Error('You are not assigned to this project!');
             }
             try{
                 const comment = await models.Comment.create({

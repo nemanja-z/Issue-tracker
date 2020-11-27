@@ -4,6 +4,8 @@ import IssueForm from "./IssueForm";
 import Button from "react-bootstrap/Button";
 import PropTypes from 'prop-types';
 
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const ModalIssue = ({projectId}) => {
     const [show, setShow] = useState(false);
@@ -14,7 +16,7 @@ const ModalIssue = ({projectId}) => {
     return(
     <>
     <Button onClick={handleShow}>
-      Report an issue
+    <FontAwesomeIcon icon={faPlus} /> Report an issue
     </Button>
     <Modal show={show} onHide={handleClose} animation={false}>
         <Modal.Header>

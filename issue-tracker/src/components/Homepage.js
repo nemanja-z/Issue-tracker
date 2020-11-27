@@ -52,6 +52,7 @@ const Homepage = () => {
     const user = useMemo(()=>({
                     id:data_me?.me?.id,
                     profile:data_me?.me?.profile,
+                    role:data_me?.me?.role,
                     username:data_me?.me?.username}), [data_me]);
                     
     if (users_loading||me_loading||loading||user_loading||unassigned_users_loading){ 

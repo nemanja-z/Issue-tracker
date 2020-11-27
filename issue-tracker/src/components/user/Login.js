@@ -127,14 +127,14 @@ const Login = () =>{
             <Form.Group>
             <Button
             size="sm"
-            variant="primary"
+            variant="link"
             onClick={()=>{
                 setLoginStatus(loginStatus ? false : true);
-                reset();}}>{loginStatus  ? 'need to create an account?' : 'already have an account?'}
+                reset();}}>{loginStatus  ? 'Need to create an account?' : 'Already have an account?'}
             </Button>
             <Button size="sm"
-            variant="primary"
-            onClick={()=>history.push("/forgot")}>forgot password?</Button>
+            variant="link"
+            onClick={()=>history.push("/forgot")}>Forgot password?</Button>
             </Form.Group>
         </Form>
     )

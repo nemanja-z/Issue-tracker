@@ -6,7 +6,8 @@ import PropTypes from 'prop-types';
 import Button from "react-bootstrap/Button";
 import Image from "react-bootstrap/Image";
 import NavDropdown from "react-bootstrap/NavDropdown";
-
+import { faHome, faTasks, faEdit, faUsers } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Sidebar = ({auth, picture, logOut}) => {
             return(
@@ -15,13 +16,13 @@ const Sidebar = ({auth, picture, logOut}) => {
                 Issue Tracker
                 </Nav.Item>
                 <Nav.Item>
-                    <Link to="/home" className="nav-link">Home</Link>
+                    <Link to="/home" className="nav-link"><FontAwesomeIcon icon={faHome} /> Home</Link>
                 
-                    <Link to="/my_tasks" className="nav-link">My Tasks</Link>
+                    <Link to="/my_tasks" className="nav-link"><FontAwesomeIcon icon={faTasks} /> Tasks</Link>
                 
-                    {auth.role==="Manager" && <Link to="/manage" className="nav-link">Manage</Link>}
+                    {auth.role==="Manager" && <Link to="/manage" className="nav-link"><FontAwesomeIcon icon={faUsers} /> Manage</Link>}
 
-                    <Link to="/settings" className="nav-link">Settings</Link>
+                    <Link to="/settings" className="nav-link"><FontAwesomeIcon icon={faEdit} /> Settings</Link>
                 </Nav.Item>
                 <Nav.Item style={{"justifyContent":"center"}}>
                 <NavDropdown size="sm" drop='down' title={

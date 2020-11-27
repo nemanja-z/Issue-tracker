@@ -2,6 +2,9 @@ import React, {useState} from "react";
 import Modal from "react-bootstrap/Modal";
 import ProjectForm from "./ProjectForm";
 import Button from "react-bootstrap/Button";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 
 const ModalProject = ({history, leader}) => {
     const [show, setShow] = useState(false);
@@ -12,7 +15,7 @@ const ModalProject = ({history, leader}) => {
     return(
     <>
     <Button onClick={handleShow}>
-      Create new project
+    <FontAwesomeIcon icon={faPlus} /> Create new project
     </Button>
     <Modal show={show} onHide={handleClose} animation={false}>
         <Modal.Header>

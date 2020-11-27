@@ -14,12 +14,13 @@ import Form from "react-bootstrap/Form";
 import './index.css';
 import {ErrorContext} from "../../App";
 import PropTypes from 'prop-types';
+import { faSort} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-
-const Project = ({projectId, setProjectId, client}) => {
+const Project = ({projectId, setProjectId}) => {
     const {id} = useParams();
     const {dispatch} = useContext(ErrorContext);
-    const [filter, setFilter] = useState('');
+    const [filter, setFilter] = useState('Open');
     const [issueId, setIssueId] = useState(null);
     const [ALL_ISSUES, { loading, data }] = useLazyQuery(ISSUES, {
       variables: { projectId },
@@ -52,7 +53,7 @@ const Project = ({projectId, setProjectId, client}) => {
           <Col>
           <Form style={{"width":"30%"}}>
             <Form.Label>
-            Filter by status
+            <FontAwesomeIcon icon={faSort} /> Filter by status
             </Form.Label>
             <Form.Control
               as="select"
@@ -60,6 +61,7 @@ const Project = ({projectId, setProjectId, client}) => {
               id="inlineFormCustomSelect"
               onChange={(e)=>setFilter(e.target.value)}
               custom
+              defaultValue="Open"
             >
               <option value="Reopened">Reopened</option>
               <option value="Resolved">Resolved</option>
