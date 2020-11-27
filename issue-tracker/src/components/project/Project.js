@@ -44,7 +44,7 @@ const Project = ({projectId, setProjectId, client}) => {
         <>
         <Card>
         <Card.Header as="h2">All issues</Card.Header>
-        {data && <Card.Link><ModalIssue projectId={projectId} client={client}/></Card.Link>}
+        {data && <Card.Link><ModalIssue projectId={projectId}/></Card.Link>}
         </Card>
         <Tab.Container id="list-group-tabs-example">
         <Row>

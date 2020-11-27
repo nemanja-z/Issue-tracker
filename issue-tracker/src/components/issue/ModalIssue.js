@@ -5,7 +5,7 @@ import Button from "react-bootstrap/Button";
 import PropTypes from 'prop-types';
 
 
-const ModalIssue = ({projectId, id, client}) => {
+const ModalIssue = ({projectId}) => {
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
@@ -21,7 +21,7 @@ const ModalIssue = ({projectId, id, client}) => {
           <Modal.Title>Report an issue</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-        <IssueForm projectId={projectId} show={show} client={client} setShow={setShow}/>
+        <IssueForm projectId={projectId} show={show} setShow={setShow}/>
         </Modal.Body>
         <Modal.Footer onClick={handleClose}>
             <Modal.Footer>Close</Modal.Footer>
@@ -32,7 +32,6 @@ const ModalIssue = ({projectId, id, client}) => {
 }
 ModalIssue.propTypes = {
   projectId: PropTypes.string.isRequired, 
-  id: PropTypes.string, 
   client: PropTypes.object.isRequired
 }
 export default ModalIssue;

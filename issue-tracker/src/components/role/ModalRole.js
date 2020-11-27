@@ -20,7 +20,7 @@ const ModalRole = ({project, users}) => {
           <Modal.Title>Add user to project</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-        <AddRole show={show} setShow={setShow} project={project} users={users}/>
+          <AddRole show={show} setShow={setShow} project={project} users={users}/>
         </Modal.Body>
         <Modal.Footer onClick={handleClose}>
             <Modal.Footer>Close</Modal.Footer>

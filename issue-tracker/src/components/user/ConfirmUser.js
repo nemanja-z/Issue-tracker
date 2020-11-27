@@ -14,7 +14,7 @@ const ConfirmUser = () => {
     onCompleted:()=>setTimeout(()=>{history.push("/login")},5000)});
     useEffect(()=>{confirmUser()}) 
         return(
-            <Alert>
+            <Alert variant='info'>
                 You've successfully verified your email!
             </Alert>
         )

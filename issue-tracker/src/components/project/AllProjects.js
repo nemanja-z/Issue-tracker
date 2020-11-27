@@ -4,9 +4,9 @@ import {Link} from "react-router-dom";
 import PropTypes from 'prop-types';
 import ModalRole from "../role/ModalRole";
 import ModalStatus from "./ModalStatus";
-import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown';
-
+import Button from "react-bootstrap/Button";
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
 
 const AllProjects = ({projects, username, users}) => {
     return(
@@ -25,10 +25,15 @@ const AllProjects = ({projects, username, users}) => {
                 <td><Link to={`/projects/:${p.member[0].id}`}>{p.member[0].username}</Link></td>
                 {username===p.manager.id ? 
                 <td>
-                <DropdownButton title="Edit">
-                    <Dropdown.Item><ModalRole users={users} project={p.name}/></Dropdown.Item>
-                    <Dropdown.Item><ModalStatus projectId={p.id}/></Dropdown.Item>
-                </DropdownButton>
+                <Dropdown as={ButtonGroup}>
+                    <Button variant="info">Edit</Button>
+                    <Dropdown.Toggle split />
+                    <Dropdown.Menu>
+                    <ModalRole users={users} project={p.name}/>
+                    <Dropdown.Divider />
+                    <ModalStatus projectId={p.id}/>
+                    </Dropdown.Menu>
+                </Dropdown>
                 </td>: <td></td>}
             </tr>
             )}

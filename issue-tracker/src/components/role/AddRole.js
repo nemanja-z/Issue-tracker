@@ -28,19 +28,19 @@ const AddRole = ({project, users, show, setShow}) => {
         addRole({variables:{project, username}});
         reset();
     });
-    console.log(assignRole)
-    return(<Form inline='true' onSubmit={assignRole}>
+    
+    return(
+    <Form inline='true' onSubmit={assignRole}>
         <Form.Group>
             <Form.Label>Username</Form.Label>
             <Form.Control placeholder="username" name="username" type='text' ref={register} id='username' as="select" custom>
-            {users.map(user=>
-                <option key={shortid.generate()} value={user.username}>{user.username}</option>)}
+            {users.map(user=><option key={shortid.generate()} value={user.username}>{user.username}</option>)}
             </Form.Control>
             <Form.Text>{errors.username?.message}</Form.Text>
         </Form.Group>
-    <Button variant="primary" type="submit">
-            Submit
-    </Button>
+        <Button variant="primary" type="submit">
+                Submit
+        </Button>
     </Form>)
 }
 AddRole.propTypes={

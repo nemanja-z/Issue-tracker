@@ -1,9 +1,8 @@
-import React, {useContext, useState, useEffect} from 'react';
+import React, {useContext, useState} from 'react';
 import {RESET} from "../../queries/user/queries";
 import {useMutation} from "@apollo/client";
 import Form from 'react-bootstrap/Form';
 import Alert from "react-bootstrap/Alert";
-import Card from "react-bootstrap/Card";
 
 import Button from 'react-bootstrap/Button';
 import {ErrorContext} from "../../App";

@@ -46,15 +46,13 @@ const Homepage = () => {
     const { loading:unassigned_users_loading, data:unnasigned_users } = useQuery(UNASSIGNED_USERS, {
         onError:(e)=>dispatch({type:'set', payload:e})
     });
-    const username=useMemo(()=>data_me?.me?.username, [data_me]);
     const id=useMemo(()=>data_me?.me?.id, [data_me]);
     const profilePic = useMemo(()=>data_me?.me?.profile, [data_me]);
     const projects = useMemo(()=>user_data?.userProjects?.map(project=>project), [user_data]);
-    const user = useMemo(()=>{
-                return {
+    const user = useMemo(()=>({
                     id:data_me?.me?.id,
                     profile:data_me?.me?.profile,
-                    username:data_me?.me?.username}}, [data_me]);
+                    username:data_me?.me?.username}), [data_me]);
                     
     if (users_loading||me_loading||loading||user_loading||unassigned_users_loading){ 
         return (<Spinner animation="border" role="status">

@@ -18,28 +18,28 @@ export const ADD_ROLE = gql`
         addMember(project:$project, username:$username){
             project{
                 id
-            name
-            url
-            isActive
-            manager{
-                username
-                email
-                id
-            }
-            member{
-                username
-                email
-                id
-            }
-            }
-        refetch{
-            allUnassignedUsers{
-                username
-                email
-                profile
-                id
+                name
+                url
+                isActive
+                manager{
+                    username
+                    email
+                    id
                 }
-    }}
+                member{
+                    username
+                    email
+                    id
+                }
+                }
+                refetch{
+                    allUnassignedUsers{
+                        username
+                        email
+                        profile
+                        id
+                        }
+            }}
     }`;
 
 export const AUTH = gql`

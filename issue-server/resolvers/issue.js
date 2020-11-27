@@ -51,7 +51,7 @@ export default {
                 throw new Error('You are not authorized to report issue!');
             }
             const targetProject=await models.Project.findOne({where:{name:input.project}, include:[{model:models.User,as:'member', where:{username:user.username}}]});
-            if(!targetProject.member){
+            if(!targetProject){
                 throw new Error('You are not a member of this project!');
             } 
             let attachment=[];
