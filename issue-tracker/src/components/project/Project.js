@@ -10,6 +10,7 @@ import Row from "react-bootstrap/Row";
 import Issue from "../issue/Issue";
 import Spinner from 'react-bootstrap/Spinner';
 import Card from 'react-bootstrap/Card';
+import Form from "react-bootstrap/Form";
 import './index.css';
 import {ErrorContext} from "../../App";
 import PropTypes from 'prop-types';
@@ -18,6 +19,7 @@ import PropTypes from 'prop-types';
 const Project = ({projectId, setProjectId, client}) => {
     const {id} = useParams();
     const {dispatch} = useContext(ErrorContext);
+    const [filter, setFilter] = useState('');
     const [issueId, setIssueId] = useState(null);
     const [ALL_ISSUES, { loading, data }] = useLazyQuery(ISSUES, {
       variables: { projectId },
@@ -39,7 +41,6 @@ const Project = ({projectId, setProjectId, client}) => {
                   <span className="sr-only">Loading...</span>
                 </Spinner>);
             }
-    
     return( 
         <>
         <Card>
@@ -48,9 +49,31 @@ const Project = ({projectId, setProjectId, client}) => {
         </Card>
         <Tab.Container id="list-group-tabs-example">
         <Row>
+          <Col>
+          <Form style={{"width":"30%"}}>
+            <Form.Label>
+            Filter by status
+            </Form.Label>
+            <Form.Control
+              as="select"
+              className="mr-sm-2"
+              id="inlineFormCustomSelect"
+              onChange={(e)=>setFilter(e.target.value)}
+              custom
+            >
+              <option value="Reopened">Reopened</option>
+              <option value="Resolved">Resolved</option>
+              <option value="Closed">Closed</option>
+              <option value="Active">Active</option>
+              <option value="Open">Open</option>
+
+            </Form.Control>
+        </Form></Col>
+        </Row>
+        <Row>
           <Col style={{"border":"solid", "height": "calc(80% - 20px)"}} sm={4} className="list-group-items">
               <ListGroup>
-                    {data && data.allIssues.map(issue=>
+                    {data && data.allIssues.filter(issue=>issue.status===filter).map(issue=>
                       <ListGroup.Item style={{border:"none"}} key={issue.id} onClick={()=>setIssueId(issue.id)}>
                       <Card>
                         <Card.Body>
