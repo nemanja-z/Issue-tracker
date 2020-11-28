@@ -3,6 +3,10 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import EditIssue from "./EditIssue";
 import PropTypes from 'prop-types';
+import { faEdit} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+
 
 const ModalEdit = ({issue}) => {
     const [show, setShow] = useState(false);
@@ -13,7 +17,7 @@ const ModalEdit = ({issue}) => {
     return(
     <>
     <Button onClick={handleShow}>
-      Edit issue
+    <FontAwesomeIcon icon={faEdit} /> Edit
     </Button>
     <Modal show={show} onHide={handleClose} animation={false}>
         <Modal.Header>

@@ -15,6 +15,8 @@ const AllProjects = ({projects, username, users}) => {
             <tr>
                 <th>Project</th>
                 <th>Project leader</th>
+                <th>Url</th>
+                <th>Active</th>
                 <th></th>
             </tr>
         </thead>
@@ -22,7 +24,9 @@ const AllProjects = ({projects, username, users}) => {
             {projects.map(p=>
             <tr key={p.name}>
                 <td><Link to={`/projects/:${p.id}`}>{p.name}</Link></td>
-                <td><Link to={`/projects/:${p.member[0].id}`}>{p.member[0].username}</Link></td>
+                <td>{p.member[0].username}</td>
+                <th>{p.url}</th>
+                <td>{p.isActive.toString()}</td>
                 {username===p.manager.id ? 
                 <td>
                 <Dropdown as={ButtonGroup}>

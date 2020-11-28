@@ -18,12 +18,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const ManageUsers = ({users, user_projects}) => {
     const {dispatch} = useContext(ErrorContext);
     const [username, setUsername] = useState('');
-    const [role, setRole] = useState('');
     const [project, setProject] = useState('');
     const [addRole, {loading}] = useMutation(ADD_ROLE, {
         onError:(e)=>dispatch({type:'set', payload:e})
     });
-    const handleAssign = () => addRole({variables:{username, project, role}});
+    const handleAssign = () => addRole({variables:{username, project}});
     
     
     if(loading)  {
@@ -38,7 +37,7 @@ const ManageUsers = ({users, user_projects}) => {
         <Card>
             <Card.Header as="h2">Assign users to your project</Card.Header>
             <Card.Link>
-            <Button type="submit" onClick={handleAssign}><FontAwesomeIcon icon={faUsers} /> Add Role</Button>
+                <Button type="submit" onClick={handleAssign}><FontAwesomeIcon icon={faUsers} /> Add Role</Button>
             </Card.Link>
         </Card>
         <Row>
@@ -51,16 +50,6 @@ const ManageUsers = ({users, user_projects}) => {
                         <ListGroup.Item key={project.id} onClick={()=>setProject(project.name)}>{project.name}</ListGroup.Item>)}
                     </ListGroup>
                 </Col>
-        <Col>
-            <Card>
-                <Card.Header as="h4">Roles</Card.Header>
-            </Card>
-            <ListGroup>
-                <ListGroup.Item onClick={()=>setRole("Developer")} key="Developer">Developer</ListGroup.Item>
-                <ListGroup.Item onClick={()=>setRole("Contractor")} key="Contractor">Contractor</ListGroup.Item>
-                <ListGroup.Item onClick={()=>setRole("Support")} key="Support">Support</ListGroup.Item>
-            </ListGroup>
-        </Col>
         <Col>
         <Card>
                 <Card.Header as="h4">Users</Card.Header>

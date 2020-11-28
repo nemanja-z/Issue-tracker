@@ -6,14 +6,14 @@ import PropTypes from 'prop-types';
 import Button from "react-bootstrap/Button";
 import Image from "react-bootstrap/Image";
 import NavDropdown from "react-bootstrap/NavDropdown";
-import { faHome, faTasks, faEdit, faUsers } from "@fortawesome/free-solid-svg-icons";
+import { faHome, faTasks, faEdit, faUsers, faBug } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Sidebar = ({auth, picture, logOut}) => {
             return(
                 <Nav className="sidebar">
                 <Nav.Item style={{"fontFamily":"Verdana","color":"#40a8c4", "fontWeight":"bold", "fontSize":"20px", "marginLeft":"10px"}}>
-                Issue Tracker
+                <FontAwesomeIcon icon={faBug} size="5x" />
                 </Nav.Item>
                 <Nav.Item>
                     <Link to="/home" className="nav-link"><FontAwesomeIcon icon={faHome} /> Home</Link>
@@ -27,8 +27,8 @@ const Sidebar = ({auth, picture, logOut}) => {
                 <Nav.Item style={{"justifyContent":"center"}}>
                 <NavDropdown size="sm" drop='down' title={
                 <>
-                    <Image style={{"height":"50px", "width":"50px"}} src={picture} fluid/>
-                    <Nav.Item>{auth.username}</Nav.Item>
+                    
+                   <Nav.Item><Image style={{"height":"40px", "width":"40px"}} src={picture} fluid/> {auth.username}</Nav.Item> 
                 </>}>
                     <Button size="sm" className="dropdown-item" onClick={logOut}>Log Out</Button>
                     

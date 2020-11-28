@@ -14,7 +14,6 @@ import Comments from "../comment/Comments";
 import {ErrorContext} from "../../App";
 import shortid from 'shortid';
 
-
 const Issue = ({issueId}) => {
   const {dispatch} = useContext(ErrorContext);
   const [GET_ISSUE, { loading, data }] = useLazyQuery(ISSUE, {
@@ -53,11 +52,10 @@ const Issue = ({issueId}) => {
       <Col>Description: {data.targetIssue.description}</Col>
     </Row>
     <Row >
-      <Col>Reporter: {data.targetIssue.reporter.username}</Col>
       <Col>Assigned to: {data.targetIssue.assignees?.map(user=>
-      <ol>
-      <li key={shortid.generate()}>{user.username}</li>
-      </ol>)}
+      <>
+      <p key={shortid.generate()}><Image src={user.profile} width="30px" height="30px"/>{user.username}</p>
+      </>)}
       </Col>
     </Row>
     <Row>
@@ -67,7 +65,7 @@ const Issue = ({issueId}) => {
         </Col>
     </Row>
     <Row >
-      <Col>Reporter: {data.targetIssue.reporter.username}</Col>
+      <Col><p key={shortid.generate()}>Reporter:<Image src={data.targetIssue.reporter.profile} width="30px" height="30px"/> {data.targetIssue.reporter.username}</p></Col>
     </Row>
     <Row >
       <Col>Created: {new Date(data.targetIssue.createdAt).toUTCString()}</Col>

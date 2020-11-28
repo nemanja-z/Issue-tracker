@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useContext, useRef} from "react";
+import React, {useEffect, useState, useContext, useRef, useMemo} from "react";
 import {ISSUES} from "../../queries/issue/queries";
 import {useParams} from "react-router-dom";
 import {useLazyQuery} from "@apollo/client";
@@ -27,7 +27,7 @@ const Project = ({projectId, setProjectId}) => {
       onError:(e)=>dispatch({type:'set', payload:e}),
       });
     let isMounted = useRef(true);
-    const isActive = data?.allIssues?.Project?.isActive || true;
+    const isActive = useMemo(()=>data?.allIssues?.Project?.isActive || true, [data]);
     useEffect(()=>{
       if(id){
         setProjectId(id.slice(1));

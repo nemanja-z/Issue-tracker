@@ -3,7 +3,8 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import AssignUser from './AssignUser';
 import PropTypes from 'prop-types';
-
+import { faPlus} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const ModalAssign = ({project, issue}) => {
     const [show, setShow] = useState(false);
@@ -14,7 +15,7 @@ const ModalAssign = ({project, issue}) => {
     return(
     <>
     <Button onClick={handleShow}>
-      Assign User
+    <FontAwesomeIcon icon={faPlus} /> Assign
     </Button>
     <Modal show={show} onHide={handleClose} animation={false}>
         <Modal.Header>

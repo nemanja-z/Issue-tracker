@@ -8,7 +8,8 @@ import PropTypes from 'prop-types';
 import { yupResolver } from '@hookform/resolvers';
 import * as yup from "yup";
 import {ErrorContext} from "../../App";
-
+import { faComment } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
 const schema = yup.object().shape({
@@ -36,7 +37,7 @@ const CommentForm = ({issueId}) => {
                 <Form.Text>{errors.comment?.message}</Form.Text>
             </Form.Group>
             <Button variant="primary" type="submit">
-                    Submit
+            <FontAwesomeIcon icon={faComment} /> Post
             </Button>
             </Form>)
 }

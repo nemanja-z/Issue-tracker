@@ -44,7 +44,7 @@ const ResetPasword = () => {
                 Reset password
             </Button>
         </Form>)}
-        {resetDone && (<Alert variant='info'>
+        {resetDone && (<Alert variant='info' className="text-center">
             An email with the password reset link has been sent to your personal email address. It may take up to a few minutes before you see it in your inbox. Follow the instructions within that email to reset your password.
         </Alert>)}
         </>

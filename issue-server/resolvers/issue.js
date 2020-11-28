@@ -17,7 +17,7 @@ export default {
         },
         assignedToMe:async(_,args,{models, user})=>{
             return await models.Issue.findAll({
-                include:[{model:models.Project}, {model:models.User, as:'reporter'}, {model:models.User, as:'assignees',
+                include:[{model:models.Project, where:{isActive:true}}, {model:models.User, as:'reporter'}, {model:models.User, as:'assignees',
                 where:{username:user.username}}]});
         },
         issueComment:async(_, args, {models})=>{
