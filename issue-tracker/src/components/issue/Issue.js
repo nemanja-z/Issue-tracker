@@ -9,6 +9,7 @@ import Spinner from 'react-bootstrap/Spinner';
 import './index.css';
 import ModalAssign from "../user/ModalAssign";
 import ModalEdit from "../issue/ModalEdit";
+import Container from "react-bootstrap/Container";
 import CommentForm from "../comment/CommentForm";
 import Comments from "../comment/Comments";
 import {ErrorContext} from "../../App";
@@ -36,9 +37,14 @@ const Issue = ({issueId}) => {
   return(
     <>
     {data && <>
-    <div className="container">
-    {data.targetIssue.Project.isActive && <ModalAssign project={data.targetIssue.Project.name} issue={data.targetIssue.id}/>}
-    {data.targetIssue.Project.isActive && <ModalEdit issue={data.targetIssue} />}
+    <Container>
+    {data.targetIssue.Project.isActive &&(
+      <Row>
+        <Col>
+        <ModalAssign project={data.targetIssue.Project.name} issue={data.targetIssue.id}/>
+        <ModalEdit issue={data.targetIssue} />
+      </Col>
+    </Row>)}
     <Row>
       <Col>Type: {data.targetIssue.issue_type}</Col>
       <Col>Priority: {data.targetIssue.priority}</Col>
@@ -71,7 +77,7 @@ const Issue = ({issueId}) => {
       <Col>Created: {new Date(data.targetIssue.createdAt).toUTCString()}</Col>
       <Col>Updated: {new Date(data.targetIssue.updatedAt).toUTCString()}</Col>
     </Row>
-  </div>
+  </Container>
   <hr/>
     <>
     {data.targetIssue.Project.isActive && <CommentForm issueId={issueId}/>}

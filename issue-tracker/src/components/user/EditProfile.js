@@ -2,7 +2,10 @@ import React, {useState, useContext} from "react";
 import { useForm } from "react-hook-form";
 import {EDIT_USER} from "../../queries/user/queries";
 import Form from 'react-bootstrap/Form';
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 import Button from 'react-bootstrap/Button';
+import Container from "react-bootstrap/Container";
 import Card from "react-bootstrap/Card";
 import {useMutation} from "@apollo/client";
 import {ErrorContext} from "../../App";
@@ -36,18 +39,18 @@ const EditProfile = ({user}) => {
         reset();
     }); 
     return(
-        <>
-        <Card className="text-center">
+        <Container className="d-flex flex-column justify-content-center">
+        <Row><Col><Card className="text-center">
             <Card.Header>Edit profile</Card.Header>
             <Card.Body>
                 <Image className="text-center" src={user.profile} width="100px" heigth="100px"/>
             </Card.Body>
         </Card>
+        </Col></Row>
         <hr/>
-        <Form style={{width: "40%",
-        margin: "0 auto"}} 
-        onSubmit={handleUserEdit}>
-        <Form.Group>
+        
+        <Row><Col className="d-flex flex-column align-items-center"><Form onSubmit={handleUserEdit}>
+        <Form.Group >
                 <Form.Control type="text" placeholder={user.username} readOnly />
             </Form.Group>
             <Form.Group>
@@ -71,7 +74,8 @@ const EditProfile = ({user}) => {
             <hr/>
             <Button type="submit" variant="primary">Save</Button>
         </Form>
-        </>
+        </Col></Row>
+        </Container>
         )
 }
 EditProfile.propTypes = {

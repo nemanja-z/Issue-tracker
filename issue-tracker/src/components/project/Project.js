@@ -27,7 +27,7 @@ const Project = ({projectId, setProjectId}) => {
       onError:(e)=>dispatch({type:'set', payload:e}),
       });
     let isMounted = useRef(true);
-    const isActive = useMemo(()=>data?.allIssues?.Project?.isActive || true, [data]);
+    const isActive = useMemo(()=>data?.allIssues?.Project?.isActive ?? true, [data]);
     useEffect(()=>{
       if(id){
         setProjectId(id.slice(1));

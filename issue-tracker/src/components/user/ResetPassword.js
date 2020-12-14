@@ -4,6 +4,7 @@ import {useMutation} from "@apollo/client";
 import Form from 'react-bootstrap/Form';
 import Alert from "react-bootstrap/Alert";
 import Button from 'react-bootstrap/Button';
+import Container from "react-bootstrap/Container";
 import {ErrorContext} from "../../App";
 import { useForm } from "react-hook-form";
 import {useHistory} from "react-router-dom";
@@ -31,8 +32,9 @@ const ResetPasword = () => {
         reset();
         });
     return(<>
-        {!resetDone&&(<Form style={{width: "40%",
-        margin: "0 auto"}} onSubmit={handleForget}>
+        {!resetDone&&(
+            <Container className="w-50 mt-10">
+            <Form onSubmit={handleForget}>
         <Form.Group>
                 <Form.Label>Forgot Password</Form.Label>
             </Form.Group>
@@ -40,10 +42,12 @@ const ResetPasword = () => {
                 <Form.Control placeholder="email" name="email" type='text' ref={register} id='email'/>
                 <Form.Text>{errors.email?.message}</Form.Text>
             </Form.Group>
-            <Button type="submit">
+            <Button type="submit" className="mr-2">
                 Reset password
             </Button>
-        </Form>)}
+            <Button onClick={()=>history.push('/login')}>Go back to the login page</Button>
+        </Form>
+        </Container>)}
         {resetDone && (<Alert variant='info' className="text-center">
             An email with the password reset link has been sent to your personal email address. It may take up to a few minutes before you see it in your inbox. Follow the instructions within that email to reset your password.
         </Alert>)}

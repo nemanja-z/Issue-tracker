@@ -3,6 +3,7 @@ import {FORGOT} from "../../queries/user/queries";
 import {useMutation} from "@apollo/client";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import Container from "react-bootstrap/Container";
 import {ErrorContext} from "../../App";
 import { useForm } from "react-hook-form";
 import {useHistory, useParams} from "react-router-dom";
@@ -24,8 +25,8 @@ const ForgotPassword = () => {
 
 
     return(
-        <Form style={{width: "40%",
-        margin: "0 auto"}} onSubmit={handleForgot}>
+        <Container>
+        <Form onSubmit={handleForgot}>
         <Form.Group>
                 <Form.Label>Reset password</Form.Label>
             </Form.Group>
@@ -37,6 +38,7 @@ const ForgotPassword = () => {
                 Update Password
             </Button>
         </Form>
+        </Container>
     )
 }
 

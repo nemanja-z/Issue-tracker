@@ -3,6 +3,7 @@ import {LOGIN, SIGN_UP} from "../../queries/user/queries";
 import {useMutation} from "@apollo/client";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import Container from 'react-bootstrap/Container';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Image from "react-bootstrap/Image";
 import { useForm } from "react-hook-form";
@@ -82,10 +83,8 @@ const Login = () =>{
     });
     
     return(
-        <>
-        {!created && <Form style={{width: "40%",
-        margin: "0 auto"}} 
-        onSubmit={loginStatus ? handleLogin : handleSignUp}>
+        <Container className="w-50 mt-5" fluid >
+        {!created && <Form onSubmit={loginStatus ? handleLogin : handleSignUp}>
         <Form.Group>
                 <Form.Label>{loginStatus?'Login':'Register'}</Form.Label>
             </Form.Group>
@@ -99,6 +98,9 @@ const Login = () =>{
                     <InputGroup.Prepend>
                         <InputGroup.Text onClick={toggleVisibility}>{eye}</InputGroup.Text>
                     </InputGroup.Prepend>
+                    {!loginStatus && <Form.Text muted>
+                        Your password must contain 8 characters, one uppercase, one lowercase, one number and one special case character.
+                    </Form.Text>}
                     <Form.Text>{errors.password?.message}</Form.Text>
                 </InputGroup>
             </Form.Group>
@@ -123,9 +125,9 @@ const Login = () =>{
             </Form.Control>
             <Form.Text>{errors.role?.message}</Form.Text>
         </Form.Group>
-            <Form.Group>
-                <Form.Label>Change user picture </Form.Label>
-                <Image src={CLOUDINARY} alt="" width="90px" height="90px"/>
+            <Form.Group className="d-flex flex-column">
+                <Form.Label className="mb-2">Change user picture </Form.Label>
+                <Image src={CLOUDINARY} alt="" width="90px" height="90px" className="mb-2"/>
                 <input type="file" name="profile"  onChange={({ target: { validity, files: [file] } })=>
                 validity.valid && setProfile(file)}/>
               </Form.Group>
@@ -149,7 +151,7 @@ const Login = () =>{
         {created && (<Alert variant='info'>
             An email with the confirmation link has been sent to your personal email address. It may take up to a few minutes before you see it in your inbox. Follow the instructions within that email to confirm your password.
         </Alert>)}
-        </>
+        </Container>
     )
 }
 export default Login;

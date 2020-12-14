@@ -2,12 +2,11 @@ import React, {useContext} from "react";
 import {ErrorContext} from "../../App";
 import PropTypes from "prop-types";
 import {COMMENTS} from "../../queries/comment/queries";
+import Image from "react-bootstrap/Image";
 import Spinner from 'react-bootstrap/Spinner';
 import ListGroup from "react-bootstrap/ListGroup";
 import {useQuery} from "@apollo/client";
 import Card from "react-bootstrap/esm/Card";
-import { faComment } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const shortid = require('shortid');
 
 const Comments = ({issueId}) => {
@@ -26,8 +25,8 @@ const Comments = ({issueId}) => {
         {data.issueComment?.map(c=>
         <Card key={shortid.generate()}>
             <Card.Body>
-                <Card.Header> {c.commenter.username} commented:</Card.Header>
-                <Card.Text><FontAwesomeIcon icon={faComment} /> {c.comment}</Card.Text>
+                <Card.Header><Image src={c.commenter.profile} alt="" width="45px" height="45px" className="mb-2"/> {c.commenter.username} commented:</Card.Header>
+                <Card.Text className="pl-5">{c.comment}</Card.Text>
             </Card.Body>
         </Card>)}
     </ListGroup>)

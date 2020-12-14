@@ -28,7 +28,9 @@ const Sidebar = ({auth, picture, logOut}) => {
                 <NavDropdown size="sm" drop='down' title={
                 <>
                     
-                   <Nav.Item><Image style={{"height":"40px", "width":"40px"}} src={picture} fluid/> {auth.username}</Nav.Item> 
+                   <Nav.Item className="d-flex flex-column">
+                   <Image style={{"height":"40px", "width":"40px"}} src={picture} fluid/> 
+                   {auth.username}</Nav.Item> 
                 </>}>
                     <Button size="sm" className="dropdown-item" onClick={logOut}>Log Out</Button>
                     
