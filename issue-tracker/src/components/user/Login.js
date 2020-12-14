@@ -14,7 +14,7 @@ import * as yup from "yup";
 import {ErrorContext} from "../../App";
 import {useHistory} from "react-router-dom";
 import Alert from "react-bootstrap/Alert";
-
+import "./style.css";
 
 const schema = yup.object().shape({
     username: yup.string().when('loginStatus',{
@@ -83,8 +83,8 @@ const Login = () =>{
     });
     
     return(
-        <Container className="w-50 mt-5" fluid >
-        {!created && <Form onSubmit={loginStatus ? handleLogin : handleSignUp}>
+        <Container className="form-container" fluid>
+        {!created && <Form style={{"width":"40%", "margin":"0 auto"}} onSubmit={loginStatus ? handleLogin : handleSignUp}>
         <Form.Group>
                 <Form.Label>{loginStatus?'Login':'Register'}</Form.Label>
             </Form.Group>
