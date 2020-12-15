@@ -84,7 +84,7 @@ const Login = () =>{
     
     return(
         <Container className="form-container" fluid>
-        {!created && <Form style={{"width":"40%", "margin":"0 auto"}} onSubmit={loginStatus ? handleLogin : handleSignUp}>
+        {!created && <Form style={{"width":"30%", "margin":"0 auto", "border":"solid", "background":"rgb(134,222,183)"}} className="text-center" onSubmit={loginStatus ? handleLogin : handleSignUp}>
         <Form.Group>
                 <Form.Label>{loginStatus?'Login':'Register'}</Form.Label>
             </Form.Group>
@@ -92,18 +92,16 @@ const Login = () =>{
                 <Form.Control placeholder="username" name="username" type='text' ref={register} id='username'/>
                 <Form.Text>{errors.username?.message}</Form.Text>
             </Form.Group>
-            <Form.Group>
                 <InputGroup>
                     <Form.Control placeholder="password" name="password" type={passwordShown ? "text" : "password"} ref={register} id='password'/>
-                    <InputGroup.Prepend>
-                        <InputGroup.Text onClick={toggleVisibility}>{eye}</InputGroup.Text>
-                    </InputGroup.Prepend>
+                    <InputGroup.Append>
+                        <InputGroup.Text  onClick={toggleVisibility}>{eye}</InputGroup.Text>
+                    </InputGroup.Append>
                     {!loginStatus && <Form.Text muted>
                         Your password must contain 8 characters, one uppercase, one lowercase, one number and one special case character.
                     </Form.Text>}
                     <Form.Text>{errors.password?.message}</Form.Text>
                 </InputGroup>
-            </Form.Group>
             {!loginStatus&&(
                 <>
             <Form.Group>
@@ -116,7 +114,7 @@ const Login = () =>{
             </Form.Group>
             <Form.Group>
             <Form.Label>Role</Form.Label>
-            <Form.Control placeholder="role" name="role" type='text' ref={register} id='role' as="select" custom>
+            <Form.Control placeholder="role" name="role" type='text' ref={register} id='role' as="select">
                 <option value="Manager">Manager</option>
                 <option value="Developer">Developer</option>
                 <option value="Leader">Leader</option>
@@ -125,9 +123,9 @@ const Login = () =>{
             </Form.Control>
             <Form.Text>{errors.role?.message}</Form.Text>
         </Form.Group>
-            <Form.Group className="d-flex flex-column">
-                <Form.Label className="mb-2">Change user picture </Form.Label>
-                <Image src={CLOUDINARY} alt="" width="90px" height="90px" className="mb-2"/>
+            <Form.Group className="d-flex flex-column align-items-center">
+                <Form.Label className="pb-2">Change user picture </Form.Label>
+                <Image src={CLOUDINARY} alt="" width="60px" height="60px" className="pb-2"/>
                 <input type="file" name="profile"  onChange={({ target: { validity, files: [file] } })=>
                 validity.valid && setProfile(file)}/>
               </Form.Group>

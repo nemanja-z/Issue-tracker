@@ -1,6 +1,5 @@
 .form-container{
-    background-image: url(../../assets/type.png);
+    background-image: url(../../assets/husk.png);
     background-size: cover;
-    height:100vh;
-    width:100vw;
+    height:100%;
 }
