@@ -12,7 +12,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const Sidebar = ({auth, picture, logOut}) => {
             return(
                 <Nav className="sidebar">
-                <Nav.Item style={{"fontFamily":"Verdana","color":"#40a8c4", "fontWeight":"bold", "fontSize":"20px", "marginLeft":"10px"}}>
+                <Nav.Item className="pb-5" style={{"fontFamily":"Verdana","color":"#40a8c4", "fontWeight":"bold", "fontSize":"20px", "marginLeft":"10px"}}>
                 <FontAwesomeIcon icon={faBug} size="5x" />
                 </Nav.Item>
                 <Nav.Item>

@@ -191,7 +191,7 @@ export default {
                         createReadStream().pipe(streamLoad);
                 });
                 }
-                const data = {...args, profile};
+                const data = {...args, profile:profile??user.profile};
                 await models.User.update(data,{ where:{email:args.email}});
                 return await models.User.findOne({where:{email:args.email}});
             }

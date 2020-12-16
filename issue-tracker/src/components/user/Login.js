@@ -1,19 +1,19 @@
-import React, {useState, useContext} from 'react';
-import {LOGIN, SIGN_UP} from "../../queries/user/queries";
-import {useMutation} from "@apollo/client";
-import Form from 'react-bootstrap/Form';
+import { useMutation } from "@apollo/client";
+import { faEye } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { yupResolver } from '@hookform/resolvers';
+import React, { useContext, useState } from 'react';
+import Alert from "react-bootstrap/Alert";
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
-import InputGroup from 'react-bootstrap/InputGroup';
+import Form from 'react-bootstrap/Form';
 import Image from "react-bootstrap/Image";
+import InputGroup from 'react-bootstrap/InputGroup';
 import { useForm } from "react-hook-form";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye } from "@fortawesome/free-solid-svg-icons";
-import { yupResolver } from '@hookform/resolvers';
+import { useHistory } from "react-router-dom";
 import * as yup from "yup";
-import {ErrorContext} from "../../App";
-import {useHistory} from "react-router-dom";
-import Alert from "react-bootstrap/Alert";
+import { ErrorContext } from "../../App";
+import { LOGIN, SIGN_UP } from "../../queries/user/queries";
 import "./style.css";
 
 const schema = yup.object().shape({
@@ -84,18 +84,18 @@ const Login = () =>{
     
     return(
         <Container className="form-container" fluid>
-        {!created && <Form style={{"width":"30%", "margin":"0 auto", "border":"solid", "background":"rgb(134,222,183)"}} className="text-center" onSubmit={loginStatus ? handleLogin : handleSignUp}>
-        <Form.Group>
+        {!created && <Form style={{ "margin":"0 auto","background":"#fafcc2", "borderRadius":"50px 50px", "width":"50%", "display":"flex","flexDirection":"column","justifyContent":"center", "alignItems":"center"}}  onSubmit={loginStatus ? handleLogin : handleSignUp}>
+        <Form.Group className="font-weight-bold text-center ">
                 <Form.Label>{loginStatus?'Login':'Register'}</Form.Label>
             </Form.Group>
             <Form.Group>
-                <Form.Control placeholder="username" name="username" type='text' ref={register} id='username'/>
+                <Form.Control  placeholder="username" name="username" type='text' ref={register} id='username'/>
                 <Form.Text>{errors.username?.message}</Form.Text>
             </Form.Group>
-                <InputGroup>
-                    <Form.Control placeholder="password" name="password" type={passwordShown ? "text" : "password"} ref={register} id='password'/>
+                <InputGroup className="w-50">
+                    <Form.Control  placeholder="password" name="password" type={passwordShown ? "text" : "password"} ref={register} id='password'/>
                     <InputGroup.Append>
-                        <InputGroup.Text  onClick={toggleVisibility}>{eye}</InputGroup.Text>
+                        <InputGroup.Text onClick={toggleVisibility}>{eye}</InputGroup.Text>
                     </InputGroup.Append>
                     {!loginStatus && <Form.Text muted>
                         Your password must contain 8 characters, one uppercase, one lowercase, one number and one special case character.
@@ -123,14 +123,13 @@ const Login = () =>{
             </Form.Control>
             <Form.Text>{errors.role?.message}</Form.Text>
         </Form.Group>
-            <Form.Group className="d-flex flex-column align-items-center">
-                <Form.Label className="pb-2">Change user picture </Form.Label>
+            <Form.Group className="d-flex flex-row align-items-center">
                 <Image src={CLOUDINARY} alt="" width="60px" height="60px" className="pb-2"/>
-                <input type="file" name="profile"  onChange={({ target: { validity, files: [file] } })=>
+                <input className="pl-2" type="file" name="profile"  onChange={({ target: { validity, files: [file] } })=>
                 validity.valid && setProfile(file)}/>
               </Form.Group>
             </>)}
-            <Form.Group>
+            <Form.Group className="pt-2">
             <Button type="submit">{loginStatus ? 'Login' : 'Sign Up'}</Button>
             </Form.Group>
             <Form.Group>

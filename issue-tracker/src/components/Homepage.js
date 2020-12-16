@@ -60,7 +60,6 @@ const Homepage = () => {
                     <span className="sr-only">Loading...</span>
               </Spinner>);
     }
-    
     return(
         <Container fluid>
         <Row>

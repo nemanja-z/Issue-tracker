@@ -2,8 +2,6 @@ import React, {useState, useContext} from "react";
 import { useForm } from "react-hook-form";
 import {EDIT_USER} from "../../queries/user/queries";
 import Form from 'react-bootstrap/Form';
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 import Button from 'react-bootstrap/Button';
 import Container from "react-bootstrap/Container";
 import Card from "react-bootstrap/Card";
@@ -39,42 +37,36 @@ const EditProfile = ({user}) => {
         reset();
     }); 
     return(
-        <Container className="d-flex flex-column justify-content-center">
-        <Row><Col><Card className="text-center">
-            <Card.Header>Edit profile</Card.Header>
-            <Card.Body>
-                <Image className="text-center" src={user.profile} width="100px" heigth="100px"/>
-            </Card.Body>
-        </Card>
-        </Col></Row>
-        <hr/>
-        
-        <Row><Col className="d-flex flex-column align-items-center"><Form onSubmit={handleUserEdit}>
-        <Form.Group >
-                <Form.Control type="text" placeholder={user.username} readOnly />
-            </Form.Group>
-            <Form.Group>
-                <InputGroup>
-                    <Form.Control placeholder="enter new password" name="password" type={passwordShown ? "text" : "password"} ref={register} id='password'/>
-                    <InputGroup.Prepend>
-                        <InputGroup.Text onClick={toggleVisibility}>{eye}</InputGroup.Text>
-                    </InputGroup.Prepend>
-                    <Form.Text>{errors.password?.message}</Form.Text>
-                </InputGroup>
-            </Form.Group>
-            <Form.Group>
-                <Form.Control placeholder="email" name="email" type='text' ref={register} id='email'/>
-                <Form.Text>{errors.email?.message}</Form.Text>
-            </Form.Group>
-            <Form.File>
-                <Form.File.Label>Change user picture </Form.File.Label>
-                <FormFile.Input onChange={({ target: { validity, files: [file] } })=>
-                validity.valid && setProfile(file)}  type="file" name="profile"/>
-            </Form.File>
-            <hr/>
-            <Button type="submit" variant="primary">Save</Button>
-        </Form>
-        </Col></Row>
+        <Container className="d-flex flex-column justify-content-center align-items-center" fluid>
+                <Card className="text-center w-50" >
+                    <Card.Header>Edit profile</Card.Header>
+                    <Card.Body>
+                        <Image className="text-center" src={user.profile} width="100px" heigth="100px"/>
+                    </Card.Body>
+                </Card>
+                <Form onSubmit={handleUserEdit} className="pt-3 w-50">
+                    <Form.Group className="w-100">
+                        <Form.Control type="text" placeholder={user.username} readOnly />
+                    </Form.Group>
+                    <InputGroup className="pb-3">
+                        <Form.Control placeholder="enter new password" name="password" type={passwordShown ? "text" : "password"} ref={register} id='password'/>
+                        <InputGroup.Prepend>
+                            <InputGroup.Text onClick={toggleVisibility}>{eye}</InputGroup.Text>
+                        </InputGroup.Prepend>
+                        <Form.Text>{errors.password?.message}</Form.Text>
+                    </InputGroup>
+                    <Form.Group className="w-100">
+                        <Form.Control placeholder="email" name="email" type='text' ref={register} id='email'/>
+                        <Form.Text>{errors.email?.message}</Form.Text>
+                    </Form.Group>
+                    <Form.File className="pb-3">
+                        <Form.File.Label>Change user picture </Form.File.Label>
+                        <FormFile.Input onChange={({ target: { validity, files: [file] } })=>
+                        validity.valid && setProfile(file)}  type="file" name="profile"/>
+                    </Form.File>
+                    
+                    <Button type="submit" variant="primary">Save</Button>
+                </Form>
         </Container>
         )
 }
