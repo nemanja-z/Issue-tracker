@@ -22,7 +22,6 @@ export default {
           },
     Mutation: {
         createProject: async (_, args, { models, user }) => {
-            console.log(user)
             if(user.role !== "Manager"){
                 throw new Error('You are not authorized to create project!');
             }

@@ -15,6 +15,7 @@ export const resolvers = mergeResolvers(loadFilesSync(path.join(__dirname, '../r
 
 
   let user;
+  let user2;
   const server = new ApolloServer({
     typeDefs,
     resolvers,
@@ -39,19 +40,17 @@ beforeAll(async()=>{
     profile:process.env.CLOUDINARY,
     passwordHash: await bcrypt.hash('Popajce', 10),
     isVerified:true
-  })
-  console.log({user})}
-)
+  });
+  user2 =await models.User.create({
+    username: "Krstivoje",
+    email: "lginmwyffgkkdsadapvgplk@niwghx.com",
+    role: "Leader",
+    profile:process.env.CLOUDINARY,
+    passwordHash: await bcrypt.hash('Popara', 10),
+    isVerified:true
+  });
+});
   describe('User', () => {
-    /* const SIGN_UP = gql`
-    mutation createUser($username:String!, $password:String!, $email:String!, $role:String!, $profile:Upload){
-        createUser(username:$username, password:$password, email:$email, role:$role, profile:$profile){
-            username
-            email
-            role
-        }
-    }`; */
-  
       test('Login', async () => {
         const LOGIN = gql`
               mutation loginUser($username:String!, $password:String!){
@@ -65,11 +64,57 @@ beforeAll(async()=>{
             
           }
         });
-        expect(loginUser).toMatchSnapshot();
-        // const { user } = result.data.deleteUser ?? {};
+        expect(loginUser.data.loginUser).toBeDefined();
       });
-  
-    })
+    });
+describe('Project', ()=>{
+  test('Create Project', async () => {
+    const CREATE = gql`
+        mutation createProject($name:String!, $url:String, $projectLead:String){
+          createProject(name:$name, url:$url, projectLead:$projectLead){
+                project{id
+                name
+                url
+                isActive
+                manager{
+                    username
+                    email
+                    id
+                }
+                member{
+                    username
+                    email
+                    id
+                }
+                }
+            refetch{
+                allProjects{
+                    id
+                    name
+                    url
+                    isActive
+                    manager{
+                        username
+                        email
+                        id
+                    }
+                    member{
+                        username
+                        email
+                        id
+                    }
+                    }
+        }}}`;
+     const createProject = await mutate({
+        mutation: CREATE,
+        variables: {
+          name:"Testiramo brato",
+          projectLead:user2.username
+        }
+      }) 
+      expect(createProject.data.createProject).toBeDefined();
+      
+})})
 
 afterAll(async()=>{
       
