@@ -1,6 +1,6 @@
-import fs from 'fs';
-import path from 'path';
-import Sequelize from 'sequelize';
+const path = require('path');
+const fs = require('fs');
+import { Sequelize } from 'sequelize';
 import configVar from '../config/config';
 require('dotenv').config();
 const basename = path.basename(__filename);
@@ -36,7 +36,6 @@ cloudinary.config({
   api_key: process.env.API_KEY,
   api_secret: process.env.API_SECRET
 });
-
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;

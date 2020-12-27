@@ -1,17 +1,16 @@
 const { ApolloServer } = require('apollo-server');
-import {db as models} from './models';
-import {cloudinary} from "./models";
+import dotenv from 'dotenv';
+import jwt from 'jsonwebtoken';
+import { cloudinary, db as models } from './models';
+const path = require('path');
 const { mergeTypeDefs } = require('@graphql-tools/merge');
 const { mergeResolvers } = require('@graphql-tools/merge');
 const { loadFilesSync } = require('@graphql-tools/load-files');
-import path from 'path';
-import dotenv from 'dotenv';
 dotenv.config();
-import jwt from 'jsonwebtoken';
 
 
-const typeDefs = mergeTypeDefs(loadFilesSync(path.join(__dirname, './schema')));
-const resolvers = mergeResolvers(loadFilesSync(path.join(__dirname, './resolvers')));
+export const typeDefs = mergeTypeDefs(loadFilesSync(path.join(__dirname, './schema')));
+export const resolvers = mergeResolvers(loadFilesSync(path.join(__dirname, './resolvers')));
 const server = new ApolloServer({
     typeDefs,
     resolvers,
@@ -27,6 +26,9 @@ const server = new ApolloServer({
         user,
         cloudinary};
 }});
-server.listen().then(({ url }) => {
-  console.log(`🚀  Server ready at ${url}`);
-});
+const port = process.env.PORT ?? "5000";
+ 
+server.listen(port);
+ 
+console.log(`🚀 Server ready at http://localhost:${port}/graphql`);
+

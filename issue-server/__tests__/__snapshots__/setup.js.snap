@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`User Login 1`] = `
+Object {
+  "data": Object {
+    "loginUser": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkxqdWJpdm9qZSIsImlkIjoiODU1ODc3NWQtZjNlNC00YWMxLTkyZTgtODBlODIwMmU0MGIzIiwiaWF0IjoxNjA5MDc3MDM1fQ.qlSH1ELcwXpnVE5iVs-8XSOt8SkqIrhf3vV9NUnVVuE",
+  },
+  "errors": undefined,
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;

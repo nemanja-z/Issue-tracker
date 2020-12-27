@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const { Op } = require("sequelize");
 const {UserInputError, AuthenticationError} = require('apollo-server');
-import {sendEmail} from "../utils/sendEmail";
+import { sendEmail } from "../utils/sendEmail";
 
 
 export default {
