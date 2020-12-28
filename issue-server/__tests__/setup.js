@@ -18,17 +18,17 @@ export const resolvers = mergeResolvers(loadFilesSync(path.join(__dirname, '../r
   let leader;
   let developer;
   let contractor;
-
+  let testProject;
 
   
-  const server = new ApolloServer({
+  /* const server = new ApolloServer({
     typeDefs,
     resolvers,
     context: () => {
       return {models,
       user}}
   });
-  const {query, mutate} = createTestClient(server);
+  const {query, mutate} = createTestClient(server); */
   
 
 beforeAll(async()=>{
@@ -72,6 +72,14 @@ beforeAll(async()=>{
   });
 });
   describe('User', () => {
+    const server = new ApolloServer({
+      typeDefs,
+      resolvers,
+      context: () => {
+        return {models,
+        user}}
+    });
+    const {query, mutate} = createTestClient(server);
       test('Login', async () => {
         const LOGIN = gql`
               mutation loginUser($username:String!, $password:String!){
@@ -89,7 +97,14 @@ beforeAll(async()=>{
       });
     });
 describe('Project', ()=>{
-  let testProject;
+  const server = new ApolloServer({
+    typeDefs,
+    resolvers,
+    context: () => {
+      return {models,
+      user}}
+  });
+  const {query, mutate} = createTestClient(server);
   test('Create Project', async () => {
     const CREATE = gql`
         mutation createProject($name:String!, $url:String, $projectLead:String){
@@ -171,10 +186,101 @@ describe('Project', ()=>{
             username:contractor.username,
             project:testProject.data.createProject.project.name
           }
-        }); 
-        console.log(addMember.data.addMember.project)
-      //expect(addMember.data.addMember.project.member).toEqual(expect.arrayContaining([developer]));
+        });
+      expect(addMember.data.addMember.project.member).toHaveLength(2);
       });
+});
+describe('Issue',()=>{
+  const server = new ApolloServer({
+    typeDefs,
+    resolvers,
+    context: () => {
+      return {models,
+      user:leader}}
+  });
+  const {query, mutate} = createTestClient(server);
+  test('Report Issue', async () => {
+    const REPORT=gql`
+        mutation createIssue($input:Fields){
+                createIssue(input:$input){
+                issue{
+                        id
+                        issueNumber
+                        summary
+                        issue_type
+                        description
+                        priority
+                        resolution
+                        attachment
+                        reporter{
+                                username
+                                email
+                                profile
+                                id
+                        }
+                        assignees{
+                                id
+                                username
+                                email
+                                profile
+                        }
+                        status
+                        createdAt
+                        updatedAt
+                        Project{
+                                name
+                                url
+                        }
+                        Users{
+                                username
+                                email
+                        }      
+                        }
+                        refetch{
+                        issuesAll{
+                                id
+                                issueNumber
+                                summary
+                                issue_type
+                                description
+                                priority
+                                resolution
+                                attachment
+                                assignees{
+                                        id
+                                        username
+                                        email
+                                        profile
+                                }
+                                reporter{
+                                        username
+                                        email
+                                        profile
+                                        id
+                                }
+                                status
+                                createdAt
+                                updatedAt
+                                Project{
+                                        name
+                                        url
+                                }    
+                        }
+        }}}`;
+    const report = await mutate({
+      mutation:REPORT,
+      variables:{input:{
+        summary:"ABC", 
+        description:"Kako da ne", 
+        priority:"Low", 
+        resolution:"Fixed", 
+        status:"Closed", 
+        issue_type:"Epic", 
+        project:testProject.data.createProject.project.name}}
+    });
+    expect(report.data.createIssue.issue.description).toContain('Kako da ne');
+  
+  })
 })
 
 afterAll(async()=>{

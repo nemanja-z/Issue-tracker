@@ -59,6 +59,7 @@ export default {
 
             try{
                 await targetProject.addMember(addUserRole);
+                await targetProject.reload();
                 return {project:targetProject};
             }catch(e){
                 throw new Error(e);
@@ -72,7 +73,7 @@ export default {
             try{
                 await models.Project.update({isActive:args.isActive}, {where:{id:args.projectId}});
                 const project = await models.Project.findOne({where:{id:args.projectId},include:["manager","member"]});
-                project.reload();
+                await project.reload();
                 return {project}
             }
             catch(e){
