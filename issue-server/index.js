@@ -26,9 +26,8 @@ const server = new ApolloServer({
         user,
         cloudinary};
 }});
-const port = process.env.PORT ?? "5000";
+server.listen().then(({ url }) => {
+    console.log(`🚀  Server ready at ${url}`);
+  });
  
-server.listen(port);
- 
-console.log(`🚀 Server ready at http://localhost:${port}/graphql`);
 

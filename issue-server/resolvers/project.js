@@ -44,9 +44,9 @@ export default {
                 throw new Error(err);
             }
         },
-        addMember:async(_,{username,project,role},{models,user})=>{
+        addMember:async(_,{username,project},{models,user})=>{
             if(!user){
-                throw new Error('You are not authorized to add roles!')
+                throw new Error('You are not authorized to add members!')
             }
             const targetProject=await models.Project.findOne({where:{name:project}, include:[{model:models.User,as:'member'}, {model:models.User,as:'manager', where:{username:user.username}}]});
             const addUserRole=await models.User.findOne({where:{username}});

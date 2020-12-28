@@ -15,7 +15,12 @@ export const resolvers = mergeResolvers(loadFilesSync(path.join(__dirname, '../r
 
 
   let user;
-  let user2;
+  let leader;
+  let developer;
+  let contractor;
+
+
+  
   const server = new ApolloServer({
     typeDefs,
     resolvers,
@@ -41,12 +46,28 @@ beforeAll(async()=>{
     passwordHash: await bcrypt.hash('Popajce', 10),
     isVerified:true
   });
-  user2 =await models.User.create({
+  leader =await models.User.create({
     username: "Krstivoje",
     email: "lginmwyffgkkdsadapvgplk@niwghx.com",
     role: "Leader",
     profile:process.env.CLOUDINARY,
     passwordHash: await bcrypt.hash('Popara', 10),
+    isVerified:true
+  });
+  developer =await models.User.create({
+    username: "Program",
+    email: "lginmwyffdsagkkdsadapvgplk@niwghx.com",
+    role: "Developer",
+    profile:process.env.CLOUDINARY,
+    passwordHash: await bcrypt.hash('Prazno', 10),
+    isVerified:true
+  });
+  contractor = await models.User.create({
+    username: "Business",
+    email: "lginmwyffdgkkdsadapvgplk@niwghx.com",
+    role: "Contractor",
+    profile:process.env.CLOUDINARY,
+    passwordHash: await bcrypt.hash('Ficfiric', 10),
     isVerified:true
   });
 });
@@ -68,6 +89,7 @@ beforeAll(async()=>{
       });
     });
 describe('Project', ()=>{
+  let testProject;
   test('Create Project', async () => {
     const CREATE = gql`
         mutation createProject($name:String!, $url:String, $projectLead:String){
@@ -105,16 +127,55 @@ describe('Project', ()=>{
                     }
                     }
         }}}`;
-     const createProject = await mutate({
-        mutation: CREATE,
-        variables: {
-          name:"Testiramo brato",
-          projectLead:user2.username
-        }
-      }) 
-      expect(createProject.data.createProject).toBeDefined();
-      
-})})
+        testProject = await mutate({
+            mutation: CREATE,
+            variables: {
+              name:"Testiramo",
+              projectLead:leader.username
+            }
+          }); 
+      expect(testProject.data.createProject).toBeDefined();
+      });
+      test('Add Project Member', async () => {
+        const ADD_MEMBER = gql`
+      mutation addMember($project:String!, $username:String!){
+          addMember(project:$project, username:$username){
+              project{
+                  id
+                  name
+                  url
+                  isActive
+                  manager{
+                      username
+                      email
+                      id
+                  }
+                  member{
+                      username
+                      email
+                      id
+                  }
+                  }
+                  refetch{
+                      allUnassignedUsers{
+                          username
+                          email
+                          profile
+                          id
+                          }
+          }}
+    }`;
+        const addMember = await mutate({
+          mutation: ADD_MEMBER,
+          variables: {
+            username:contractor.username,
+            project:testProject.data.createProject.project.name
+          }
+        }); 
+        console.log(addMember.data.addMember.project)
+      //expect(addMember.data.addMember.project.member).toEqual(expect.arrayContaining([developer]));
+      });
+})
 
 afterAll(async()=>{
       
