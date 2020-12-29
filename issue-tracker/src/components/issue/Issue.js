@@ -1,19 +1,20 @@
-import React, {useContext, useEffect, useRef} from "react";
+import { useLazyQuery } from "@apollo/client";
 import PropTypes from 'prop-types';
-import {ISSUE} from "../../queries/issue/queries";
-import {useLazyQuery} from "@apollo/client";
-import Row from "react-bootstrap/Row";
+import React, { useContext, useEffect, useRef } from "react";
 import Col from "react-bootstrap/Col";
-import Image from "react-bootstrap/Image";
-import Spinner from 'react-bootstrap/Spinner';
-import './index.css';
-import ModalAssign from "../user/ModalAssign";
-import ModalEdit from "../issue/ModalEdit";
 import Container from "react-bootstrap/Container";
+import Image from "react-bootstrap/Image";
+import Row from "react-bootstrap/Row";
+import Spinner from 'react-bootstrap/Spinner';
+import shortid from 'shortid';
+import { ErrorContext } from "../../App";
+import { ISSUE } from "../../queries/issue/queries";
 import CommentForm from "../comment/CommentForm";
 import Comments from "../comment/Comments";
-import {ErrorContext} from "../../App";
-import shortid from 'shortid';
+import ModalEdit from "../issue/ModalEdit";
+import ModalAssign from "../user/ModalAssign";
+import './index.css';
+
 
 const Issue = ({issueId}) => {
   const {dispatch} = useContext(ErrorContext);
@@ -34,6 +35,8 @@ const Issue = ({issueId}) => {
                 <span className="sr-only">Loading...</span>
           </Spinner>);
     }
+    
+    
   return(
     <>
     {data && <>
@@ -57,11 +60,11 @@ const Issue = ({issueId}) => {
       <Col>Summary: {data.targetIssue.summary}</Col>
       <Col>Description: {data.targetIssue.description}</Col>
     </Row>
-    <Row >
+    <Row>
       <Col>Assigned to: {data.targetIssue.assignees?.map(user=>
-      <>
+      <div key={shortid.generate()}>
       <p key={shortid.generate()}><Image src={user.profile} width="30px" height="30px"/>{user.username}</p>
-      </>)}
+      </div>)}
       </Col>
     </Row>
     <Row>
@@ -73,7 +76,7 @@ const Issue = ({issueId}) => {
     <Row >
       <Col><p key={shortid.generate()}>Reporter:<Image src={data.targetIssue.reporter.profile} width="30px" height="30px"/> {data.targetIssue.reporter.username}</p></Col>
     </Row>
-    <Row >
+    <Row>
       <Col>Created: {new Date(data.targetIssue.createdAt).toUTCString()}</Col>
       <Col>Updated: {new Date(data.targetIssue.updatedAt).toUTCString()}</Col>
     </Row>

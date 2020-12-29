@@ -9,7 +9,7 @@
 - [] Add Feed
 - [] Email Notification
 - [] Add Charts
-- [] E2E Test
+- [] Testing
 - [x] User verification
 
 ## License

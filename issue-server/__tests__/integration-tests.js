@@ -21,23 +21,12 @@ export const resolvers = mergeResolvers(loadFilesSync(path.join(__dirname, '../r
   let testProject;
 
   
-  /* const server = new ApolloServer({
-    typeDefs,
-    resolvers,
-    context: () => {
-      return {models,
-      user}}
-  });
-  const {query, mutate} = createTestClient(server); */
-  
-
 beforeAll(async()=>{
   await Promise.all(
-    Object.keys(models).map(key => {
-      if (['sequelize', 'Sequelize'].includes(key)) return null;      
-      return models[key].destroy({ where: {}, force: true });
-    })
-  );
+        Object.keys(models).map(key => {
+                if (['sequelize', 'Sequelize'].includes(key)) return null;      
+                return models[key].destroy({ where: {}, force: true });
+        }));
   user = await models.User.create({
     username: "Ljubivoje",
     email: "lginmwyffgkkpvgplk@niwghx.com",
@@ -71,6 +60,7 @@ beforeAll(async()=>{
     isVerified:true
   });
 });
+
   describe('User', () => {
     const server = new ApolloServer({
       typeDefs,
@@ -79,7 +69,7 @@ beforeAll(async()=>{
         return {models,
         user}}
     });
-    const {query, mutate} = createTestClient(server);
+    const {mutate} = createTestClient(server);
       test('Login', async () => {
         const LOGIN = gql`
               mutation loginUser($username:String!, $password:String!){
@@ -95,6 +85,26 @@ beforeAll(async()=>{
         });
         expect(loginUser.data.loginUser).toBeDefined();
       });
+      test('Edit User Settings', async()=>{
+        const EDIT_USER = gql`
+        mutation editUser($password:String, $email:String, $profile:Upload){
+            editUser(password:$password, email:$email, profile:$profile){
+                id
+                username
+                email
+                role
+                profile
+            }
+        }`;
+        const edit = await mutate({
+                mutation:EDIT_USER,
+                variables:{
+                        email:user.email,
+                        password:'Radi100'
+                }
+        });
+        expect(edit.data.editUser).toBeDefined();
+      });
     });
 describe('Project', ()=>{
   const server = new ApolloServer({
@@ -104,7 +114,7 @@ describe('Project', ()=>{
       return {models,
       user}}
   });
-  const {query, mutate} = createTestClient(server);
+  const {mutate} = createTestClient(server);
   test('Create Project', async () => {
     const CREATE = gql`
         mutation createProject($name:String!, $url:String, $projectLead:String){
@@ -199,7 +209,7 @@ describe('Issue',()=>{
       return {models,
       user:leader}}
   });
-  const {query, mutate} = createTestClient(server);
+  const {mutate} = createTestClient(server);
   test('Report Issue', async () => {
     const REPORT=gql`
         mutation createIssue($input:Fields){
@@ -448,9 +458,49 @@ describe('Issue',()=>{
           }
         });
         expect(edit.data.editIssue.issue.description).toBe('Ovo radi');
-  })
+  });
+  test('Comment', async()=>{
+        const POST = gql`
+        mutation postComment($comment:String!, $issueId:String!){
+                postComment(comment:$comment, issueId:$issueId){
+                        comment{
+                                comment
+                                commenter{
+                                        id
+                                        username
+                                        email
+                                        profile
+                                }   
+                        }
+                        refetch{
+                                issueComment(issueId:$issueId){
+                                        comment
+                                        commenter{
+                                                id
+                                                username
+                                                email
+                                                profile
+                                        }
+                        }
+                        }
+                }
+        }`;
+        const post = await mutate({
+                mutation:POST,
+                variables:{
+                        issueId:report.data.createIssue.issue.id,
+                        comment:'Proba 123'}
+                });
+        expect(post.data.postComment.comment.comment).toBe('Proba 123');
+  });
+  
 
 })
 
-afterAll(async()=>
-  await models.sequelize.close())
+/* afterAll(async()=>{
+        await Promise.all(
+                Object.keys(models).map(key => {
+                        if (['sequelize', 'Sequelize'].includes(key)) return null;      
+                        return models[key].destroy({ where: {}, force: true });
+                }))
+}); */
