@@ -191,6 +191,7 @@ describe('Project', ()=>{
       });
 });
 describe('Issue',()=>{
+  let report;
   const server = new ApolloServer({
     typeDefs,
     resolvers,
@@ -267,7 +268,7 @@ describe('Issue',()=>{
                                 }    
                         }
         }}}`;
-    const report = await mutate({
+     report = await mutate({
       mutation:REPORT,
       variables:{input:{
         summary:"ABC", 
@@ -279,13 +280,177 @@ describe('Issue',()=>{
         project:testProject.data.createProject.project.name}}
     });
     expect(report.data.createIssue.issue.description).toContain('Kako da ne');
-  
+  });
+  test("Assign User", async()=>{
+    const ASSIGN=gql`
+          mutation assigne($user:String!, $issue:String!, $project:String!){
+                  assignUser(user:$user, issue:$issue, project:$project)
+                  {
+                          issue{
+                                  id
+                                  issueNumber
+                                  summary
+                                  issue_type
+                                  description
+                                  priority
+                                  resolution
+                                  attachment
+                                  reporter{
+                                          username
+                                          email
+                                          profile
+                                          id
+                                  }
+                                  assignees{
+                                          id
+                                          username
+                                          email
+                                          profile
+                                  }
+                                  status
+                                  createdAt
+                                  updatedAt
+                                  Project{
+                                          name
+                                          url
+                                  }
+                                  Users{
+                                          username
+                                          email
+                                  }      
+                                  }
+                                  refetch{
+                                          targetIssue(issueId:$issue){
+                                                  id
+                                                  issueNumber
+                                                  summary
+                                                  issue_type
+                                                  description
+                                                  priority
+                                                  resolution
+                                                  attachment
+                                                  reporter{
+                                                          username
+                                                          email
+                                                          profile
+                                                          id
+                                                  }
+                                                  status
+                                                  assignees{
+                                                          id
+                                                          username
+                                                          email
+                                                          profile
+                                                  }
+                                                  createdAt
+                                                  updatedAt
+                                                  Project{
+                                                          name
+                                                          url
+                                                          id
+                                                  }
+                                                  Users{
+                                                          username
+                                                          email
+                                                  }}
+                  }}
+          }`;
+          const assign = await mutate({
+            mutation:ASSIGN,
+            variables:{
+              user:leader.username, 
+              issue:report.data.createIssue.issue.id, 
+              project:testProject.data.createProject.project.name}
+          });
+          expect(assign.data.assignUser.issue.assignees[0].username).toBe('Krstivoje');
+  });
+  test('Edit', async()=>{
+    const EDIT=gql`
+        mutation editIssue($issueId:String, $input:Edit){
+                editIssue(issueId:$issueId, input:$input){
+                        issue{
+                                id
+                                issueNumber
+                                summary
+                                issue_type
+                                description
+                                priority
+                                resolution
+                                attachment
+                                reporter{
+                                        username
+                                        email
+                                        profile
+                                        id
+                                }
+                                assignees{
+                                        id
+                                        username
+                                        email
+                                        profile
+                                }
+                                status
+                                createdAt
+                                updatedAt
+                                Project{
+                                        name
+                                        url
+                                }
+                                Users{
+                                        username
+                                        email
+                                }      
+                                }
+                                refetch{
+                                targetIssue(issueId:$issueId){
+                                        id
+                                        issueNumber
+                                        summary
+                                        issue_type
+                                        description
+                                        priority
+                                        resolution
+                                        attachment
+                                        reporter{
+                                                username
+                                                email
+                                                profile
+                                                id
+                                        }
+                                        status
+                                        assignees{
+                                                id
+                                                username
+                                                email
+                                                profile
+                                        }
+                                        createdAt
+                                        updatedAt
+                                        Project{
+                                                name
+                                                url
+                                                id
+                                        }
+                                        Users{
+                                                username
+                                                email
+                                        }  
+                                        }
+                }}
+        }`;
+        const edit = await mutate({
+          mutation:EDIT,
+          variables:{
+            issueId:report.data.createIssue.issue.id,
+            input:{
+              description:"Ovo radi"
+            }
+          }
+        });
+        expect(edit.data.editIssue.issue.description).toBe('Ovo radi');
   })
+
 })
 
-afterAll(async()=>{
-      
-    
-      await models.sequelize.close();
-  }
-    )
+afterAll(async()=>
+  await models.sequelize.close())

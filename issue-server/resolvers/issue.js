@@ -102,6 +102,7 @@ export default {
             }
             try{
                 await targetIssue.addAssignees(assignee,{through:"Assignee"});
+                await targetIssue.reload();
                 return {issue:targetIssue};
             }catch(err){
                 throw new Error(err);
