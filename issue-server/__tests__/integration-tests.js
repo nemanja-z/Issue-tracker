@@ -20,45 +20,44 @@ export const resolvers = mergeResolvers(loadFilesSync(path.join(__dirname, '../r
   let contractor;
   let testProject;
 
-  
+
 beforeAll(async()=>{
-  await Promise.all(
-        Object.keys(models).map(key => {
-                if (['sequelize', 'Sequelize'].includes(key)) return null;      
-                return models[key].destroy({ where: {}, force: true });
-        }));
-  user = await models.User.create({
-    username: "Ljubivoje",
-    email: "lginmwyffgkkpvgplk@niwghx.com",
-    role: "Manager",
-    profile:process.env.CLOUDINARY,
-    passwordHash: await bcrypt.hash('Popajce', 10),
-    isVerified:true
-  });
-  leader =await models.User.create({
-    username: "Krstivoje",
-    email: "lginmwyffgkkdsadapvgplk@niwghx.com",
-    role: "Leader",
-    profile:process.env.CLOUDINARY,
-    passwordHash: await bcrypt.hash('Popara', 10),
-    isVerified:true
-  });
-  developer =await models.User.create({
-    username: "Program",
-    email: "lginmwyffdsagkkdsadapvgplk@niwghx.com",
-    role: "Developer",
-    profile:process.env.CLOUDINARY,
-    passwordHash: await bcrypt.hash('Prazno', 10),
-    isVerified:true
-  });
-  contractor = await models.User.create({
-    username: "Business",
-    email: "lginmwyffdgkkdsadapvgplk@niwghx.com",
-    role: "Contractor",
-    profile:process.env.CLOUDINARY,
-    passwordHash: await bcrypt.hash('Ficfiric', 10),
-    isVerified:true
-  });
+        
+        await Promise.allSettled(Object.keys(models).map(key => {
+                if (!(['sequelize', 'Sequelize'].includes(key))) return models[key].destroy({ where: {}, force: true });
+        })) 
+        user =await models.User.create({
+        username: "Ljubivoje",
+        email: "lginmwyffgkkpvgplk@niwghx.com",
+        role: "Manager",
+        profile:process.env.CLOUDINARY,
+        passwordHash:await bcrypt.hash('Popajce', 10),
+        isVerified:true
+        });
+        leader = await models.User.create({
+        username: "Krstivoje",
+        email: "lginmwyffgkkdsadapvgplk@niwghx.com",
+        role: "Leader",
+        profile:process.env.CLOUDINARY,
+        passwordHash:await bcrypt.hash('Popara', 10),
+        isVerified:true
+        });
+        developer = await models.User.create({
+        username: "Program",
+        email: "lginmwyffdsagkkdsadapvgplk@niwghx.com",
+        role: "Developer",
+        profile:process.env.CLOUDINARY,
+        passwordHash:await bcrypt.hash('Prazno', 10),
+        isVerified:true
+        });
+        contractor =await models.User.create({
+        username: "Business",
+        email: "lginmwyffdgkkdsadapvgplk@niwghx.com",
+        role: "Contractor",
+        profile:process.env.CLOUDINARY,
+        passwordHash:await bcrypt.hash('Ficfiric', 10),
+        isVerified:true
+        });
 });
 
   describe('User', () => {
