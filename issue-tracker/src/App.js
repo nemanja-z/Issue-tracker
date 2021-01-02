@@ -1,17 +1,16 @@
-import React, { useReducer, createContext, useEffect } from 'react';
-import './App.css';
-import Login from "./components/user/Login";
-import ForgotPassword from "./components/user/ForgotPassword";
-import ResetPassword from "./components/user/ResetPassword";
-import ConfirmUser from "./components/user/ConfirmUser";
+import { createContext, default as React, useEffect, useReducer } from 'react';
+import {
+  BrowserRouter as Router,
+
+  Route, Switch
+} from "react-router-dom";
 import Error from "./components/Error";
 import Homepage from "./components/Homepage";
 import PrivateRoute from "./components/PrivateRoute";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route
-} from "react-router-dom";
+import ConfirmUser from "./components/user/ConfirmUser";
+import ForgotPassword from "./components/user/ForgotPassword";
+import Login from './components/user/Login';
+import ResetPassword from "./components/user/ResetPassword";
 
 const initialError = '';
 const reducer = (state, action) =>{

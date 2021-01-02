@@ -47,6 +47,7 @@
     ]
   },
   "devDependencies": {
+    "react-test-renderer": "^17.0.1",
     "sequelize-cli": "^6.2.0"
   }
 }

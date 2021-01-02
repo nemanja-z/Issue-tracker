@@ -1,12 +1,12 @@
-import React, {useContext} from "react";
-import {ErrorContext} from "../../App";
+import { useQuery } from "@apollo/client";
 import PropTypes from "prop-types";
-import {COMMENTS} from "../../queries/comment/queries";
+import React, { useContext } from "react";
+import Card from "react-bootstrap/Card";
 import Image from "react-bootstrap/Image";
-import Spinner from 'react-bootstrap/Spinner';
 import ListGroup from "react-bootstrap/ListGroup";
-import {useQuery} from "@apollo/client";
-import Card from "react-bootstrap/esm/Card";
+import Spinner from 'react-bootstrap/Spinner';
+import { ErrorContext } from "../../App";
+import { COMMENTS } from "../../queries/comment/queries";
 const shortid = require('shortid');
 
 const Comments = ({issueId}) => {

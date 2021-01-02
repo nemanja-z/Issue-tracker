@@ -22,10 +22,9 @@ export const resolvers = mergeResolvers(loadFilesSync(path.join(__dirname, '../r
 
 
 beforeAll(async()=>{
-        
         await Promise.allSettled(Object.keys(models).map(key => {
                 if (!(['sequelize', 'Sequelize'].includes(key))) return models[key].destroy({ where: {}, force: true });
-        })) 
+        })); 
         user =await models.User.create({
         username: "Ljubivoje",
         email: "lginmwyffgkkpvgplk@niwghx.com",
