@@ -116,7 +116,7 @@ export default {
                     id: user.id
                 };
                 const token = jwt.sign(userForToken, process.env.SECRET);
-                return token;
+                return {token};
             }catch(e){
                 throw new AuthenticationError(e);
             }

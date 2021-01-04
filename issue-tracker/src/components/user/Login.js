@@ -63,8 +63,10 @@ const Login = () =>{
     const [login] = useMutation(LOGIN, {
         onError:(e)=>dispatch({type:'set', payload:e}),
         onCompleted:(data)=>{
-            localStorage.setItem('auth', data.loginUser);
-            history.push("/home");
+            if(data){
+                localStorage.setItem('auth', data.loginUser.token);
+                history.push("/home");
+            }
     }});
     const [passwordShown, setPasswordShown] = useState(false);
     const eye = <FontAwesomeIcon icon={faEye} />;
