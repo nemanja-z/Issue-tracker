@@ -1,8 +1,8 @@
-.form-container{
-    background-image: url(../../assets/husk.png);
-    background-size: cover;
-    height:100vh;
+.form-container {
+	background-image: url(../../assets/husk.png);
+	background-size: cover;
+	height: 110vh;
 }
-.form-group{
-    width:50%;
+.form-group {
+	width: 50%;
 }

@@ -85,7 +85,7 @@ const Login = () =>{
     });
     
     return(<Container className="form-container" fluid>
-        {!created && <Form style={{ "margin":"0 auto","background":"#fafcc2", "borderRadius":"50px 50px", "width":"50%", "display":"flex","flexDirection":"column","justifyContent":"center", "alignItems":"center"}}  onSubmit={loginStatus ? handleLogin : handleSignUp}>
+        {!created && <Form style={{ "margin":"0 auto","backgroundColor":"#E6E6FA", "borderRadius":"50px 50px", "width":"55%", "display":"flex","flexDirection":"column","justifyContent":"center", "alignItems":"center"}}  onSubmit={loginStatus ? handleLogin : handleSignUp}>
         <Form.Group className="font-weight-bold text-center ">
                 <Form.Label>{loginStatus?'Login':'Register'}</Form.Label>
             </Form.Group>
