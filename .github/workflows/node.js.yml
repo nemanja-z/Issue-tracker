@@ -10,8 +10,6 @@ on:
 
 jobs:
   frontend:
-    build:
-
       runs-on: self-hosted
       run:
         working-directory: ./issue-tracker
@@ -31,8 +29,6 @@ jobs:
       - run: npm test
 
   backend:
-    build:
-
       runs-on: self-hosted    
       run:
          working-directory: ./issue-server
