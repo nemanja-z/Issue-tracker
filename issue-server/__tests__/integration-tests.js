@@ -71,7 +71,9 @@ beforeAll(async()=>{
       test('Login', async () => {
         const LOGIN = gql`
               mutation loginUser($username:String!, $password:String!){
-              loginUser(username:$username, password:$password)
+              loginUser(username:$username, password:$password){
+                      token
+              }
               }`;
         const loginUser = await mutate({
           mutation: LOGIN,
@@ -81,7 +83,7 @@ beforeAll(async()=>{
             
           }
         });
-        expect(loginUser.data.loginUser).toBeDefined();
+        expect(loginUser.data.loginUser.token).toBeDefined();
       });
       test('Edit User Settings', async()=>{
         const EDIT_USER = gql`
