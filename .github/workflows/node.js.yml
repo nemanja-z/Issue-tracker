@@ -11,7 +11,8 @@ on:
 jobs:
   frontend:
       runs-on: self-hosted
-      run:
+      defaults:
+        run:
         working-directory: ./issue-tracker
       strategy:
         matrix:
@@ -30,7 +31,8 @@ jobs:
 
   backend:
       runs-on: self-hosted    
-      run:
+      defaults:
+        run:
          working-directory: ./issue-server
       strategy:
         matrix:
