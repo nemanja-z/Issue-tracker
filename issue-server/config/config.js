@@ -17,8 +17,7 @@ module.exports = {
     dialect:'postgres'
   },
   production: {
-    database:PRODUCTION_DB,
-    use_env_variable:'DB_DEV_URL',
+    use_env_variable:PRODUCTION_DB,
     define: {
       freezeTableName: true
     },
