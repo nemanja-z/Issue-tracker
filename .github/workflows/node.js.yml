@@ -11,9 +11,7 @@ on:
 jobs:
   frontend:
       runs-on: self-hosted
-      defaults:
-        run:
-        working-directory: ./issue-tracker
+      working-directory: ./issue-tracker
       strategy:
         matrix:
           node-version: [12.x]
@@ -31,9 +29,7 @@ jobs:
 
   backend:
       runs-on: self-hosted    
-      defaults:
-        run:
-         working-directory: ./issue-server
+      working-directory: ./issue-server
       strategy:
         matrix:
           node-version: [12.x]
