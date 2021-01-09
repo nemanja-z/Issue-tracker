@@ -5,13 +5,19 @@
     "main": "index.js",
     "scripts": {
         "test": "cross-env NODE_ENV=test jest --verbose --detectOpenHandles",
-        "start": "cross-env NODE_ENV=production node index.js",
-        "dev": "cross-env NODE_ENV=development nodemon --exec babel-node index.js",
-        "test:migration": "cross-env NODE_ENV=test npx sequelize-cli db:migrate"
+        "start": "babel ./src --out-dir build && cross-env NODE_ENV=production node build/index.js",
+        "dev": "cross-env NODE_ENV=development nodemon --exec babel-node src/index.js",
+        "test:migration": "cross-env NODE_ENV=test npx sequelize-cli db:migrate",
+        "prod:migration": "cross-env NODE_ENV=production npx sequelize-cli db:migrate",
+        "clean:migration": "cross-env NODE_ENV=production npx sequelize-cli db:migrate:undo:all"
     },
     "author": "Nemanja",
     "license": "ISC",
     "dependencies": {
+        "@babel/cli": "^7.12.10",
+        "@babel/plugin-transform-runtime": "^7.12.10",
+        "@babel/register": "^7.12.10",
+        "@babel/runtime": "^7.12.5",
         "apollo-server": "^2.16.1",
         "apollo-server-testing": "^2.19.1",
         "bcrypt": "^5.0.0",
@@ -26,9 +32,9 @@
         "sequelize": "^6.3.3"
     },
     "devDependencies": {
-        "@babel/core": "^7.11.0",
-        "@babel/node": "^7.10.5",
-        "@babel/preset-env": "^7.11.0",
+        "@babel/core": "^7.12.10",
+        "@babel/node": "^7.12.10",
+        "@babel/preset-env": "^7.12.11",
         "cross-env": "^7.0.3",
         "jest": "^26.6.3",
         "nodemon": "^2.0.6",

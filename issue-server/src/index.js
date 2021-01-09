@@ -1,12 +1,11 @@
 const { ApolloServer } = require('apollo-server');
-import dotenv from 'dotenv';
-import jwt from 'jsonwebtoken';
+const jwt = require('jsonwebtoken');
 import { cloudinary, db as models } from './models';
 const path = require('path');
 const { mergeTypeDefs } = require('@graphql-tools/merge');
 const { mergeResolvers } = require('@graphql-tools/merge');
 const { loadFilesSync } = require('@graphql-tools/load-files');
-dotenv.config();
+require('dotenv').config();
 
 
 export const typeDefs = mergeTypeDefs(loadFilesSync(path.join(__dirname, './schema')));
