@@ -1,7 +1,7 @@
 "use strict";
 
 module.exports = (sequelize, DataTypes) => {
-  const Issue = sequelize.define("Issue", {
+  const Issue = sequelize.define('Issue', {
     id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
       autoIncrement: true
     },
     issue_type: {
-      type: DataTypes.ENUM("Story", "Epic", "Bug", "Task"),
+      type: DataTypes.ENUM('Story', 'Epic', 'Bug', 'Task'),
       allowNull: false
     },
     description: {
@@ -23,16 +23,16 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     priority: {
-      type: DataTypes.ENUM("Highest", "High", "Medium", "Low", "Lowest"),
-      defaultValue: "Lowest"
+      type: DataTypes.ENUM('Highest', 'High', 'Medium', 'Low', 'Lowest'),
+      defaultValue: 'Lowest'
     },
     resolution: {
-      type: DataTypes.ENUM("Fixed", "Won't do", "Duplicate", "Unresolved"),
-      defaultValue: "Unresolved"
+      type: DataTypes.ENUM('Fixed', 'Won\'t do', 'Duplicate', 'Unresolved'),
+      defaultValue: 'Unresolved'
     },
     status: {
-      type: DataTypes.ENUM("Reopened", "Resolved", "Closed", "Active", "Open"),
-      defaultValue: "Open"
+      type: DataTypes.ENUM('Reopened', 'Resolved', 'Closed', 'Active', 'Open'),
+      defaultValue: 'Open'
     },
     attachment: {
       type: DataTypes.ARRAY(DataTypes.STRING)
@@ -41,15 +41,15 @@ module.exports = (sequelize, DataTypes) => {
 
   Issue.associate = models => {
     Issue.belongsTo(models.Project, {
-      foreignKey: "project"
+      foreignKey: 'project'
     });
     Issue.belongsTo(models.User, {
-      as: "reporter",
-      foreignKey: "reporterId"
+      as: 'reporter',
+      foreignKey: 'reporterId'
     });
     Issue.belongsToMany(models.User, {
-      as: "assignees",
-      through: "Assignee"
+      as: 'assignees',
+      through: 'Assignee'
     });
     Issue.hasMany(models.Comment, {
       foreignKey: 'issueId',

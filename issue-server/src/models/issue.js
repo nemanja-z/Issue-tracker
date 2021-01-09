@@ -1,57 +1,57 @@
-module.exports =(sequelize, DataTypes) => {
-  const Issue = sequelize.define("Issue", {
+module.exports = (sequelize, DataTypes) => {
+  const Issue = sequelize.define('Issue', {
     id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
-      primaryKey: true
+      primaryKey: true,
     },
     issueNumber: {
       type: DataTypes.INTEGER,
-      autoIncrement: true
+      autoIncrement: true,
     },
     issue_type: {
-      type: DataTypes.ENUM("Story", "Epic", "Bug", "Task"),
-      allowNull: false
+      type: DataTypes.ENUM('Story', 'Epic', 'Bug', 'Task'),
+      allowNull: false,
     },
     description: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
     },
     summary: {
       type: DataTypes.STRING,
-      allowNull:false
+      allowNull: false,
     },
     priority: {
-      type: DataTypes.ENUM("Highest", "High", "Medium", "Low", "Lowest"),
-      defaultValue: "Lowest"
+      type: DataTypes.ENUM('Highest', 'High', 'Medium', 'Low', 'Lowest'),
+      defaultValue: 'Lowest',
     },
     resolution: {
-      type: DataTypes.ENUM("Fixed","Won't do","Duplicate","Unresolved"),
-      defaultValue: "Unresolved"
-    }, 
-    status:{
-      type: DataTypes.ENUM("Reopened","Resolved","Closed","Active","Open"),
-      defaultValue:"Open"
+      type: DataTypes.ENUM('Fixed', 'Won\'t do', 'Duplicate', 'Unresolved'),
+      defaultValue: 'Unresolved',
     },
-    attachment:{
-      type: DataTypes.ARRAY(DataTypes.STRING)
-    }
+    status: {
+      type: DataTypes.ENUM('Reopened', 'Resolved', 'Closed', 'Active', 'Open'),
+      defaultValue: 'Open',
+    },
+    attachment: {
+      type: DataTypes.ARRAY(DataTypes.STRING),
+    },
   });
-   Issue.associate = models => {
+  Issue.associate = (models) => {
     Issue.belongsTo(models.Project, {
-      foreignKey: "project"
+      foreignKey: 'project',
     });
     Issue.belongsTo(models.User, {
-      as: "reporter",
-      foreignKey: "reporterId"
+      as: 'reporter',
+      foreignKey: 'reporterId',
     });
     Issue.belongsToMany(models.User, {
-      as:"assignees",
-      through: "Assignee"
+      as: 'assignees',
+      through: 'Assignee',
     });
     Issue.hasMany(models.Comment, {
       foreignKey: 'issueId',
       constraints: false,
     });
-  }; 
+  };
   return Issue;
 };

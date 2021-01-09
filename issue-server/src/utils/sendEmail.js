@@ -1,38 +1,26 @@
-import nodemailer from "nodemailer";
+import nodemailer from 'nodemailer';
+require('dotenv').config();
 
 
-export const sendEmail = async (
-  recipient,
-  html
-) => {
-  nodemailer.createTestAccount((err1, account) => {
-    if (err1) {
-      console.log(err1);
-    }
+export const sendEmail = async (recipient, html) => {
     const transporter = nodemailer.createTransport({
-      host: 'smtp.ethereal.email',
+      host: 'in-v3.mailjet.com',
       port: 587,
       auth: {
-          user: 'walton20@ethereal.email',
-          pass: 'hVddjhFq8vQ7F6pSRJ'
-      }
-  });
+        user: process.env.mailuser,
+        pass: process.env.mailpass,
+      },
+    });
     const message = {
-      from: "Sender Name <sender@example.com>",
+      from: process.env.admin,
       to: `Recipient <${recipient}>`,
-      subject: "Password reset",
-      text: "Issue Tracker",
-      html
+      subject: 'Issue Tracker',
+      html,
     };
 
     transporter.sendMail(message, (err, info) => {
       if (err) {
-        console.log("Error occurred. " + err.message);
+        console.log(`Error occurred. ${err.message}`);
       }
-
-      console.log("Message sent: %s", info.messageId);
-      // Preview only available when sending through an Ethereal account
-      console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
     });
-  });
-};
+  };

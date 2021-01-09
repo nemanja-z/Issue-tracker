@@ -10,7 +10,7 @@ var _default = {
       models
     }) => {
       const projects = await models.Project.findAll({
-        include: ["manager", "member"]
+        include: ['manager', 'member']
       });
       return projects;
     },
@@ -23,7 +23,7 @@ var _default = {
         },
         include: [{
           model: models.User,
-          as: "member"
+          as: 'member'
         }]
       });
       return projects;
@@ -38,7 +38,7 @@ var _default = {
             managerId: user.id,
             isActive: true
           },
-          include: ["manager", "member"]
+          include: ['manager', 'member']
         });
         return projectManager;
       } catch (e) {
@@ -54,7 +54,7 @@ var _default = {
       models,
       user
     }) => {
-      if (user.role !== "Manager") {
+      if (user.role !== 'Manager') {
         throw new Error('You are not authorized to create project!');
       }
 
@@ -64,8 +64,8 @@ var _default = {
         }
       });
 
-      if (projectLead.role !== "Leader") {
-        throw new Error("You can only add user with leader role!");
+      if (projectLead.role !== 'Leader') {
+        throw new Error('You can only add user with leader role!');
       }
 
       try {
@@ -77,10 +77,10 @@ var _default = {
         }, {
           include: [{
             model: models.User,
-            as: "manager"
+            as: 'manager'
           }, {
             model: models.User,
-            as: "member"
+            as: 'member'
           }]
         });
         await Promise.all([project.addMember(projectLead), project.reload()]);
@@ -124,11 +124,11 @@ var _default = {
       });
 
       if (!targetProject) {
-        throw new Error("You cannot add a member because project doesn't exist or you are not a manager!");
+        throw new Error('You cannot add a member because project doesn\'t exist or you are not a manager!');
       }
 
       if (!addUserRole) {
-        throw new Error("User doesnt exist!");
+        throw new Error('User doesnt exist!');
       }
 
       try {
@@ -159,7 +159,7 @@ var _default = {
       });
 
       if (!project) {
-        throw new Error("The project manager can only change the project status!");
+        throw new Error('The project manager can only change the project status!');
       }
 
       try {
@@ -174,7 +174,7 @@ var _default = {
           where: {
             id: args.projectId
           },
-          include: ["manager", "member"]
+          include: ['manager', 'member']
         });
         await project.reload();
         return {

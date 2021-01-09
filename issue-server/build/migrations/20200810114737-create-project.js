@@ -1,7 +1,7 @@
 "use strict";
 
 module.exports = {
-  up: async (queryInterface, Sequelize) => await queryInterface.createTable("Project", {
+  up: async (queryInterface, Sequelize) => await queryInterface.createTable('Project', {
     id: {
       type: Sequelize.DataTypes.UUID,
       defaultValue: Sequelize.DataTypes.UUIDV4,
@@ -26,5 +26,5 @@ module.exports = {
       type: Sequelize.BOOLEAN
     }
   }),
-  down: async (queryInterface, Sequelize) => await queryInterface.dropTable("Project")
+  down: async (queryInterface, Sequelize) => await queryInterface.dropTable('Project')
 };

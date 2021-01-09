@@ -13,12 +13,14 @@ const bcrypt = require('bcrypt');
 
 const {
   Op
-} = require("sequelize");
+} = require('sequelize');
 
 const {
   UserInputError,
   AuthenticationError
 } = require('apollo-server');
+
+require('dotenv').config();
 
 var _default = {
   Query: {
@@ -43,7 +45,7 @@ var _default = {
         },
         include: [{
           model: models.User,
-          as: "member"
+          as: 'member'
         }]
       });
       const users = new Set(assigned.map(project => project.member.map(member => member.id)).flat());
@@ -53,7 +55,7 @@ var _default = {
             [Op.notIn]: [...users]
           },
           role: {
-            [Op.notIn]: ["Admin", "Manager"]
+            [Op.notIn]: ['Admin', 'Manager']
           }
         }
       });
@@ -67,10 +69,10 @@ var _default = {
         },
         include: [{
           model: models.User,
-          as: "member",
+          as: 'member',
           where: {
             role: {
-              [Op.not]: "Contractor"
+              [Op.not]: 'Contractor'
             }
           }
         }]
@@ -99,7 +101,7 @@ var _default = {
       }
 
       const saltRounds = 10;
-      let profile = "";
+      let profile = '';
 
       try {
         if (args.profile) {
@@ -119,6 +121,18 @@ var _default = {
           });
         }
 
+        const userExist = await models.User.findOne({
+          where: {
+            username: args.username
+          }
+        });
+        const emailExist = await models.User.findOne({
+          where: {
+            email: args.email
+          }
+        });
+        if (userExist) throw new Error('This username is already taken!');
+        if (emailExist) throw new Error('This email address is already taken!');
         const user = await models.User.create({
           username: args.username,
           email: args.email,
@@ -246,7 +260,7 @@ var _default = {
       });
 
       if (!user) {
-        throw new Error("User doesnt exist or token is expired");
+        throw new Error('User doesnt exist or token is expired');
       }
 
       try {
@@ -266,7 +280,7 @@ var _default = {
                     </html>`);
         return true;
       } catch (e) {
-        throw new Error(e);
+        throw new Error(e.message);
       }
     },
     editUser: async (_, args, {
@@ -275,13 +289,13 @@ var _default = {
       cloudinary
     }) => {
       if (!user) {
-        throw new Error("You are not authorized to edit user profile!");
+        throw new Error('You are not authorized to edit user profile!');
       }
 
       try {
         var _profile;
 
-        let profile = "";
+        let profile = '';
 
         if (args.profile) {
           const {

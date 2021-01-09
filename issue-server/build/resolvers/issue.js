@@ -7,7 +7,7 @@ exports.default = void 0;
 
 const {
   Op
-} = require("sequelize");
+} = require('sequelize');
 
 var _default = {
   Query: {
@@ -51,33 +51,29 @@ var _default = {
     },
     allComments: async (_, args, {
       models
-    }) => {
-      return await models.Comment.findAll({
-        include: "commenter"
-      });
-    },
+    }) => await models.Comment.findAll({
+      include: 'commenter'
+    }),
     assignedToMe: async (_, args, {
       models,
       user
-    }) => {
-      return await models.Issue.findAll({
-        include: [{
-          model: models.Project,
-          where: {
-            isActive: true
-          }
-        }, {
-          model: models.User,
-          as: 'reporter'
-        }, {
-          model: models.User,
-          as: 'assignees',
-          where: {
-            username: user.username
-          }
-        }]
-      });
-    },
+    }) => await models.Issue.findAll({
+      include: [{
+        model: models.Project,
+        where: {
+          isActive: true
+        }
+      }, {
+        model: models.User,
+        as: 'reporter'
+      }, {
+        model: models.User,
+        as: 'assignees',
+        where: {
+          username: user.username
+        }
+      }]
+    }),
     issueComment: async (_, args, {
       models
     }) => {
@@ -96,7 +92,7 @@ var _default = {
       const project = await models.Project.findAll({
         include: [{
           model: models.User,
-          as: "member",
+          as: 'member',
           where: {
             id: user.id
           }
@@ -168,7 +164,7 @@ var _default = {
             createReadStream
           } = await input.attachment;
           await new Promise((resolve, reject) => {
-            const streamLoad = cloudinary.uploader.upload_stream(function (error, result) {
+            const streamLoad = cloudinary.uploader.upload_stream((error, result) => {
               if (result) {
                 attachment = attachment.concat(result.secure_url);
                 resolve(attachment);
@@ -187,12 +183,12 @@ var _default = {
         }, {
           include: [{
             model: models.User,
-            as: "reporter"
+            as: 'reporter'
           }, {
             model: models.Project
           }, {
             model: models.User,
-            as: "assignees"
+            as: 'assignees'
           }]
         });
         await issue.reload();
@@ -217,7 +213,7 @@ var _default = {
         },
         include: [{
           model: models.User,
-          as: "assignees",
+          as: 'assignees',
           where: {
             username: args.user
           }
@@ -234,7 +230,7 @@ var _default = {
         },
         include: [{
           model: models.User,
-          as: "member",
+          as: 'member',
           where: {
             username: user.username
           }
@@ -246,12 +242,12 @@ var _default = {
         },
         include: [{
           model: models.User,
-          as: "reporter"
+          as: 'reporter'
         }, {
           model: models.Project
         }, {
           model: models.User,
-          as: "assignees"
+          as: 'assignees'
         }]
       });
       const assignee = await models.User.findOne({
@@ -261,16 +257,16 @@ var _default = {
       });
 
       if (!assignee) {
-        throw new Error("User doesn\'t exist");
+        throw new Error('User doesn\'t exist');
       }
 
-      if (!targetProject || targetProject.role === "Contractor") {
-        throw new Error("You cannot assign users!");
+      if (!targetProject || targetProject.role === 'Contractor') {
+        throw new Error('You cannot assign users!');
       }
 
       try {
         await targetIssue.addAssignees(assignee, {
-          through: "Assignee"
+          through: 'Assignee'
         });
         await targetIssue.reload();
         return {
@@ -302,7 +298,7 @@ var _default = {
         },
         include: [{
           model: models.User,
-          as: "member",
+          as: 'member',
           where: {
             username: user.username
           }
@@ -319,7 +315,7 @@ var _default = {
           commenterId: user.id,
           issueId: args.issueId
         }, {
-          include: "commenter"
+          include: 'commenter'
         });
         comment.reload();
         return {
@@ -368,12 +364,12 @@ var _default = {
           },
           include: [{
             model: models.User,
-            as: "reporter"
+            as: 'reporter'
           }, {
             model: models.Project
           }, {
             model: models.User,
-            as: "assignees"
+            as: 'assignees'
           }]
         });
         return {

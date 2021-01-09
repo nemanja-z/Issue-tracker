@@ -1,7 +1,7 @@
 "use strict";
 
 module.exports = (sequelize, DataTypes) => {
-  const Comment = sequelize.define("Comment", {
+  const Comment = sequelize.define('Comment', {
     id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
@@ -14,12 +14,12 @@ module.exports = (sequelize, DataTypes) => {
 
   Comment.associate = models => {
     Comment.belongsTo(models.Issue, {
-      foreignKey: "issueId",
+      foreignKey: 'issueId',
       constraints: false
     });
     Comment.belongsTo(models.User, {
-      as: "commenter",
-      foreignKey: "commenterId"
+      as: 'commenter',
+      foreignKey: 'commenterId'
     });
   };
 
