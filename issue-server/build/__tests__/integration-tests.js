@@ -140,7 +140,7 @@ describe('Project', () => {
   const server = new ApolloServer({
     typeDefs,
     resolvers,
-    context: () => ({
+    context: async () => ({
       models: _models.db,
       user
     })
@@ -553,10 +553,3 @@ describe('Issue', () => {
     expect(post.data.postComment.comment.comment).toBe('Proba 123');
   });
 });
-/* afterAll(async()=>{
-        await Promise.all(
-                Object.keys(models).map(key => {
-                        if (['sequelize', 'Sequelize'].includes(key)) return null;
-                        return models[key].destroy({ where: {}, force: true });
-                }))
-}); */

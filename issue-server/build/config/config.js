@@ -1,7 +1,5 @@
 "use strict";
 
-require('dotenv').config();
-
 module.exports = {
   development: {
     database: 'issue-dev',

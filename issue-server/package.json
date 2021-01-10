@@ -4,7 +4,7 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "test": "cross-env NODE_ENV=test jest --verbose --detectOpenHandles",
+        "test": "cross-env NODE_ENV=test jest src --verbose --detectOpenHandles --runTestsByPath=src/__tests__",
         "start": "babel ./src --out-dir build && cross-env NODE_ENV=production node build/index.js",
         "dev": "cross-env NODE_ENV=development nodemon --exec babel-node src/index.js"
     },
