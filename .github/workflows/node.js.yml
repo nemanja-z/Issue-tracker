@@ -37,14 +37,7 @@ jobs:
       strategy:
         matrix:
           node-version: [12.x]
-
-      steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
-        env:
+      env:
           DB_PROD_URL : ${{ secrets.DB_PROD_URL }}
           SECRET : ${{ secrets.SECRET }}
           DB_DEV_URL : ${{ secrets.DB_DEV_URL }}
@@ -54,6 +47,12 @@ jobs:
           API_KEY : ${{ secrets.API_KEY }}
           API_SECRET : ${{ secrets.API_SECRET }}
           CLOUDINARY : ${{ secrets.CLOUDINARY }}
+      steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
       - run: npm i
       - run: npm run build --if-present
       - run: npm test
