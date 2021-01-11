@@ -58,9 +58,9 @@ jobs:
       - name: Build
         run: npm run build --if-present
       - name: Testing
-        env:
-          NODE_ENV=test
         run: npm test
+        env:
+          CI: true
       - name: Restart
         run: pm2 restart Apollo
 
