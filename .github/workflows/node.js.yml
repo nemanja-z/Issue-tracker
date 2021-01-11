@@ -53,11 +53,14 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
+      - name: Clean install
       - run: npm ci
+      - name: Build
       - run: npm run build --if-present
       - name: Testing
-        env :
+        env:
           NODE_ENV=test
       - run: npm test
+      - name: Restart
       - run: pm2 restart Apollo
 
