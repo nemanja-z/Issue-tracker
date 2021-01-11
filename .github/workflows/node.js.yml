@@ -54,13 +54,13 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: Clean install
-      - run: npm ci
+        run: npm ci
       - name: Build
-      - run: npm run build --if-present
+        run: npm run build --if-present
       - name: Testing
         env:
           NODE_ENV=test
-      - run: npm test
+        run: npm test
       - name: Restart
-      - run: pm2 restart Apollo
+        run: pm2 restart Apollo
 
