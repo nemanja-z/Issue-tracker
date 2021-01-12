@@ -19,7 +19,7 @@ const db = {};
 
 const cloudinary = require('cloudinary').v2;
 
-const sequelize = new _sequelize.Sequelize(process.env[config.use_env_variable], config);
+const sequelize = new _sequelize.Sequelize(process.env[config.use_env_variable]);
 fs.readdirSync(__dirname).filter(file => file.indexOf('.') !== 0 && file !== basename && file.slice(-3) === '.js').forEach(file => {
   const model = require(path.join(__dirname, file))(sequelize, _sequelize.Sequelize);
 
