@@ -1,8 +1,5 @@
-const { default: postgres } = require("sequelize/lib/dialects/postgres");
-
 module.exports = {
   development: {
-    database: 'issue-dev',
     use_env_variable: 'DB_DEV_URL',
     define: {
       freezeTableName: true,
@@ -10,7 +7,6 @@ module.exports = {
     dialect: 'postgres',
   },
   test: {
-    database: 'issue-test',
     use_env_variable: 'DB_TEST_URL',
     define: {
       freezeTableName: true,
@@ -24,10 +20,7 @@ module.exports = {
     },
     dialect: 'postgres',
     dialectOptions: {
-      ssl: {
-        require: true,
-        rejectUnauthorized: false,
-      },
+      ssl: true,
     },
   },
 };
