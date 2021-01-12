@@ -29,7 +29,7 @@ const resetToken=onError(({networkError})=>{
   }
 });
 const authFlowLink = withToken.concat(resetToken);
-const httpLink=createUploadLink({uri:'https://issue-repo.herokuapp.com'});
+const httpLink=createUploadLink({uri:'https://issue-repo.herokuapp.com/graphql'});
 const client=new ApolloClient({
   link:authFlowLink.concat(httpLink),
   cache:new InMemoryCache({
