@@ -2,6 +2,9 @@
     "name": "bug-tracker",
     "version": "1.0.0",
     "description": "",
+    "engines": {
+        "node": "12.x"
+    },
     "main": "index.js",
     "scripts": {
         "test": "cross-env NODE_ENV=test jest src --verbose --detectOpenHandles",
