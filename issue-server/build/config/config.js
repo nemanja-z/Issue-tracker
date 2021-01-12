@@ -1,5 +1,9 @@
 "use strict";
 
+const {
+  default: postgres
+} = require("sequelize/lib/dialects/postgres");
+
 module.exports = {
   development: {
     database: 'issue-dev',
@@ -7,7 +11,6 @@ module.exports = {
     define: {
       freezeTableName: true
     },
-    protocol: 'postgres',
     dialect: 'postgres'
   },
   test: {
@@ -16,7 +19,6 @@ module.exports = {
     define: {
       freezeTableName: true
     },
-    protocol: 'postgres',
     dialect: 'postgres'
   },
   production: {

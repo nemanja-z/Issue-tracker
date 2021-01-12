@@ -30,6 +30,7 @@ const server = new ApolloServer({
       cloudinary,
     };
   },
+  playground: true
 });
 server.listen().then(({ url }) => {
   console.log(`🚀  Server ready at ${url}`);

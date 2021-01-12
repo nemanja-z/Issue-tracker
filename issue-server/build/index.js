@@ -52,7 +52,8 @@ const server = new ApolloServer({
       user,
       cloudinary: _models.cloudinary
     };
-  }
+  },
+  playground: true
 });
 server.listen().then(({
   url
