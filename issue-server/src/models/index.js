@@ -13,7 +13,7 @@ const db = {};
 const cloudinary = require('cloudinary').v2;
 
 
-const sequelize = new Sequelize(process.env[config.use_env_variable], config);
+const sequelize = new Sequelize(process.env[config.use_env_variable]);
 
 fs.readdirSync(__dirname)
   .filter((file) => (

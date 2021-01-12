@@ -9,7 +9,6 @@
     "scripts": {
         "test": "cross-env NODE_ENV=test jest src --verbose --detectOpenHandles",
         "heroku:postbuild": "npm install",
-        "postinstall": "patch-package",
         "start": "babel ./src --out-dir build && cross-env NODE_ENV=production node build/index.js",
         "dev": "cross-env NODE_ENV=development nodemon --exec babel-node src/index.js"
     },
@@ -25,7 +24,6 @@
         "graphql-tools": "^6.0.14",
         "jsonwebtoken": "^8.5.1",
         "nodemailer": "^6.4.16",
-        "patch-package": "^6.2.2",
         "pg": "^8.3.0",
         "pg-hstore": "^2.3.3",
         "sequelize": "^6.3.3"
