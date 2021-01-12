@@ -1,26 +1,30 @@
-module.exports = {
+require('dotenv').config();
+module.exports={
   development: {
-    use_env_variable: 'DB_DEV_URL',
+    use_env_variable: "DB_DEV_URL",
     define: {
-      freezeTableName: true,
+      freezeTableName: true
     },
-    dialect: 'postgres',
+    dialect: "postgres"
   },
   test: {
-    use_env_variable: 'DB_TEST_URL',
+    use_env_variable: "DB_TEST_URL",
     define: {
-      freezeTableName: true,
+      freezeTableName: true
     },
-    dialect: 'postgres',
+    dialect: "postgres"
   },
-  production: {
-    use_env_variable: 'DB_PROD_URL',
+  "production": {
+    use_env_variable: "DATABASE_URL",
     define: {
-      freezeTableName: true,
+      freezeTableName: true
     },
-    dialect: 'postgres',
+    dialect: "postgres",
     dialectOptions: {
-      ssl: true,
+      ssl: {
+        require: true,
+        rejectUnauthorized: false,  
+      },
     },
-  },
-};
+  }
+}
