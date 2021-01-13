@@ -67,6 +67,8 @@ export default {
         throw new UserInputError('All fields are required');
       }
       const saltRounds = 10;
+      let user;
+      let token;
       let profile = '';
       try {
         if (args.profile) {
@@ -91,7 +93,7 @@ export default {
         const emailExist = await models.User.findOne({where:{email:args.email}});
         if(userExist) throw new Error('This username is already taken!');
         if(emailExist) throw new Error('This email address is already taken!');
-        const user = await models.User.create({
+        user = await models.User.create({
           username: args.username,
           email: args.email,
           role: args.role,
@@ -102,7 +104,7 @@ export default {
           username: user.username,
           id: user.id,
         };
-        const token = jwt.sign(userForToken, process.env.SECRET);
+        token = jwt.sign(userForToken, process.env.SECRET);
         user.resetPasswordToken = token;
         await user.save();
         } catch (err) {
@@ -120,7 +122,7 @@ export default {
         return user;
        }catch(e){
          await models.User.destroy({where:{username:args.username}});
-         throw new Error('There is an error. Please try to sign up again!')
+         throw new Error(e.message)
        }
       
     },
