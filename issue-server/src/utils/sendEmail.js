@@ -9,7 +9,7 @@ export const sendEmail = async (recipient, html) => {
       auth: {
         user: process.env.mailuser,
         pass: process.env.mailpass,
-      },
+      }
     });
     const message = {
       from: process.env.admin,

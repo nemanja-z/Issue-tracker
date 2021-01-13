@@ -52,7 +52,9 @@ const server = new ApolloServer({
       user,
       cloudinary: _models.cloudinary
     };
-  }
+  },
+  introspection: true,
+  playground: true
 });
 server.listen({
   port: process.env.PORT || 4000
