@@ -17,7 +17,7 @@ export const sendEmail = async (recipient, html) => {
       subject: 'Issue Tracker',
       html,
     };
-    transporter.sendMail(message, (err, info) => {
+    await transporter.sendMail(message, (err, info) => {
       if (err) {
         console.log(`Error occurred. ${err.message}`);
       }

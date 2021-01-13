@@ -147,14 +147,24 @@ var _default = {
         const token = jwt.sign(userForToken, process.env.SECRET);
         user.resetPasswordToken = token;
         await user.save();
+      } catch (err) {
+        throw new Error(err.message);
+      }
+
+      try {
         await (0, _sendEmail.sendEmail)(user.email, `<html>
                 <body>
                 <p>Click on the <a href="http://localhost:3000/confirm/${token}"> link</a> to verify your account!</p>
                 </body>
                 </html>`);
         return user;
-      } catch (err) {
-        throw new Error(err.message);
+      } catch (e) {
+        await models.User.destroy({
+          where: {
+            username: args.username
+          }
+        });
+        throw new Error('There is an error. Please try to sign up again!');
       }
     },
     confirmUser: async (_, args, {

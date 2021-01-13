@@ -23,11 +23,11 @@ const sendEmail = async (recipient, html) => {
 
   const message = {
     from: process.env.admin,
-    to: `Recipient <${recipient}>`,
+    to: recipient,
     subject: 'Issue Tracker',
     html
   };
-  transporter.sendMail(message, (err, info) => {
+  await transporter.sendMail(message, (err, info) => {
     if (err) {
       console.log(`Error occurred. ${err.message}`);
     }

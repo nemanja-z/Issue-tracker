@@ -105,7 +105,11 @@ export default {
         const token = jwt.sign(userForToken, process.env.SECRET);
         user.resetPasswordToken = token;
         await user.save();
-        await sendEmail(
+        } catch (err) {
+        throw new Error(err.message);
+      }
+       try{
+          await sendEmail(
           user.email,
           `<html>
                 <body>
@@ -114,9 +118,11 @@ export default {
                 </html>` 
         );
         return user;
-      } catch (err) {
-        throw new Error(err.message);
-      }
+       }catch(e){
+         await models.User.destroy({where:{username:args.username}});
+         throw new Error('There is an error. Please try to sign up again!')
+       }
+      
     },
     confirmUser: async (_, args, { models }) => {
       const user = await models.User.findOne({
