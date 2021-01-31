@@ -16,5 +16,5 @@ test('loads and displays greeting', async () => {
                 <App/>
             </ErrorContext.Provider>
             </ApolloProvider>,)
-  expect(screen.getByPlaceholderText('username')).toHaveTextContent('');
+  expect(screen.getByPlaceholderText('username')).toBeInTheDocument('');
 })

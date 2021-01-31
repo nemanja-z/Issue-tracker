@@ -54,5 +54,5 @@ test('loads and displays greeting', async () => {
                 </ErrorContext.Provider>
               </ApolloProvider>
             </Router>,)
-  expect(screen.getByText('Project')).toHaveTextContent('Project');
+  expect(screen.getByText('Project')).toBeInTheDocument('Project');
 })

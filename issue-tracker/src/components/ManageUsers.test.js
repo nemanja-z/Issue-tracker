@@ -37,5 +37,5 @@ test('loads and displays greeting', async () => {
                 </ErrorContext.Provider>
               </ApolloProvider>
             </Router>,)
-  expect(screen.getByText('Assign users to your project')).toHaveTextContent('Assign users to your project');
+  expect(screen.getByText('Assign users to your project')).toBeInTheDocument('Assign users to your project');
 })
