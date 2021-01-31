@@ -84,9 +84,9 @@ const Login = () =>{
         reset();
     });
     
-    return(<Container className="form-container" fluid>
-        {!created && <Form style={{ "margin":"0 auto","backgroundColor":"#E6E6FA", "borderRadius":"50px 50px", "width":"55%", "display":"flex","flexDirection":"column","justifyContent":"center", "alignItems":"center"}}  onSubmit={loginStatus ? handleLogin : handleSignUp}>
-        <Form.Group className="font-weight-bold text-center ">
+    return(<Container style={{"background":"linear-gradient(to right, #0062E6, #33AEFF)"}}className="form-container" fluid>
+        {!created && <Form style={{ "margin":"0 auto","background": "#FFFFFF", "borderRadius":"50px 50px", "width":"50%", "display":"flex","flexDirection":"column","justifyContent":"center", "alignItems":"center"}}  onSubmit={loginStatus ? handleLogin : handleSignUp}>
+        <Form.Group className="text-center">
                 <Form.Label>{loginStatus?'Login':'Register'}</Form.Label>
             </Form.Group>
             <Form.Group>
