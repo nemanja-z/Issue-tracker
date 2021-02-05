@@ -10,7 +10,7 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup';
 
 const AllProjects = ({projects, username, users}) => {
     return(
-        <Table responsive="xs" striped bordered hover>
+        <Table responsive striped bordered hover>
         <thead>
             <tr>
                 <th>Project</th>
@@ -22,16 +22,18 @@ const AllProjects = ({projects, username, users}) => {
         </thead>
         <tbody>
             {projects.map(p=>
-            <tr key={p.name}>
+            <tr key={p.id}>
                 <td><Link to={`/projects/:${p.id}`}>{p.name}</Link></td>
                 <td>{p.member[0].username}</td>
                 <th>{p.url}</th>
                 <td>{p.isActive.toString()}</td>
                 {username===p.manager.id ? 
                 <td>
-                <Dropdown as={ButtonGroup}>
-                    <Button variant="info">Edit</Button>
-                    <Dropdown.Toggle split />
+                <Dropdown>
+                    <Dropdown.Toggle
+                    variant="info">
+                    Edit
+                    </Dropdown.Toggle>
                     <Dropdown.Menu>
                     <ModalRole users={users} project={p.name}/>
                     <Dropdown.Divider />

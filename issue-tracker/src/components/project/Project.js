@@ -47,8 +47,8 @@ const Project = ({projectId, setProjectId}) => {
         <>
         <Card>
         <Card.Header as="h2">All issues</Card.Header>
-        {isActive&&<Card.Link><ModalIssue projectId={projectId}/></Card.Link>}
         </Card>
+        {isActive&&<div className="my-2"><ModalIssue projectId={projectId}/></div>}
         <Tab.Container id="list-group-tabs-example">
         <Row>
           <Col>

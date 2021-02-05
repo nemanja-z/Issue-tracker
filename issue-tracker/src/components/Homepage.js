@@ -63,10 +63,10 @@ const Homepage = () => {
     return(
         <Container fluid>
         <Row>
-            <Col xs={1} id="sidebar-wrapper" >
+            <Col xs={1} className="mr-sm-5" id="sidebar-wrapper">
             {data_me.me && <Sidebar auth={user} picture={profilePic} logOut={logOut}/>}
             </Col>
-            <Col xs={10} id="page-content-wrapper">
+            <Col xs={8} id="page-content-wrapper">
             <Switch>
             <Route path="/projects/:id">
                <Project projectId={projectId} setProjectId={setProjectId} />

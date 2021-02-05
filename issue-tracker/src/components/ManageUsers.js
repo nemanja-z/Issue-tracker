@@ -32,14 +32,14 @@ const ManageUsers = ({users, user_projects}) => {
     }
 
     return(
-        <Container fluid style={{border:"none"}}>
+        <Container style={{border:"none"}}>
         
         <Card>
             <Card.Header as="h2">Assign users to your project</Card.Header>
-            <Card.Link>
-                <Button type="submit" onClick={handleAssign}><FontAwesomeIcon icon={faUsers} /> Add Role</Button>
-            </Card.Link>
         </Card>
+        <div className="my-2">
+        <Button type="submit" onClick={handleAssign}><FontAwesomeIcon icon={faUsers} /> Add Role</Button>
+        </div>
         <Row>
         <Col>
         <Card>

@@ -65,7 +65,7 @@ const EditProfile = ({user}) => {
                         validity.valid && setProfile(file)}  type="file" name="profile"/>
                     </Form.File>
                     
-                    <Button type="submit" variant="primary">Save</Button>
+                    <Button type="submit" variant="primary">Update</Button>
                 </Form>
         </Container>
         )

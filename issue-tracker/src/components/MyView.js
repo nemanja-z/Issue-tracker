@@ -9,11 +9,12 @@ const MyView = ({history, projects, username, users}) => {
     return(
         
         <>
-        <Card>
+        <Card xs={2}>
         <Card.Header as="h2">Home</Card.Header>
-        <Card.Link><ModalProject history={history} leader={leader}/></Card.Link>
         </Card>
-        <br/>
+        <div className="my-2">
+        <ModalProject history={history} leader={leader}/>
+        </div>
         <AllProjects users={users} projects={projects} username={username}/>
         </>
     )

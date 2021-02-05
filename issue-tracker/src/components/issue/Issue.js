@@ -42,7 +42,7 @@ const Issue = ({issueId}) => {
     {data && <>
     <Container>
     {data.targetIssue.Project.isActive &&(
-      <Row>
+      <Row className="justify-content-between">
         <Col>
         <ModalAssign project={data.targetIssue.Project.name} issue={data.targetIssue.id}/>
         <ModalEdit issue={data.targetIssue} />
