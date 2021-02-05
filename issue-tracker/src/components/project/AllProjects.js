@@ -5,8 +5,6 @@ import PropTypes from 'prop-types';
 import ModalRole from "../role/ModalRole";
 import ModalStatus from "./ModalStatus";
 import Dropdown from 'react-bootstrap/Dropdown';
-import Button from "react-bootstrap/Button";
-import ButtonGroup from 'react-bootstrap/ButtonGroup';
 
 const AllProjects = ({projects, username, users}) => {
     return(
